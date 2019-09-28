@@ -10,9 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import com.deadlockarena.backend.persistence.domain.item.PotionInventory;
-import com.deadlockarena.backend.persistence.domain.item.StatusBox;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -109,12 +107,10 @@ public class Champion implements Serializable {
 	protected int currentSkill4CD;
 	protected int currentSkill5CD;*/
 	
-	@JoinColumn(name = "ID")
-	@OneToOne(fetch = FetchType.LAZY)
+	@Transient
 	protected PotionInventory potionInventory;
 	
-	@JoinColumn(name = "ID")
-	@OneToOne(fetch = FetchType.LAZY)
+	@Transient
 	protected StatusBox statusBox;
 	
 }

@@ -1,15 +1,17 @@
-package com.deadlockarena.backend.persistence.domain.item;
+package com.deadlockarena.backend.persistence.domain.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.deadlockarena.backend.persistence.domain.item.HpPotion;
+import com.deadlockarena.backend.persistence.domain.item.MpPotion;
 import com.deadlockarena.constant.JavaData;
 
 import lombok.Data;
@@ -22,13 +24,23 @@ import lombok.EqualsAndHashCode;
 public class PotionInventory implements Serializable {
 	private static final long serialVersionUID = -419261549452638522L;
 
-	@OneToOne(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Id
+	@Column(name = "ID")
+	private int id;
+	
+	@Column(name = "HP_POTIONS_AMT")
 	private int hpPotionsAmt;
 
-	@OneToOne(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@Column(name = "MP_POTIONS_AMT")
 	private int mpPotionsAmt;
 	
+	@Column(name = "CHAMPION_STRING")
+	private String championString;
+	
+	@Transient
 	private List<HpPotion> hpPotions;
+	
+	@Transient 
 	private List<MpPotion> mpPotions;
 
 	public PotionInventory(int hpPotionsAmt, int mpPotionsAmt) {
