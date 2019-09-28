@@ -1,6 +1,5 @@
 package com.deadlockarena.backend.persistence.bootstrap;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,15 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.deadlockarena.backend.persistence.domain.entity.Champion;
-import com.deadlockarena.backend.persistence.domain.item.HpPotion;
-import com.deadlockarena.backend.persistence.domain.item.MpPotion;
-import com.deadlockarena.backend.persistence.domain.item.PotionInventory;
 import com.deadlockarena.backend.persistence.repository.ChampionRepository;
 import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class DatabaseSeeder implements CommandLineRunner {
 	private final PotionInventoryRepository potionInventoryRepository;

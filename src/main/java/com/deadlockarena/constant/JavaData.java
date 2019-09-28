@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.deadlockarena.backend.persistence.domain.entity.Champion;
-import com.deadlockarena.backend.persistence.domain.item.StatusBox;
+import com.deadlockarena.backend.persistence.domain.entity.StatusBox;
 import com.deadlockarena.backend.persistence.repository.ChampionRepository;
 import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
 import com.deadlockarena.exception.RemainderException;
@@ -91,7 +91,7 @@ public class JavaData {
 		Champion c = null;
 		try {
 			c = championRepository.findByChampion(heroString);
-			c.setPotionInventory(potionInventoryRepository.findByChampionString(heroString));
+			//c.setPotionInventory(potionInventoryRepository.findByChampionString(heroString));
 	
 		} catch (Exception e) {
 			e.printStackTrace();
