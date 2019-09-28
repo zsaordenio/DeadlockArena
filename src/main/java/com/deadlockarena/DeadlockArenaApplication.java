@@ -2,9 +2,9 @@ package com.deadlockarena;
 
 import java.awt.*;
 
-import javax.swing.*;
-
-import org.springframework.boot.SpringApplication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,11 +12,27 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.deadlockarena.config.AppPrincipalFrame;
 
 @SpringBootApplication
-public class DeadlockArenaApplication {
+public class DeadlockArenaApplication implements CommandLineRunner {
 
-	public static void main(String[] args) {
-		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(DeadlockArenaApplication.class)
-				.headless(false).run(args);
+	private static final Logger logger = LoggerFactory.getLogger(DeadlockArenaApplication.class);
+	
+	@Override
+	public void run(String... arg) throws Exception {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					new AppPrincipalFrame().setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+	}
+
+	public static void main(String [ ] args) {
+		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(
+				DeadlockArenaApplication.class).headless(false).run(args);
 		AppPrincipalFrame appPrincipalFrame = ctx.getBean(AppPrincipalFrame.class);
 	}
 

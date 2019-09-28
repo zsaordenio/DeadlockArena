@@ -4,27 +4,18 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AppPrincipalFrame extends JFrame implements CommandLineRunner {
+public class AppPrincipalFrame extends JFrame {
+
+	private static final long serialVersionUID = -8478413270802946942L;
 
 	public AppPrincipalFrame() {
 		initUI();
-	}
-
-	@Override
-	public void run(String... arg0) throws Exception {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new AppPrincipalFrame().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
 	}
 
 	private void initUI() {
@@ -47,7 +38,8 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner {
 		pane.setLayout(groupLayout);
 
 		groupLayout.setAutoCreateContainerGaps(true);
-		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup().addComponent(arg[0]));
-		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup().addComponent(arg[0]));
+		groupLayout.setHorizontalGroup(groupLayout.createSequentialGroup().addComponent(arg [ 0 ]));
+		groupLayout.setVerticalGroup(groupLayout.createSequentialGroup().addComponent(arg [ 0 ]));
 	}
+
 }

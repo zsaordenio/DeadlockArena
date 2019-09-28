@@ -4,22 +4,30 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.deadlockarena.backend.persistence.domain.base.BaseEntity;
 import com.deadlockarena.backend.persistence.domain.item.PotionInventory;
+import com.deadlockarena.backend.persistence.domain.item.StatusBox;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode
 @Table(schema = "PVO")
-public class Champion extends BaseEntity implements Serializable {
+public class Champion implements Serializable {
 	private static final long serialVersionUID = 5195526083757043733L;
 
+	@Id
+	@Column(name = "ID")
+	protected String id;
+	
 	@Column(name = "CHAMPION")
 	protected String champion;
 	@Column(name = "DESCRIPTION")
@@ -100,9 +108,13 @@ public class Champion extends BaseEntity implements Serializable {
 	protected int currentSkill3CD;
 	protected int currentSkill4CD;
 	protected int currentSkill5CD;*/
-
 	
-	protected int inventory;
-
-	protected int statusBox;
+	@JoinColumn(name = "ID")
+	@OneToOne(fetch = FetchType.LAZY)
+	protected PotionInventory potionInventory;
+	
+	@JoinColumn(name = "ID")
+	@OneToOne(fetch = FetchType.LAZY)
+	protected StatusBox statusBox;
+	
 }

@@ -7,29 +7,45 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.deadlockarena.backend.persistence.domain.base.BaseEntity;
+import com.deadlockarena.constant.JavaData;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(schema = "PVO")
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class PotionInventory extends BaseEntity implements Serializable {
+@EqualsAndHashCode
+public class PotionInventory implements Serializable {
 	private static final long serialVersionUID = -419261549452638522L;
 
-	@OneToMany(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<HpPotion> hpPotions;
+	@OneToOne(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private int hpPotionsAmt;
 
-	@OneToMany(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "potionInventory", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private int mpPotionsAmt;
+	
+	private List<HpPotion> hpPotions;
 	private List<MpPotion> mpPotions;
 
-	public PotionInventory(ArrayList<Object> objects, ArrayList<Object> objects1) {
-
+	public PotionInventory(int hpPotionsAmt, int mpPotionsAmt) {
+		this.hpPotionsAmt = hpPotionsAmt;
+		this.mpPotionsAmt = mpPotionsAmt;
+		hpPotions = new ArrayList<HpPotion>();
+		mpPotions = new ArrayList<MpPotion>();
+		generatePotions();
 	}
+
+	private void generatePotions() {
+		for(int i = 0; i < hpPotionsAmt; i++) {
+			hpPotions.add(new HpPotion(JavaData.random.nextInt((900 - 400) + 1) + 400));
+		}
+		for(int i = 0; i < mpPotionsAmt; i++) {
+			mpPotions.add(new MpPotion(JavaData.random.nextInt((50 - 25) + 1) + 25));
+		}
+	}
+
 }
