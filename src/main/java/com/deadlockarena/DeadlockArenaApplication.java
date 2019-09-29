@@ -9,7 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import com.deadlockarena.config.AppPrincipalFrame;
+import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.graphics.AnimationAndSound;
+import com.deadlockarena.graphics.AppPrincipalFrame;
 
 @SpringBootApplication
 public class DeadlockArenaApplication implements CommandLineRunner {
@@ -33,7 +35,6 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 	public static void main(String [ ] args) {
 		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(
 				DeadlockArenaApplication.class).headless(false).run(args);
-		AppPrincipalFrame appPrincipalFrame = ctx.getBean(AppPrincipalFrame.class);
 	}
 
 }

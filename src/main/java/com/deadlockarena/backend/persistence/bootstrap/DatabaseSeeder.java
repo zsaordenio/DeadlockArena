@@ -11,7 +11,6 @@ import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.backend.persistence.repository.ChampionRepository;
 import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
 
-import lombok.extern.slf4j.Slf4j;
 
 @Component
 public class DatabaseSeeder implements CommandLineRunner {

@@ -3,7 +3,6 @@ package com.deadlockarena.constant;
 import java.awt.*;
 import java.util.Random;
 
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
@@ -20,7 +19,7 @@ import com.deadlockarena.exception.RemainderException;
 @Component
 public class JavaData {
 
-	public static final String [ ] HEROES = { "Berserker" , "Dancer" , "Engineer" , "HolyKnight" ,
+	public static final String [ ] championES = { "Berserker" , "Dancer" , "Engineer" , "HolyKnight" ,
 			"Knight" , "Screamer" , "Assassin" , "Chemist" , "Cyborg" , "Dragoon" , "Reaper" ,
 			"Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" , "SwordMage" };
 
@@ -72,33 +71,11 @@ public class JavaData {
 			{ sC2 [ 0 ] + BASE * 2 , sC2 [ 1 ] + BASE * 0 } , };
 
 	public static final int CAPTURN = 4;
-	public static final int HEROESCOUNT = 18;
+	public static final int championESCOUNT = 18;
 	public static final int SLOTSCOUNT = 20;
 
-	private final PotionInventoryRepository potionInventoryRepository;
-	private final ChampionRepository championRepository;
-	
-   public static Random random;
 
-	@Autowired
-	public JavaData(PotionInventoryRepository potionInventoryRepository,
-			ChampionRepository championRepository) {
-		this.potionInventoryRepository = potionInventoryRepository;
-		this.championRepository = championRepository;
-	}
-
-	public Champion evalHero(String heroString) throws RemainderException {
-		Champion c = null;
-		try {
-			c = championRepository.findByChampion(heroString);
-			//c.setPotionInventory(potionInventoryRepository.findByChampionString(heroString));
-	
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		c.setStatusBox(new StatusBox());
-		return c;
-	}
+	public static final Random random = new Random();
 
 	public static final LineBorder MOVEBORDER = new LineBorder(Color.blue, 5);
 	public static final LineBorder ATTACKBORDER = new LineBorder(Color.red, 5);
@@ -107,7 +84,7 @@ public class JavaData {
 	public static final Color DEFAULTBUTTONBACKGROUND = new JButton().getBackground();
 
 	public static final Font BASICFONT = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-	public static final Font HEROFONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+	public static final Font championFONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 	public static final Font PANELEASTFONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 	public static final String STATUSSTRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
