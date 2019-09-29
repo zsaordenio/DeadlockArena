@@ -31,7 +31,7 @@ public class AnimationAndSound {
 
 	public AnimationAndSound() {
 		changedMusic = false;
-		initSoundTracks();
+		//initSoundTracks();
 
 		soundtrackButton = new JButton("Soundtracks");
 		soundtrackButton.setFont(JavaData.BASICFONT);
@@ -68,15 +68,15 @@ public class AnimationAndSound {
 		initMusic();
 	}
 
-	private void initSoundTracks() {
-		File folder = new File("music/");
-		File [ ] listOfFiles = folder.listFiles();
-
-		soundtracks = new String [ listOfFiles.length ];
-		for (int i = 0; i < listOfFiles.length; i++)
-			soundtracks [ i ] = listOfFiles [ i ].getName().replace(".wav", "");
-		soundtrack = soundtracks [ JavaData.random.nextInt(soundtracks.length) ];
-	}
+//	private void initSoundTracks() {
+//		File folder = new File("music/");
+//		File [ ] listOfFiles = folder.listFiles();
+//
+//		soundtracks = new String [ listOfFiles.length ];
+//		for (int i = 0; i < listOfFiles.length; i++)
+//			soundtracks [ i ] = listOfFiles [ i ].getName().replace(".wav", "");
+//		soundtrack = soundtracks [ JavaData.random.nextInt(soundtracks.length) ];
+//	}
 
 	public void shakeButton(JButton button) {
 		final Point point = button.getLocation();

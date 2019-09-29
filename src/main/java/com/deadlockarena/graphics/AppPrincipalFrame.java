@@ -87,7 +87,7 @@ public class AppPrincipalFrame extends JFrame {
 	private int currentCapTurn;
 
 	public AppPrincipalFrame() {
-		domain();
+		//domain();
 		creation();
 		initFields();
 		addPanels();
@@ -218,7 +218,7 @@ public class AppPrincipalFrame extends JFrame {
 		for (int j = 0; j < 3; j++) {
 			for (int i = 0; i < 6; i++) {
 				try {
-					System.out.println("2222222222222222222222222222222222" + jpaGetData);
+					System.out.println("It's currently null, but I don't want it to be: " + jpaGetData);
 					SelectButton sb = new SelectButton(j,
 							jpaGetData.evalChampion(JavaData.championES [ j * 6 + i ]));
 					sb.setFont(JavaData.BASICFONT);
