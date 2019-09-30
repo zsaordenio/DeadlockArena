@@ -4,9 +4,11 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class AppPrincipalFrame extends JFrame implements CommandLineRunner {
 
@@ -15,23 +17,19 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... arg0) throws Exception {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new AppPrincipalFrame().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public void run(String... arg0) {
+		EventQueue.invokeLater(() -> {
+			try {
+				new AppPrincipalFrame().setVisible(true);
+			} catch (Exception e) {
+				LOG.error("An error occurred instantiating AppPrincipalFrame", e);
 			}
 		});
 	}
 
 	private void initUI() {
 		var quitButton = new JButton("Welcome to Deadlock Arena. Run Success");
-		quitButton.addActionListener((event) -> {
-			System.exit(0);
-		});
+		quitButton.addActionListener(event -> System.exit(0));
 
 		setTitle("Deadlock Arena");
 		setSize(500, 500);
