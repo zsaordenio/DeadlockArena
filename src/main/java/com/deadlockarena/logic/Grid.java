@@ -36,17 +36,13 @@ public class Grid {
 	public void checkForDeads(AppPrincipalFrame aPF) {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 5; j++) {
-				if (array1 [ i ] [ j ].getChampion() == null)
-					continue;
-				else if (array1 [ i ] [ j ].getChampion().isDead())
+				if (array1 [ i ] [ j ].getChampion().isDead())
 					transferchampion(array1 [ i ] [ j ], aPF);
 			}
 		}
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 5; j++) {
-				if (array2 [ i ] [ j ].getChampion() == null)
-					continue;
-				else if (array2 [ i ] [ j ].getChampion().isDead())
+				if (array2 [ i ] [ j ].getChampion().isDead())
 					transferchampion(array2 [ i ] [ j ], aPF);
 			}
 		}
@@ -60,9 +56,9 @@ public class Grid {
 
 		deads = SIDE == 2? aPF.getDeads2() : aPF.getDeads1();
 
-		for (int i = 0; i < deads.length; i++)
-			if (deads [ i ].getChampion() == null) {
-				deads [ i ].insertDead(h);
+		for (DeadButton dead : deads)
+			if (dead.getChampion() == null) {
+				dead.insertDead(h);
 				break;
 			}
 
@@ -82,9 +78,9 @@ public class Grid {
 	public int getSize(boolean player) {
 		SlotButton [ ] [ ] sBGrid = player ? array2 : array1;
 		int s = 0;
-		for (int i = 0; i < sBGrid.length; i++) {
-			for (int j = 0; j < sBGrid [ i ].length; j++) {
-				if (sBGrid [ i ] [ j ] != null)
+		for (SlotButton[] slotButtons : sBGrid) {
+			for (SlotButton slotButton : slotButtons) {
+				if (slotButton != null)
 					s++;
 			}
 		}

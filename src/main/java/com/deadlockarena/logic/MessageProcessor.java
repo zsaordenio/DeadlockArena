@@ -25,25 +25,23 @@ public class MessageProcessor {
 	public void generateMessage(JTextArea messages, Champion attacker, Champion target,
 			int [ ] damage, boolean [ ] critical) {
 
-		String damageStr = "";
+		StringBuilder damageStrBuilder = new StringBuilder();
 		for (int i = 0; i < damage.length; i++)
-			damageStr += damage [ i ] + (critical [ i ] ? " (CRIT!)" : "") + " + ";
-		damageStr = damageStr.substring(0, damageStr.length() - 3);
+			damageStrBuilder.append(damage[i]).append((critical[i]) ? " (CRIT!)" : "").append("+");
+		damageStrBuilder.append(damageStrBuilder.substring(0, damageStrBuilder.length() - 3));
 
 		String msg = "";
 		int chooseMsg = JavaData.random.nextInt(1);
-		switch (chooseMsg) {
-		case 0:
-			msg = attacker + " dealt " + damageStr + " to " + target;
-			break;
-		/*
-		 * case 1: msg += attacker + " struck " + damage + " points off of " + target +
-		 * "'s health!"; break; case 2: msg += attacker + " shaved " + damage +
-		 * " damage off of " + target + "'s health!"; break; case 3: msg += attacker +
-		 * " dealt " + damage + " damage to " + target + "'s health!"; break; case 4:
-		 * msg += attacker + " caused " + damage + " damage against " + target +
-		 * "'s health!"; break;
-		 */
+		if (chooseMsg == 0) {
+			msg = attacker + " dealt " + damageStrBuilder.toString() + " to " + target;
+			/*
+			 * case 1: msg += attacker + " struck " + damage + " points off of " + target +
+			 * "'s health!"; break; case 2: msg += attacker + " shaved " + damage +
+			 * " damage off of " + target + "'s health!"; break; case 3: msg += attacker +
+			 * " dealt " + damage + " damage to " + target + "'s health!"; break; case 4:
+			 * msg += attacker + " caused " + damage + " damage against " + target +
+			 * "'s health!"; break;
+			 */
 		}
 		messages.append(msg + "\n");
 	}

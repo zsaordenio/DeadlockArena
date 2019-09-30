@@ -18,7 +18,7 @@ import lombok.ToString;
 import java.io.*;
 
 @Data
-@EqualsAndHashCode(of = {"inputStreamSound", "inputStreamMusic"})
+@EqualsAndHashCode(exclude = {"soundtrackButton"})
 public class AnimationAndSound {
 
 	private AudioInputStream inputStreamSound;

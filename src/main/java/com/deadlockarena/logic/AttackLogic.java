@@ -9,13 +9,21 @@ import com.deadlockarena.graphics.AppPrincipalFrame;
 import com.deadlockarena.graphics.SlotButton;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Data
+@Component
 public class AttackLogic {
 
 	private Grid g;
-	private AppPrincipalFrame aPF;
+	private final AppPrincipalFrame aPF;
 	private List<SlotButton> targets = new ArrayList<>();
+
+	@Autowired
+	public AttackLogic(AppPrincipalFrame aPF) {
+		this.aPF = aPF;
+	}
 
 	// Any hero on first row
 	// If first row empty, any hero on second row
@@ -131,8 +139,8 @@ public class AttackLogic {
 
 	// Attack!
 	public boolean attack(SlotButton targetButton) {
-		if (aPF.getSlot() == null) { // handles case: When user drinks potion, turn is up, attempts to
-								// attack other player
+		// handles case: When user drinks potion, turn is up, attempts to attack other player
+		if (aPF.getSlot() == null) {
 			aPF.evenAllListeners();
 			return false;
 		}

@@ -30,6 +30,7 @@ import org.springframework.stereotype.Component;
 @EqualsAndHashCode(callSuper = false, exclude = {"cancel"})
 public class AppPrincipalFrame extends JFrame implements CommandLineRunner, Serializable {
   private static final long serialVersionUID = -8478413270802946942L;
+  private static final String PICS_DEFAULT_ICON_PNG = "pics/DefaultIcon.png";
 
   private final JpaGetData jpaGetData;
 
@@ -94,19 +95,15 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner, Seri
     });
   }
 
-
-
-
-
   public void domain() {
-    try {
-      FileWriter writer = new FileWriter("systemConfig.txt", true);
-      BufferedWriter bufferedWriter = new BufferedWriter(writer);
-      bufferedWriter.write("\nUsername: " + System.getProperty("user.name") + "\nDimension: "
-              + Toolkit.getDefaultToolkit().getScreenSize());
-      bufferedWriter.close();
+    // refactored code to use try with resources which allows auto closing of resources at all times
+    try (FileWriter writer = new FileWriter("systemConfig.txt", true)) {
+      try (BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+        bufferedWriter.write("\nUsername: " + System.getProperty("user.name") + "\nDimension: "
+                + Toolkit.getDefaultToolkit().getScreenSize());
+      }
     } catch (IOException e) {
-      e.printStackTrace();
+      LOG.error("There was an error reading SystemConfig.txt", e);
     }
   }
 
@@ -141,7 +138,7 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner, Seri
       panelWest_b = new JPanel(new BorderLayout());
       panelWest_b.setBackground(JavaData.DEFAULTBACKGROUND);
       {
-        iconLabel = new JLabel(new ImageIcon("pics/DefaultIcon.png"));
+        iconLabel = new JLabel(new ImageIcon(PICS_DEFAULT_ICON_PNG));
         iconLabel.setBorder(JavaData.ATTACKBORDER);
         description = new JTextArea();
         description.setWrapStyleWord(true);
@@ -301,13 +298,13 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner, Seri
   public void clearPanelEast(int player) {
     if (player == 2) {
       championLabel2.setText("?");
-      iconLabel2.setIcon(new ImageIcon("pics/DefaultIcon.png"));
+      iconLabel2.setIcon(new ImageIcon(PICS_DEFAULT_ICON_PNG));
       stats2.setText(JavaData.STATUSSTRING);
       hp2.offchampion();
       mp2.offchampion();
     } else {
       championLabel1.setText("?");
-      iconLabel1.setIcon(new ImageIcon("pics/DefaultIcon.png"));
+      iconLabel1.setIcon(new ImageIcon(PICS_DEFAULT_ICON_PNG));
       stats1.setText(JavaData.STATUSSTRING);
       hp1.offchampion();
       mp1.offchampion();
@@ -483,10 +480,8 @@ public class AppPrincipalFrame extends JFrame implements CommandLineRunner, Seri
 
   public void clearSkillButtons(int player) {
     if (player == 2)
-      for (int i = 0; i < skillButtons2.length; i++)
-        skillButtons2 [ i ].setSkillButton(null, -1);
+      for (SkillButton button : skillButtons2) button.setSkillButton(null, -1);
     else
-      for (int i = 0; i < skillButtons1.length; i++)
-        skillButtons1 [ i ].setSkillButton(null, -1);
+      for (SkillButton skillButton : skillButtons1) skillButton.setSkillButton(null, -1);
   }
 }

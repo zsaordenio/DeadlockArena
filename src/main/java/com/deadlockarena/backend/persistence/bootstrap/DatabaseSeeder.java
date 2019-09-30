@@ -1,9 +1,13 @@
 package com.deadlockarena.backend.persistence.bootstrap;
 
 import com.deadlockarena.backend.persistence.domain.entity.Champion;
+import com.deadlockarena.backend.persistence.domain.entity.PotionInventory;
+import com.deadlockarena.backend.persistence.domain.item.HpPotion;
+import com.deadlockarena.backend.persistence.domain.item.MpPotion;
 import com.deadlockarena.backend.persistence.repository.ChampionRepository;
 import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,25 +48,25 @@ public class DatabaseSeeder implements CommandLineRunner {
 			LOG.info("Max HP for {} is {}", c, c.getMaxHp());
 		}
 
+		LOG.info("Creating Hp Potion objects...");
+		HpPotion hpPotion = new HpPotion();
+		hpPotion.setRecovery(5);
+		List<HpPotion> hpPotions = Collections.singletonList(hpPotion);
+		LOG.info("Creating Mp Potion objects...");
+		MpPotion mpPotion = new MpPotion();
+		mpPotion.setRecovery(5);
+		List<MpPotion> mpPotions = Collections.singletonList(mpPotion);
 
-//		LOG.info("Creating Hp Potion objects...");
-//		HpPotion hpPotion = new HpPotion();
-//		hpPotion.setRecovery(5);
-//		List<HpPotion> hpPotions = Collections.singletonList(hpPotion);
-//		LOG.info("Creating Mp Potion objects...");
-//		MpPotion mpPotion = new MpPotion();
-//		mpPotion.setRecovery(5);
-//		List<MpPotion> mpPotions = Collections.singletonList(mpPotion);
-//
-//		LOG.info("Creating Potion Inventory object...");
-//		PotionInventory potionInventory = new PotionInventory();
-//		potionInventory.setHpPotions(hpPotions);
-//		potionInventory.setMpPotions(mpPotions);
-//
-//		LOG.info("Saving Potion Inventory object into database...");
-//		potionInventoryRepository.save(potionInventory);
-//
-//		LOG.info("Persisted to database successfully...");
+
+		LOG.info("Creating Potion Inventory object...");
+		PotionInventory potionInventory = new PotionInventory();
+		potionInventory.setHpPotions(hpPotions);
+		potionInventory.setMpPotions(mpPotions);
+
+		LOG.info("Saving Potion Inventory object into database...");
+		potionInventoryRepository.save(potionInventory);
+
+		LOG.info("Persisted to database successfully...");
 
 	}
 }
