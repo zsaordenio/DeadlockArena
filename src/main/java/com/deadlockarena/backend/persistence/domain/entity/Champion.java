@@ -3,6 +3,8 @@ package com.deadlockarena.backend.persistence.domain.entity;
 import com.deadlockarena.backend.persistence.domain.item.HpPotion;
 import com.deadlockarena.backend.persistence.domain.item.MpPotion;
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.graphics.AppPrincipalFrame;
+import com.deadlockarena.graphics.SlotButton;
 
 import java.io.Serializable;
 import java.util.List;
@@ -148,34 +150,34 @@ public class Champion implements Serializable {
 		}
 	}
 
-//	public void attack(AppPrincipalFrame aPF, SlotButton targetButton) {
-//		Champion target = targetButton.getChampion();
-//		int damage = calculateNextDamage();
-//
-//		boolean dodged = target.isDodgedHit();
-//		boolean critical = isCriticalHit();
-//
-//		int finalDamage;
-//		if (!dodged) {
-//			finalDamage = damage - target.getDefense();
-//			if (critical)
-//				finalDamage *= 2;
-//			if (finalDamage < 0) // handles negative damages
-//				finalDamage = 0;
-//			target.setCurrentHp(target.getCurrentHp() - finalDamage);
-//			aPF.getGrid().checkForDeads(aPF);
-//			aPF.getAAS().shakeButton(targetButton);
-//			aPF.getAAS().playSound("melee");
-//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-//			aPF.getMP().generateMessage(aPF.getMessages(), this, target, new int [ ] { finalDamage },
-//					new boolean [ ] { critical });
-//		} else {
-//			aPF.getAAS().playSound("dodge");
-//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-//			aPF.getMP().generateMessage(aPF.getMessages(), this, target);
-//		}
-//
-//	}
+	public void attack(AppPrincipalFrame aPF, SlotButton targetButton) {
+		Champion target = targetButton.getChampion();
+		int damage = calculateNextDamage();
+
+		boolean dodged = target.isDodgedHit();
+		boolean critical = isCriticalHit();
+
+		int finalDamage;
+		if (!dodged) {
+			finalDamage = damage - target.getDefense();
+			if (critical)
+				finalDamage *= 2;
+			if (finalDamage < 0) // handles negative damages
+				finalDamage = 0;
+			target.setCurrentHp(target.getCurrentHp() - finalDamage);
+			aPF.getGrid().checkForDeads(aPF);
+			aPF.getAAS().shakeButton(targetButton);
+			aPF.getAAS().playSound("melee");
+			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
+			aPF.getMP().generateMessage(aPF.getMessages(), this, target, new int [ ] { finalDamage },
+					new boolean [ ] { critical });
+		} else {
+			aPF.getAAS().playSound("dodge");
+			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
+			aPF.getMP().generateMessage(aPF.getMessages(), this, target);
+		}
+
+	}
 
 	public int calculateNextDamage() {
 		return JavaData.random.nextInt((maxDmg - minDmg) + 1) + minDmg;
