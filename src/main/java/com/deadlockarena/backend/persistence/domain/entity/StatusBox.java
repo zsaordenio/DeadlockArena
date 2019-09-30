@@ -1,21 +1,17 @@
-package com.deadlockarena.backend.persistence.domain.item;
+package com.deadlockarena.backend.persistence.domain.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import com.deadlockarena.backend.persistence.domain.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
-@Entity
-@Table(schema = "PVO")
-@EqualsAndHashCode(callSuper = true)
-public class StatusBox extends BaseEntity implements Serializable {
+@EqualsAndHashCode
+@NoArgsConstructor
+public class StatusBox implements Serializable {
 	private static final long serialVersionUID = -9091165808780653117L;
-
+	
 	// damage over time
 	private int poisoned; // chemist, assassin
 	private int burned; // chemist, pyromancer
