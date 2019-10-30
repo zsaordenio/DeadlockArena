@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 import java.awt.*;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class SelectButton extends JButton {
 	private static final long serialVersionUID = 8876199740027195332L;
 	
@@ -34,7 +34,7 @@ public class SelectButton extends JButton {
 		championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
 		add(championPicture, championPicture.getBounds());
 		championLabel = new JLabel(champion.toString());
-		championLabel.setForeground(JavaData.DEFAULTBACKGROUND);
+		championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
 		championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 		championLabel.setBounds(5, 8, 96, 10);
 		add(championLabel, championLabel.getBounds());
@@ -58,13 +58,13 @@ public class SelectButton extends JButton {
 					AnimationAndSound.playSound("select");
 					display();
 					GUI.current = SelectButton.this;
-					for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
+					for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
 						if (GUI.slotList1 [ i ].getchampion() == null && !GUI.player)
 							GUI.slotList1 [ i ].setEnabled(true);
 						if (GUI.slotList2 [ i ].getchampion() == null && GUI.player)
 							GUI.slotList2 [ i ].setEnabled(true);
 					}
-					for (int i = 0; i < JavaData.championESCOUNT; i++) {
+					for (int i = 0; i < JavaData.CHAMPION_COUNT; i++) {
 						GUI.selectList [ i ].setEnabled(false);
 					}
 					GUI.current.setSelected(true);

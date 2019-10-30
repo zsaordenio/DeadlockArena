@@ -13,7 +13,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class DeadButton extends JButton {
 	static final long serialVersionUID = -1629109863348198757L;
 	private Champion champion;

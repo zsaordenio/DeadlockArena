@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class SkillButton extends JButton {
 	private static final long serialVersionUID = -498760128876833290L;
 
@@ -23,7 +23,7 @@ public class SkillButton extends JButton {
 	private double fraction;
 
 	SkillButton() {
-		setBackground(JavaData.DEFAULTBACKGROUND);
+		setBackground(JavaData.DEFAULT_BACKGROUND);
 		try {
 			gray = ImageIO.read(new File("pics/gray.png"));
 		} catch (Exception exc) {

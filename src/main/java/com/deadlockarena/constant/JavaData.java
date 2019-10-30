@@ -19,7 +19,7 @@ import com.deadlockarena.persistence.repository.PotionInventoryRepository;
 @Component
 public class JavaData {
 
-	public static final String [ ] championES = { "Berserker" , "Dancer" , "Engineer" , "HolyKnight" ,
+	public static final String [ ] CHAMPIONS = { "Berserker" , "Dancer" , "Engineer" , "HolyKnight" ,
 			"Knight" , "Screamer" , "Assassin" , "Chemist" , "Cyborg" , "Dragoon" , "Reaper" ,
 			"Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" , "SwordMage" };
 
@@ -58,9 +58,8 @@ public class JavaData {
 			{ sC1 [ 0 ] + BASE * 1 , sC1 [ 1 ] + BASE * 3 } , SwordMageCoord ,
 			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 0 } , ChemistCoord ,
 			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 1 } , SniperCoord ,
-			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 2 } ,
-
-			KnightCoord , { sC2 [ 0 ] + BASE * 3 , sC2 [ 1 ] + BASE * 3 } , ScreamerCoord ,
+			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 2 } , KnightCoord , 
+			{ sC2 [ 0 ] + BASE * 3 , sC2 [ 1 ] + BASE * 3 } , ScreamerCoord ,
 			{ sC2 [ 0 ] + BASE * 3 , sC2 [ 1 ] + BASE * 1 } , PyromancerCoord ,
 			{ sC2 [ 0 ] + BASE * 0 , sC2 [ 1 ] + BASE * 0 } , DancerCoord ,
 			{ sC2 [ 0 ] + BASE * 1 , sC2 [ 1 ] + BASE * 2 } , EngineerCoord ,
@@ -70,22 +69,22 @@ public class JavaData {
 			{ sC2 [ 0 ] + BASE * 1 , sC2 [ 1 ] + BASE * 0 } , ReaperCoord ,
 			{ sC2 [ 0 ] + BASE * 2 , sC2 [ 1 ] + BASE * 0 } , };
 
-	public static final int CAPTURN = 4;
-	public static final int championESCOUNT = 18;
-	public static final int SLOTSCOUNT = 20;
-
+	public static final int CAP_TURN = 4;
+	public static final int CHAMPION_COUNT = 18;
+	public static final int SLOT_COUNT = 20;
 
 	public static final Random random = new Random();
 
-	public static final LineBorder MOVEBORDER = new LineBorder(Color.blue, 5);
-	public static final LineBorder ATTACKBORDER = new LineBorder(Color.red, 5);
-	public static final Border DEFAULTBORDER = UIManager.getBorder("Button.border");
-	public static final Color DEFAULTBACKGROUND = Color.black;
-	public static final Color DEFAULTBUTTONBACKGROUND = new JButton().getBackground();
+	public static final LineBorder MOVE_BORDER = new LineBorder(Color.blue, 5);
+	public static final LineBorder ATTACK_BORDER = new LineBorder(Color.red, 5);
+	public static final LineBorder DEFAULT_BORDER = (LineBorder) UIManager.getBorder("Button.border");
+	
+	public static final Color DEFAULT_BACKGROUND = Color.black;
+	public static final Color DEFAULT_BUTTON_BACKGROUND = new JButton().getBackground();
 
-	public static final Font BASICFONT = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-	public static final Font championFONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
-	public static final Font PANELEASTFONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+	public static final Font BASIC_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+	public static final Font CHAMPION_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+	public static final Font PANEL_EAST_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
 	public static final String STATUSSTRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
 			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"

@@ -34,7 +34,7 @@ public class AnimationAndSound {
 		//initSoundTracks();
 
 		soundtrackButton = new JButton("Soundtracks");
-		soundtrackButton.setFont(JavaData.BASICFONT);
+		soundtrackButton.setFont(JavaData.BASIC_FONT);
 		soundtrackButton.setEnabled(false);
 		soundtrackButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {

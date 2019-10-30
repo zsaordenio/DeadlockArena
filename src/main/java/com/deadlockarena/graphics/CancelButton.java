@@ -11,7 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class CancelButton extends JButton {
 	private static final long serialVersionUID = 4505212405863517256L;
 
@@ -20,7 +20,7 @@ public class CancelButton extends JButton {
 	public CancelButton(AppPrincipalFrame aPF) {
 		this.aPF = aPF;
 		addMouseListener(mL1);
-		setFont(JavaData.BASICFONT);
+		setFont(JavaData.BASIC_FONT);
 	}
 
 	private MouseListener mL1 = new MouseAdapter() {
@@ -29,11 +29,11 @@ public class CancelButton extends JButton {
 			if (aPF.getCurrent() != null) {
 				aPF.getCurrent().setSelected(false);
 				aPF.setCurrent(null);
-				for (int i = 0; i < JavaData.championESCOUNT; i++) {
+				for (int i = 0; i < JavaData.CHAMPION_COUNT; i++) {
 					if (!aPF.getSelectList() [ i ].isSelected())
 						aPF.getSelectList() [ i ].setEnabled(true);
 				}
-				for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
+				for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
 					if (aPF.getSlotList1() [ i ].getChampion() == null && aPF.getPlayer() == 1)
 						aPF.getSlotList1() [ i ].setEnabled(false);
 					if (aPF.getSlotList2() [ i ].getChampion() == null && aPF.getPlayer() == 2)
@@ -46,7 +46,7 @@ public class CancelButton extends JButton {
 				SlotButton slotButton = (SlotButton) buttons [ 0 ];
 				slotButton.setChampion(null);
 				slotButton.setSelected(false);
-				slotButton.setBackground(JavaData.DEFAULTBACKGROUND);
+				slotButton.setBackground(JavaData.DEFAULT_BACKGROUND);
 				slotButton.setText("");
 				SelectButton selectButton = (SelectButton) buttons [ 1 ];
 				selectButton.setEnabled(true);

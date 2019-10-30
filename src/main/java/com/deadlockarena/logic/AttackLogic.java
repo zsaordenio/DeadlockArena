@@ -105,7 +105,7 @@ public class AttackLogic {
 			throw new RemainderException("AttackLogic: Incorrect logic input");
 		}
 		for (int i = 0; i < targets.size(); i++) {
-			targets.get(i).setBorder(JavaData.ATTACKBORDER);
+			targets.get(i).setBorder(JavaData.ATTACK_BORDER);
 			targets.get(i).setEnabled(true);
 		}
 	}
@@ -115,14 +115,14 @@ public class AttackLogic {
 		if (player == 2) {
 			for (int i = 0; i < g.array1.length; i++) {
 				for (int j = 0; j < g.array1 [ i ].length; j++) {
-					g.array1 [ i ] [ j ].setBorder(JavaData.DEFAULTBORDER);
+					g.array1 [ i ] [ j ].setBorder(JavaData.DEFAULT_BORDER);
 					g.array1 [ i ] [ j ].setEnabled(false);
 				}
 			}
 		} else {
 			for (int i = 0; i < g.array2.length; i++) {
 				for (int j = 0; j < g.array2 [ i ].length; j++) {
-					g.array2 [ i ] [ j ].setBorder(JavaData.DEFAULTBORDER);
+					g.array2 [ i ] [ j ].setBorder(JavaData.DEFAULT_BORDER);
 					g.array2 [ i ] [ j ].setEnabled(false);
 				}
 			}

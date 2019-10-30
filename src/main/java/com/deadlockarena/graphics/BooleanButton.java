@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class BooleanButton extends JButton {
 	private static final long serialVersionUID = -4636335771363956811L;
 	

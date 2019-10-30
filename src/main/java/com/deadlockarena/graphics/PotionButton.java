@@ -16,7 +16,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class PotionButton extends JButton {
 	private static final long serialVersionUID = 3192411745294200580L;
 
@@ -28,8 +28,8 @@ public class PotionButton extends JButton {
 	PotionButton(ImageIcon ic, boolean cp, AppPrincipalFrame aPF) {
 		super(ic);
 		jl = new JLabel();
-		jl.setForeground(JavaData.DEFAULTBACKGROUND);
-		jl.setFont(JavaData.BASICFONT);
+		jl.setForeground(JavaData.DEFAULT_BACKGROUND);
+		jl.setFont(JavaData.BASIC_FONT);
 		jl.setOpaque(false);
 		jl.setBounds(0, 0, 20, 15);
 		this.add(jl);
