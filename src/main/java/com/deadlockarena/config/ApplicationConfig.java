@@ -1,4 +1,4 @@
-package com.deadlockarena.config.core;
+package com.deadlockarena.config;
 
 import org.springframework.context.annotation.Configuration;
 

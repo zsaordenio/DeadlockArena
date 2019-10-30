@@ -1,11 +1,11 @@
 package com.deadlockarena.logic;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.RemainderException;
 import com.deadlockarena.graphics.AppPrincipalFrame;
 import com.deadlockarena.graphics.DeadButton;
 import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

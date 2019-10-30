@@ -1,4 +1,4 @@
-package com.deadlockarena.backend.persistence.bootstrap;
+package com.deadlockarena.persistence.bootstrap;
 
 import java.util.List;
 
@@ -7,9 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
-import com.deadlockarena.backend.persistence.repository.ChampionRepository;
-import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
+import com.deadlockarena.persistence.entity.Champion;
+import com.deadlockarena.persistence.repository.ChampionRepository;
+import com.deadlockarena.persistence.repository.PotionInventoryRepository;
 
 
 @Component

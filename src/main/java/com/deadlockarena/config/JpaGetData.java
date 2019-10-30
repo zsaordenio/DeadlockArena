@@ -3,11 +3,11 @@ package com.deadlockarena.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
-import com.deadlockarena.backend.persistence.domain.entity.StatusBox;
-import com.deadlockarena.backend.persistence.repository.ChampionRepository;
-import com.deadlockarena.backend.persistence.repository.PotionInventoryRepository;
 import com.deadlockarena.exception.RemainderException;
+import com.deadlockarena.persistence.entity.Champion;
+import com.deadlockarena.persistence.entity.StatusBox;
+import com.deadlockarena.persistence.repository.ChampionRepository;
+import com.deadlockarena.persistence.repository.PotionInventoryRepository;
 
 @Component
 public class JpaGetData {

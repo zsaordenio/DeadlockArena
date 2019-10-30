@@ -5,13 +5,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.config.JpaGetData;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.RemainderException;
 import com.deadlockarena.logic.AttackLogic;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.StanceLogic;
+import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

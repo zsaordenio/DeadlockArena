@@ -1,4 +1,4 @@
-package com.deadlockarena.backend.persistence.domain.base;
+package com.deadlockarena.persistence.base;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
