@@ -28,6 +28,7 @@ import org.springframework.stereotype.Component;
 
 import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.config.JpaGetData;
+import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.RemainderException;
 import com.deadlockarena.logic.Grid;
@@ -213,6 +214,9 @@ public class AppPrincipalFrame extends JFrame {
 	}
 
 	private void addButtons() {
+		if (jpaGetData == null) {
+			jpaGetData = SpringUtils.ctx.getBean(JpaGetData.class);
+		}
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		for (int j = 0; j < 3; j++) {
