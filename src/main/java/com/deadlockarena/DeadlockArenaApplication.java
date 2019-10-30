@@ -31,10 +31,10 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 		});
 
 	}
-
-	public static void main(String [ ] args) {
-		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(
-				DeadlockArenaApplication.class).headless(false).run(args);
-	}
+//
+//	public static void main(String [ ] args) {
+//		ConfigurableApplicationContext ctx = new SpringApplicationBuilder(
+//				DeadlockArenaApplication.class).headless(false).run(args);
+//	}
 
 }

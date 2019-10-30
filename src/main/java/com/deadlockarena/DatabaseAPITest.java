@@ -1,4 +1,4 @@
-package com.deadlockarena.persistence.bootstrap;
+package com.deadlockarena;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ import com.deadlockarena.persistence.repository.PotionInventoryRepository;
 
 
 @Component
-public class DatabaseSeeder implements CommandLineRunner {
-	private final PotionInventoryRepository potionInventoryRepository;
+public class DatabaseAPITest implements CommandLineRunner {
+//	private final PotionInventoryRepository potionInventoryRepository;
 	private final ChampionRepository championRepository;
 
 	@Autowired
-	public DatabaseSeeder(PotionInventoryRepository potionInventoryRepository,
+	public DatabaseAPITest(/*PotionInventoryRepository potionInventoryRepository,*/
 			ChampionRepository championRepository) {
-		this.potionInventoryRepository = potionInventoryRepository;
+		//this.potionInventoryRepository = potionInventoryRepository;
 		this.championRepository = championRepository;
 	}
 
