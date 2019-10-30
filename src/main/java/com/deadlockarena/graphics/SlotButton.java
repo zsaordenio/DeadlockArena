@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class SlotButton extends JButton {
 	private static final long serialVersionUID = 1436902681342190255L;
 
@@ -64,26 +64,26 @@ public class SlotButton extends JButton {
 				championPicture = new JLabel(grayedImage);
 				championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
 				championLabel = new JLabel(champion.toString());
-				championLabel.setForeground(JavaData.DEFAULTBACKGROUND);
+				championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
 				championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
 				championLabel.setBounds(5, 8, 96, 10);
 				add(championPicture);
 				add(championLabel);
 
-				for (int i = 0; i < JavaData.SLOTSCOUNT; i++)
+				for (int i = 0; i < JavaData.SLOT_COUNT; i++)
 					if (aPF.getPlayer() == 1)
 						aPF.getSlotList1() [ i ].setEnabled(false);
 					else
 						aPF.getSlotList2() [ i ].setEnabled(false);
 
-				for (int i = 0; i < JavaData.championESCOUNT; i++)
+				for (int i = 0; i < JavaData.CHAMPION_COUNT; i++)
 					if (!aPF.getSelectList() [ i ].isSelected())
 						aPF.getSelectList() [ i ].setEnabled(true);
 
 				aPF.setTotalCount(aPF.getTotalCount() + 1);
 				if (aPF.getTotalCount() == 9) {
 					aPF.getOrderList().clear();
-					for (int i = 0; i < JavaData.championESCOUNT; i++) {
+					for (int i = 0; i < JavaData.CHAMPION_COUNT; i++) {
 						aPF.getSelectList() [ i ].setSelected(false);
 						aPF.getSelectList() [ i ].setEnabled(true);
 					}
@@ -131,22 +131,22 @@ public class SlotButton extends JButton {
 				arr = aPF.getPlayer() == 1? g.getArray1() : g.getArray2();
 				try {
 					if (arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].getChampion() == null)
-						arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.MOVEBORDER);
+						arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.MOVE_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
 					if (arr [ coord [ 0 ] ] [ coord [ 1 ] - 1 ].getChampion() == null)
-						arr [ coord [ 0 ] ] [ coord [ 1 ] - 1 ].setBorder(JavaData.MOVEBORDER);
+						arr [ coord [ 0 ] ] [ coord [ 1 ] - 1 ].setBorder(JavaData.MOVE_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
 					if (arr [ coord [ 0 ] + 1 ] [ coord [ 1 ] ].getChampion() == null)
-						arr [ coord [ 0 ] + 1 ] [ coord [ 1 ] ].setBorder(JavaData.MOVEBORDER);
+						arr [ coord [ 0 ] + 1 ] [ coord [ 1 ] ].setBorder(JavaData.MOVE_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
 					if (arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].getChampion() == null)
-						arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].setBorder(JavaData.MOVEBORDER);
+						arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].setBorder(JavaData.MOVE_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
@@ -172,19 +172,19 @@ public class SlotButton extends JButton {
 				}
 				arr = aPF.getPlayer() == 1? g.array1 : g.array2;
 				try {
-					arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.DEFAULTBORDER);
+					arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.DEFAULT_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
-					arr [ coord [ 0 ] ] [ coord [ 1 ] - 1 ].setBorder(JavaData.DEFAULTBORDER);
+					arr [ coord [ 0 ] ] [ coord [ 1 ] - 1 ].setBorder(JavaData.DEFAULT_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
-					arr [ coord [ 0 ] + 1 ] [ coord [ 1 ] ].setBorder(JavaData.DEFAULTBORDER);
+					arr [ coord [ 0 ] + 1 ] [ coord [ 1 ] ].setBorder(JavaData.DEFAULT_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				try {
-					arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].setBorder(JavaData.DEFAULTBORDER);
+					arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].setBorder(JavaData.DEFAULT_BORDER);
 				} catch (Exception exc) {
 					/* Ignore */}
 				al.unHighlight(aPF.getPlayer());
@@ -211,7 +211,7 @@ public class SlotButton extends JButton {
 				SlotButton.this.setGrayedImage(aPF.getSlot().getGrayedImage());
 				SlotButton.this.alterMouseAdapter0_3(); // 3->0
 
-				aPF.getSlot().setBackground(JavaData.DEFAULTBACKGROUND);
+				aPF.getSlot().setBackground(JavaData.DEFAULT_BACKGROUND);
 				aPF.getSlot().setText("");
 				aPF.getSlot().removeAll();
 				aPF.getSlot().setChampion(null);
@@ -309,7 +309,7 @@ public class SlotButton extends JButton {
 	SlotButton(int side) {
 		super();
 		this.side = side;
-		this.setBackground(JavaData.DEFAULTBACKGROUND);
+		this.setBackground(JavaData.DEFAULT_BACKGROUND);
 		setLayout(null);
 		addMouseListener(mL1);
 	}

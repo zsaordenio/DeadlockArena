@@ -66,7 +66,7 @@ public class Grid {
 				break;
 			}
 
-		sB.setBackground(JavaData.DEFAULTBACKGROUND);
+		sB.setBackground(JavaData.DEFAULT_BACKGROUND);
 		sB.removeAll();
 		sB.setChampion(null);
 		sB.removeMouseListener(sB.getML2());
@@ -78,7 +78,7 @@ public class Grid {
 
 	}
 
-	// Detects the number of championes in the grid
+	// Detects the number of CHAMPIONS in the grid
 	public int getSize(boolean player) {
 		SlotButton [ ] [ ] sBGrid = player ? array2 : array1;
 		int s = 0;

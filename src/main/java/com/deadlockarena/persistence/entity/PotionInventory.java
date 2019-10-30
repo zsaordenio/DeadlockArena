@@ -18,7 +18,6 @@ import lombok.EqualsAndHashCode;
 @Data
 @Entity
 @Table(schema = "PVO")
-@EqualsAndHashCode
 public class PotionInventory implements Serializable {
 	private static final long serialVersionUID = -419261549452638522L;
 

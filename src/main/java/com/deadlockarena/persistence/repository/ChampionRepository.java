@@ -12,7 +12,6 @@ import com.deadlockarena.persistence.entity.Champion;
 @Repository
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 public interface ChampionRepository extends CrudRepository<Champion, Long> {
-	
 	List<Champion> findAll();
 	Champion findById(int id);
 	Champion findByChampion(String champion);

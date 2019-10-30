@@ -38,7 +38,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 @Component
 public class AppPrincipalFrame extends JFrame {
 
@@ -85,7 +85,7 @@ public class AppPrincipalFrame extends JFrame {
 	private int player; // 1 is false, 2 is true
 	private int totalCount; // 0-18
 	private int move;
-	private int currentCapTurn;
+	private int currentCAP_TURN;
 
 	public AppPrincipalFrame() {
 		//domain();
@@ -120,41 +120,41 @@ public class AppPrincipalFrame extends JFrame {
 		gbc = new GridBagConstraints();
 		totalCount = 0;
 		move = 0;
-		currentCapTurn = 1;
+		currentCAP_TURN = 1;
 		aAS = new AnimationAndSound();
 
-		selectList = new SelectButton [ JavaData.championESCOUNT ];
-		slotList1 = new SlotButton [ JavaData.SLOTSCOUNT ];
-		slotList2 = new SlotButton [ JavaData.SLOTSCOUNT ];
+		selectList = new SelectButton [ JavaData.CHAMPION_COUNT ];
+		slotList1 = new SlotButton [ JavaData.SLOT_COUNT ];
+		slotList2 = new SlotButton [ JavaData.SLOT_COUNT ];
 		orderList = new Stack<>();
 	}
 
 	private void addPanels() {
 		panelWest = new JPanel(new BorderLayout());
-		panelWest.setBackground(JavaData.DEFAULTBACKGROUND);
+		panelWest.setBackground(JavaData.DEFAULT_BACKGROUND);
 		{
 			panelWest_a = new JPanel(new GridBagLayout());
-			panelWest_a.setBackground(JavaData.DEFAULTBACKGROUND);
+			panelWest_a.setBackground(JavaData.DEFAULT_BACKGROUND);
 			panelWest_b = new JPanel(new BorderLayout());
-			panelWest_b.setBackground(JavaData.DEFAULTBACKGROUND);
+			panelWest_b.setBackground(JavaData.DEFAULT_BACKGROUND);
 			{
 				iconLabel = new JLabel(new ImageIcon("pics/DefaultIcon.png"));
-				iconLabel.setBorder(JavaData.ATTACKBORDER);
+				iconLabel.setBorder(JavaData.ATTACK_BORDER);
 				description = new JTextArea();
 				description.setWrapStyleWord(true);
 				description.setLineWrap(true);
-				description.setFont(JavaData.BASICFONT);
+				description.setFont(JavaData.BASIC_FONT);
 				description.setForeground(Color.white);
-				description.setBackground(JavaData.DEFAULTBACKGROUND);
-				description.setBorder(JavaData.ATTACKBORDER);
+				description.setBackground(JavaData.DEFAULT_BACKGROUND);
+				description.setBorder(JavaData.ATTACK_BORDER);
 				stats = new JLabel(JavaData.DEFAULTSTATUSSTRING);
-				stats.setFont(JavaData.PANELEASTFONT);
+				stats.setFont(JavaData.PANEL_EAST_FONT);
 				stats.setForeground(Color.white);
-				stats.setBorder(JavaData.ATTACKBORDER);
+				stats.setBorder(JavaData.ATTACK_BORDER);
 				championLabel = new JLabel();
-				championLabel.setFont(JavaData.championFONT);
+				championLabel.setFont(JavaData.CHAMPION_FONT);
 				championLabel.setForeground(Color.white);
-				championLabel.setBorder(JavaData.ATTACKBORDER);
+				championLabel.setBorder(JavaData.ATTACK_BORDER);
 				championLabel.setText("?");
 			}
 			panelWest_b.add(iconLabel, BorderLayout.WEST);
@@ -166,21 +166,21 @@ public class AppPrincipalFrame extends JFrame {
 		panelWest.add(panelWest_b, BorderLayout.SOUTH);
 		// ---------------------------------------------------------------------------
 		panelCenter = new JPanel(new BorderLayout());
-		panelCenter.setBackground(JavaData.DEFAULTBACKGROUND);
+		panelCenter.setBackground(JavaData.DEFAULT_BACKGROUND);
 		{
 			panelCenter_a = new JPanel(new GridBagLayout());
-			panelCenter_a.setBackground(JavaData.DEFAULTBACKGROUND);
+			panelCenter_a.setBackground(JavaData.DEFAULT_BACKGROUND);
 			panelCenter_b = new JPanel(new GridBagLayout());
-			panelCenter_b.setBackground(JavaData.DEFAULTBACKGROUND);
+			panelCenter_b.setBackground(JavaData.DEFAULT_BACKGROUND);
 			panelCenter_c = new JPanel(new BorderLayout());
-			panelCenter_c.setBackground(JavaData.DEFAULTBACKGROUND);
+			panelCenter_c.setBackground(JavaData.DEFAULT_BACKGROUND);
 		}
 		panelCenter.add(panelCenter_a, BorderLayout.NORTH);
 		panelCenter.add(panelCenter_b, BorderLayout.SOUTH);
 		panelCenter.add(panelCenter_c, BorderLayout.CENTER);
 		// ---------------------------------------------------------------------------
 		panelNorth = new JPanel(new BorderLayout());
-		panelNorth.setBackground(JavaData.DEFAULTBACKGROUND);
+		panelNorth.setBackground(JavaData.DEFAULT_BACKGROUND);
 		{
 			titleLabel = new JLabel(" Deadlock Arena");
 			titleLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 80));
@@ -189,7 +189,7 @@ public class AppPrincipalFrame extends JFrame {
 		panelNorth.add(titleLabel, BorderLayout.WEST);
 		// ---------------------------------------------------------------------------
 		panelSouth = new JPanel();
-		panelSouth.setBackground(JavaData.DEFAULTBACKGROUND);
+		panelSouth.setBackground(JavaData.DEFAULT_BACKGROUND);
 		{
 			playerLabel = new JLabel("     Player 1");
 			playerLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 40));
@@ -224,8 +224,8 @@ public class AppPrincipalFrame extends JFrame {
 				try {
 					System.out.println("It's currently null, but I don't want it to be: " + jpaGetData);
 					SelectButton sb = new SelectButton(j,
-							jpaGetData.evalChampion(JavaData.championES [ j * 6 + i ]));
-					sb.setFont(JavaData.BASICFONT);
+							jpaGetData.evalChampion(JavaData.CHAMPIONS [ j * 6 + i ]));
+					sb.setFont(JavaData.BASIC_FONT);
 					sb.setPreferredSize(
 							new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
 
@@ -255,7 +255,7 @@ public class AppPrincipalFrame extends JFrame {
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 5; j++) {
 					SlotButton sb = new SlotButton(player);
-					sb.setFont(JavaData.BASICFONT);
+					sb.setFont(JavaData.BASIC_FONT);
 					sb.setEnabled(false);
 					sb.setPreferredSize(
 							new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
@@ -362,30 +362,30 @@ public class AppPrincipalFrame extends JFrame {
 	}
 
 	public void clearAllBorders() {
-		for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
-			slotList1 [ i ].setBorder(JavaData.DEFAULTBORDER);
-			slotList2 [ i ].setBorder(JavaData.DEFAULTBORDER);
+		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
+			slotList1 [ i ].setBorder(JavaData.DEFAULT_BORDER);
+			slotList2 [ i ].setBorder(JavaData.DEFAULT_BORDER);
 		}
 	}
 
 	public void resetListeners() {
-		for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
-			if (slotList1 [ i ].getBorder().equals(JavaData.MOVEBORDER)) {
+		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
+			if (slotList1 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
 				if (slotList1 [ i ].getChampion() == null)
 					slotList1 [ i ].alterMouseAdapter0_3();
 				else
 					slotList1 [ i ].alterMouseAdapter0_2();
-			} else if (slotList1 [ i ].getBorder().equals(JavaData.ATTACKBORDER))
+			} else if (slotList1 [ i ].getBorder().equals(JavaData.ATTACK_BORDER))
 				slotList1 [ i ].alterMouseAdapter2_4();
 			else if (slotList1 [ i ].getChampion() != null)
 				slotList1 [ i ].alterMouseAdapter0_2();
 			// ---------------------------------------------------------------
-			if (slotList2 [ i ].getBorder().equals(JavaData.MOVEBORDER)) {
+			if (slotList2 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
 				if (slotList2 [ i ].getChampion() != null)
 					slotList2 [ i ].alterMouseAdapter0_2();
 				else
 					slotList2 [ i ].alterMouseAdapter0_3();
-			} else if (slotList2 [ i ].getBorder().equals(JavaData.ATTACKBORDER))
+			} else if (slotList2 [ i ].getBorder().equals(JavaData.ATTACK_BORDER))
 				slotList2 [ i ].alterMouseAdapter2_4();
 			else if (slotList2 [ i ].getChampion() != null)
 				slotList2 [ i ].alterMouseAdapter0_2();
@@ -393,7 +393,7 @@ public class AppPrincipalFrame extends JFrame {
 	}
 
 	public void disableAll() {
-		for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
+		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
 			if (player == 2) {
 				slotList1 [ i ].setEnabled(false);
 			} else {
@@ -404,14 +404,14 @@ public class AppPrincipalFrame extends JFrame {
 
 	public void evalTurns() {
 		move++;
-		if (move == currentCapTurn) {
+		if (move == currentCAP_TURN) {
 			slot = null;
 			updateAllCoolDowns();
 			switchListeners();
 			clearSkillButtons(player);
 			clearPanelEast(player);
-			if (currentCapTurn < JavaData.CAPTURN)
-				currentCapTurn++;
+			if (currentCAP_TURN < JavaData.CAP_TURN)
+				currentCAP_TURN++;
 			move = 0;
 		}
 	}
@@ -441,7 +441,7 @@ public class AppPrincipalFrame extends JFrame {
 	}
 
 	public void switchListeners() {
-		for (int i = 0; i < JavaData.SLOTSCOUNT; i++) {
+		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
 			if (player == 2) {
 				if (slotList1 [ i ].getChampion() != null)
 					slotList1 [ i ].alterMouseAdapter0_4();
