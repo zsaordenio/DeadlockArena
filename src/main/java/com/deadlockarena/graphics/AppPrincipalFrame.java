@@ -26,12 +26,12 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.config.JpaGetData;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.RemainderException;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MessageProcessor;
+import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -50,7 +50,7 @@ public class AppPrincipalFrame extends JFrame {
 	private Grid grid;
 
 	private JPanel panelWest, panelWest_a, panelWest_b, panelCenter, panelCenter_a, panelCenter_b,
-			panelCenter_c, panelCenter_c_a, panelCenter_c_b, panelEast, panelEast_a, panelEast_b,
+			panelCenter_c, panelCenter_c_a, panelCenter_c_b, panelEast, anelEast_a, panelEast_b,
 			panelNorth, panelSouth;
 
 	// panelWest components

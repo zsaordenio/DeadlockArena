@@ -3,8 +3,8 @@ package com.deadlockarena.graphics;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

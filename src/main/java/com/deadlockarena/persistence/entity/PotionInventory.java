@@ -1,4 +1,4 @@
-package com.deadlockarena.backend.persistence.domain.entity;
+package com.deadlockarena.persistence.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.deadlockarena.backend.persistence.domain.item.HpPotion;
-import com.deadlockarena.backend.persistence.domain.item.MpPotion;
 import com.deadlockarena.constant.JavaData;
 
 import lombok.Data;

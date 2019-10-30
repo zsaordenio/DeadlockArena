@@ -1,4 +1,4 @@
-package com.deadlockarena.backend.persistence.repository;
+package com.deadlockarena.persistence.repository;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.deadlockarena.backend.persistence.domain.entity.Champion;
+import com.deadlockarena.persistence.entity.Champion;
 
 @Repository
 @Transactional(readOnly = true, propagation = Propagation.SUPPORTS)

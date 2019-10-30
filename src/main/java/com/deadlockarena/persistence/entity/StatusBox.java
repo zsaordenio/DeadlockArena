@@ -1,4 +1,4 @@
-package com.deadlockarena.backend.persistence.domain.entity;
+package com.deadlockarena.persistence.entity;
 
 import java.io.Serializable;
 
