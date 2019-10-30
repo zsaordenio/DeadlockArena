@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode
 public class HpPotion implements Serializable {
 	private static final long serialVersionUID = 5997993036238160285L;
 

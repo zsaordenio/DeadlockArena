@@ -18,8 +18,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@EqualsAndHashCode
-@Table(schema = "PVO")
+@Table(name = "CHAMPIONS", schema = "PVO")
 public class Champion implements Serializable {
 	private static final long serialVersionUID = 5195526083757043733L;
 
