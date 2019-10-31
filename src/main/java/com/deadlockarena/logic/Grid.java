@@ -3,17 +3,13 @@ package com.deadlockarena.logic;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.exception.UnmatchedSizeException;
-import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.DeadButton;
 import com.deadlockarena.graphics.SlotButton;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor

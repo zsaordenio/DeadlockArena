@@ -7,13 +7,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.persistence.entity.Champion;
-import com.deadlockarena.persistence.entity.StatusBox;
-import com.deadlockarena.persistence.repository.ChampionRepository;
 
 @Component
 public class JavaData {

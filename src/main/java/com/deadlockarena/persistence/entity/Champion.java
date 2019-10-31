@@ -1,7 +1,6 @@
 package com.deadlockarena.persistence.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,7 +13,6 @@ import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.SlotButton;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @Entity

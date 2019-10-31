@@ -6,10 +6,6 @@ import com.deadlockarena.constant.JavaData;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class CancelButton extends JButton {

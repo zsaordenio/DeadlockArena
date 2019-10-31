@@ -13,7 +13,6 @@ import javax.persistence.Transient;
 import com.deadlockarena.constant.JavaData;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
 @Entity

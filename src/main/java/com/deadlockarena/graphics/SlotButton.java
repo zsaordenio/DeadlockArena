@@ -1,27 +1,16 @@
 package com.deadlockarena.graphics;
 
-import javax.swing.GrayFilter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.logic.AttackLogic;
 import com.deadlockarena.logic.Coordinate;
-import com.deadlockarena.logic.Grid;
-import com.deadlockarena.logic.StanceLogic;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

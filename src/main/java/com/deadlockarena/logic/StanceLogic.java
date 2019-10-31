@@ -19,7 +19,7 @@ public class StanceLogic {
 	public boolean stance1(SlotButton sB, Grid thisGrid) {
 		Coordinate coords = sB.getCoordinate();
 		// TO-DO: Analyze the position
-		String position = sB.getPosition();
+		// String position = sB.getPosition();
 
 		if (coords.getI() == 0) {
 			return true;
@@ -69,7 +69,7 @@ public class StanceLogic {
 	public boolean stance2(SlotButton sB, Grid thisGrid) {
 		Coordinate coords = sB.getCoordinate();
 		// TO-DO: Analyze the position
-		String position = sB.getPosition();
+		// String position = sB.getPosition();
 		
 		if (coords.getI() == 0)
 			return true;
