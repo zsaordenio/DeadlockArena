@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.logic.Grid;
+import com.deadlockarena.logic.MainLogic;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
@@ -213,12 +215,13 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void populateSelectButtons() {
+	public void populateSelectButtons(int player, Grid grid1, Grid grid2) {
 		if (this.jpaGetData == null) {
 			this.jpaGetData = SpringUtils.jgd;
 		}
 		for (int i = 0; i < selectButtons.length; i++) {
-			this.selectButtons [ i ].populate(jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ]));
+			this.selectButtons [ i ].populate(jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ]),
+					this, player, grid1, grid2);
 		}
 
 	}

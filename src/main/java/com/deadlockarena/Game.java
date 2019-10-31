@@ -32,11 +32,11 @@ public class Game {
 	public void executePhase1() {
 		this.mainFrame.addPanels();
 		this.mainFrame.addButtons();
-		this.mainFrame.populateSelectButtons();
+		this.mainFrame.populateSelectButtons(player, mainLogic.getGrid1(), mainLogic.getGrid2());
 	}
-	
+
 	public void executePhase2() {
-		
+
 	}
 
 	public void evalTurns(SlotButton slot) {

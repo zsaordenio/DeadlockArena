@@ -3,6 +3,7 @@ package com.deadlockarena.graphics;
 import javax.swing.*;
 
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.logic.Grid;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
@@ -10,6 +11,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -17,13 +20,15 @@ import java.awt.*;
 public class SelectButton extends JButton {
 	private static final long serialVersionUID = 8876199740027195332L;
 	
-	private Color color;
 	private boolean selected;
 	private Champion champion;
+	private Color color;
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 
-	public void populate(Champion champion) {
+	public void populate(Champion champion, MainFrame mainFrame, int player, Grid grid1,
+			Grid grid2) {
+		
 		this.selected = false;
 		this.champion = champion;
 
@@ -35,7 +40,7 @@ public class SelectButton extends JButton {
 		this.championPicture = new JLabel(normalImage);
 		this.championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
 		super.add(championPicture, championPicture.getBounds());
-		
+
 		this.championLabel = new JLabel(champion.getChampion());
 		this.championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
 		this.championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
@@ -53,71 +58,68 @@ public class SelectButton extends JButton {
 			this.color = Color.cyan;
 			break;
 		}
-		setBackground(color);
-	/*	addMouseListener(new MouseAdapter() {
+		super.setBackground(color);
+		this.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SelectButton.this.isEnabled()) {
-					Java.updateButtonPictures();
-					AnimationAndSound.playSound("select");
-					display();
-					GUI.current = SelectButton.this;
-					for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
-						if (GUI.slotList1 [ i ].getchampion() == null && !GUI.player)
-							GUI.slotList1 [ i ].setEnabled(true);
-						if (GUI.slotList2 [ i ].getchampion() == null && GUI.player)
-							GUI.slotList2 [ i ].setEnabled(true);
+					mainFrame.updateButtonPictures();
+					mainFrame.getAAS().playSound("select");
+					display(mainFrame);
+					mainFrame.setCurrent(SelectButton.this);
+					for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+						for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
+							if (grid1.getArray() [ i ] [ j ].getChampion() == null && player == 1) {
+								grid1.getArray() [ i ] [ j ].setEnabled(true);
+							}
+							if (grid2.getArray() [ i ] [ j ].getChampion() == null && player == 2) {
+								grid2.getArray() [ i ] [ j ].setEnabled(true);
+							}
+						}
 					}
 					for (int i = 0; i < JavaData.CHAMPION_COUNT; i++) {
-						GUI.selectList [ i ].setEnabled(false);
+						mainFrame.getSelectButtons() [ i ].setEnabled(false);
 					}
-					GUI.current.setSelected(true);
-					GUI.current.setEnabled(false);
+					mainFrame.getCurrent().setSelected(true);
+					mainFrame.getCurrent().setEnabled(false);
 				}
 			}
 
 			public void mouseExited(MouseEvent e) {
 				if (SelectButton.this == null)
-					GUI.current.display();
-				else
-					unDisplay();
+					mainFrame.getCurrent().display(mainFrame);
+				else {
+					unDisplay(mainFrame);
+				}
 			}
 
 			public void mouseEntered(MouseEvent e) {
-				SelectButton.this.display();
+				SelectButton.this.display(mainFrame);
 				if (SelectButton.this.isEnabled()) {
-					GUI.updateButtonPictures();
+					mainFrame.updateButtonPictures();
 					SelectButton.this.setBackground(Color.gray);
 				}
 			}
-		});*/
+		});
 	}
 
-	public boolean isSelected() {
-		return selected;
+	public void display(MainFrame mainFrame) {
+		mainFrame.getIconLabel().setIcon(new ImageIcon("pics/" + champion.toString() + "Icon.png"));
+		mainFrame.getStats()
+				.setText("<html>" + "HP: " + champion.getMaxHp() + "<br/>" + "MP: "
+						+ champion.getMaxMp() + "<br/>" + "Damage: " + champion.getMinDmg() + " - "
+						+ champion.getMaxDmg() + "<br/>" + "Defense: " + champion.getDefense()
+						+ "<br/>" + "Critical: " + champion.getCritical() + "%<br/>" + "Dodge: "
+						+ champion.getDodge() + "%" + "</html>");
+		mainFrame.getDescription().setText(champion.getDescription());
+		mainFrame.getChampionLabel().setText(champion.toString());
 	}
 
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	public void unDisplay(MainFrame mainFrame) {
+		mainFrame.getIconLabel().setIcon(new ImageIcon("pics/DefaultIcon.png"));
+		mainFrame.getStats().setText(JavaData.DEFAULTSTATUSSTRING);
+		mainFrame.getDescription().setText("");
+		mainFrame.getChampionLabel().setText("?");
+		super.setBackground(color);
 	}
-/*
-	void display() {
-		Champion h = SelectButton.this.champion;
-		AppPrincipalFrame.iconLabel.setIcon(new ImageIcon("pics/" + h.toString() + "Icon.png"));
-		AppPrincipalFrame.stats.setText("<html>" + "HP: " + h.getMaxHp() + "<br/>" + "MP: "
-				+ h.getMaxMp() + "<br/>" + "Damage: " + h.getMinDmg() + " - " + h.getMaxDmg()
-				+ "<br/>" + "Defense: " + h.getDefense() + "<br/>" + "Critical: " + h.getCritical()
-				+ "%<br/>" + "Dodge: " + h.getDodge() + "%" + "</html>");
-		AppPrincipalFrame.description.setText(h.getDescription());
-		AppPrincipalFrame.championLabel.setText(h.toString());
-	}
-
-	private void unDisplay() {
-		AppPrincipalFrame.iconLabel.setIcon(new ImageIcon("pics/DefaultIcon.png"));
-		AppPrincipalFrame.stats.setText(JavaData.DEFAULTSTATUSSTRING);
-		AppPrincipalFrame.description.setText("");
-		AppPrincipalFrame.championLabel.setText("?");
-		setBackground(color);
-	}*/
-
 
 }
