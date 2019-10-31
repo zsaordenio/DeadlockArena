@@ -23,25 +23,26 @@ public class SelectButton extends JButton {
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 
-	public void populate(int logic, Champion champion) {
+	public void populate(Champion champion) {
 		this.selected = false;
 		this.champion = champion;
 
-		normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png").getImage()
+		this.normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png").getImage()
 				.getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2, Image.SCALE_SMOOTH));
-		setLayout(null);
-		grayedImage = new ImageIcon(GrayFilter.createDisabledImage(normalImage.getImage()));
+		super.setLayout(null);
+		this.grayedImage = new ImageIcon(GrayFilter.createDisabledImage(normalImage.getImage()));
 
-		championPicture = new JLabel(normalImage);
-		championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
-		add(championPicture, championPicture.getBounds());
-		championLabel = new JLabel(champion.toString());
-		championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
-		championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-		championLabel.setBounds(5, 8, 96, 10);
-		add(championLabel, championLabel.getBounds());
+		this.championPicture = new JLabel(normalImage);
+		this.championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
+		super.add(championPicture, championPicture.getBounds());
+		
+		this.championLabel = new JLabel(champion.getChampion());
+		this.championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
+		this.championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
+		this.championLabel.setBounds(5, 8, 96, 10);
+		super.add(championLabel, championLabel.getBounds());
 
-		switch (logic + 1) {
+		switch (champion.getLogic()) {
 		case 1:
 			this.color = Color.pink;
 			break;

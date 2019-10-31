@@ -29,10 +29,14 @@ public class Game {
 		this.currentCap = 1;
 	}
 
-	public void executeFirstPhase() {
+	public void executePhase1() {
 		this.mainFrame.addPanels();
 		this.mainFrame.addButtons();
 		this.mainFrame.populateSelectButtons();
+	}
+	
+	public void executePhase2() {
+		
 	}
 
 	public void evalTurns(SlotButton slot) {

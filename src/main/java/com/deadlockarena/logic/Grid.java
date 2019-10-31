@@ -21,9 +21,6 @@ public class Grid {
 	@NonNull
 	private String position;
 
-	private static final int ROW_COUNT = 4;
-	private static final int COL_COUNT = 5;
-
 	/**
 	 * Fill in the 2D champion array
 	 * 
@@ -31,11 +28,11 @@ public class Grid {
 	 * @throws UnmatchedSizeException
 	 */
 	public Grid(SlotButton [ ] slotList) throws UnmatchedSizeException {
-		this.array = new SlotButton [ ROW_COUNT ] [ COL_COUNT ];
+		this.array = new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ];
 		int ctr = 0;
-		if (slotList.length == ROW_COUNT * COL_COUNT) {
-			for (int i = 0; i < ROW_COUNT; i++) {
-				for (int j = 0; j < COL_COUNT; j++) {
+		if (slotList.length == JavaData.SLOT_COUNT) {
+			for (int i = 0; i < this.array.length; i++) {
+				for (int j = 0; j < this.array[i].length; j++) {
 					array [ i ] [ j ] = slotList [ ctr ];
 					ctr++;
 				}
@@ -51,8 +48,8 @@ public class Grid {
 	 * @throws CornerCaseException
 	 */
 	public void checkForDeads(DeadButton [ ] deads) throws CornerCaseException {
-		for (int i = 0; i < ROW_COUNT; i++) {
-			for (int j = 0; j < COL_COUNT; j++) {
+		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
 				if (array [ i ] [ j ].getChampion() == null) {
 					continue;
 				} else if (array [ i ] [ j ].getChampion().isDead()) {

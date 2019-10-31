@@ -17,9 +17,9 @@ public class JavaData {
 			"Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" , "SwordMage" };
 
 	public static final int PIXEL = 96;
-	public static final double SCALEFACTOR = 2 / 3.0;
-	public static final double BUTTONSIZESCALE = 4 / 5.0;
-	public static final double BASE = PIXEL * SCALEFACTOR * BUTTONSIZESCALE;
+	public static final double SCALE_FACTOR = 2 / 3.0;
+	public static final double BUTTON_SIZE_SCALE = 4 / 5.0;
+	public static final double BASE = PIXEL * SCALE_FACTOR * BUTTON_SIZE_SCALE;
 	public static final double [ ] sC1 = { 630 , 120 };
 	public static final double [ ] sC2 = { 630 , 445 };
 	public static final double [ ] bC = { 125 , 125 };
@@ -51,7 +51,7 @@ public class JavaData {
 			{ sC1 [ 0 ] + BASE * 1 , sC1 [ 1 ] + BASE * 3 } , SwordMageCoord ,
 			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 0 } , ChemistCoord ,
 			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 1 } , SniperCoord ,
-			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 2 } , KnightCoord , 
+			{ sC1 [ 0 ] + BASE * 2 , sC1 [ 1 ] + BASE * 2 } , KnightCoord ,
 			{ sC2 [ 0 ] + BASE * 3 , sC2 [ 1 ] + BASE * 3 } , ScreamerCoord ,
 			{ sC2 [ 0 ] + BASE * 3 , sC2 [ 1 ] + BASE * 1 } , PyromancerCoord ,
 			{ sC2 [ 0 ] + BASE * 0 , sC2 [ 1 ] + BASE * 0 } , DancerCoord ,
@@ -64,6 +64,9 @@ public class JavaData {
 
 	public static final int CAP_TURN = 4;
 	public static final int CHAMPION_COUNT = 18;
+	
+	public static final int SLOT_ROW_COUNT = 4;
+	public static final int SLOT_COL_COUNT = 5;
 	public static final int SLOT_COUNT = 20;
 
 	public static final Random random = new Random();

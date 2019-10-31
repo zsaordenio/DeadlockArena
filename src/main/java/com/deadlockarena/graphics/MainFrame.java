@@ -172,12 +172,12 @@ public class MainFrame extends JFrame {
 	public void addButtons() {
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		for (int j = 0; j < 3; j++) {
-			for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 6; i++) {
+			for (int j = 0; j < 3; j++) {
 				SelectButton sb = new SelectButton();
 				sb.setFont(JavaData.BASIC_FONT);
 				sb.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
-				selectButtons [ j * 6 + i ] = sb;
+				selectButtons [ i * 6 + j ] = sb;
 				panelWest_a.add(sb, gbc);
 				gbc.gridy += 1;
 			}
@@ -196,8 +196,8 @@ public class MainFrame extends JFrame {
 				p = panelCenter_b;
 				sL = slotButtons2;
 			}
-			for (int i = 0; i < 4; i++) {
-				for (int j = 0; j < 5; j++) {
+			for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+				for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
 					SlotButton sb = new SlotButton(player == 1 ? "bottom" : "top");
 					sb.setFont(JavaData.BASIC_FONT);
 					sb.setEnabled(false);
@@ -218,7 +218,7 @@ public class MainFrame extends JFrame {
 			this.jpaGetData = SpringUtils.jgd;
 		}
 		for (int i = 0; i < selectButtons.length; i++) {
-			this.selectButtons [ i ].populate(i, jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ]));
+			this.selectButtons [ i ].populate(jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ]));
 		}
 
 	}

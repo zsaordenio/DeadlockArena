@@ -22,7 +22,8 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				Game g = new Game();
-				g.executeFirstPhase();
+				g.executePhase1();
+				g.executePhase2();
 			}
 		});
 	}
