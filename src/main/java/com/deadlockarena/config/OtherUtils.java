@@ -14,7 +14,7 @@ import com.deadlockarena.constant.JavaData;
 
 public class OtherUtils {
 
-	public void logScreenDimensions() {
+	public static void logScreenDimensions() {
 		FileWriter writer = null;
 		try {
 			writer = new FileWriter("systemConfig.txt", true);
