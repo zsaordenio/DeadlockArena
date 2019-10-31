@@ -32,60 +32,55 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  */
 @Data
 @MappedSuperclass
-@EqualsAndHashCode(of = {"version"})
+@EqualsAndHashCode(of = { "version" })
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties({"createdAt", "createdBy", "updatedAt", "updatedBy"})
+@JsonIgnoreProperties({ "createdAt" , "createdBy" , "updatedAt" , "updatedBy" })
 public abstract class BaseEntity {
 
-    /**
-     * Sequence Style Generator to auto generate id's based on the choices in
-     * the parameters.
-     */
-    @GenericGenerator(
-            name = "DeadlockArenaSequenceGenerator",
-            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-            parameters = {
-                    @Parameter(name = "sequence_name", value = "DeadlockArenaSequence"),
-                    @Parameter(name = "initial_value", value = "1"),
-                    @Parameter(name = "increment_size", value = "1")
-            }
-    )
+	/**
+	 * Sequence Style Generator to auto generate id's based on the choices in the
+	 * parameters.
+	 */
+	@GenericGenerator(name = "DeadlockArenaSequenceGenerator", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator", parameters = {
+			@Parameter(name = "sequence_name", value = "DeadlockArenaSequence") ,
+			@Parameter(name = "initial_value", value = "1") ,
+			@Parameter(name = "increment_size", value = "1") })
 
-    @Id
-    @GeneratedValue(generator = "DeadlockArenaSequenceGenerator")
-    private Long id;
+	@Id
+	@GeneratedValue(generator = "DeadlockArenaSequenceGenerator")
+	private Long id;
 
-    /**
-     * Manages the version of Entities to measure the amount of
-     * modifications made to this entity.
-     */
-    @Version
-    @Column(name = "version")
-    private int version;
+	/**
+	 * Manages the version of Entities to measure the amount of modifications made
+	 * to this entity.
+	 */
+	@Version
+	@Column(name = "version")
+	private int version;
 
-    /**
-     * Keeps record of when an Entity wss created.
-     */
-    @CreatedDate
-    @CreationTimestamp
-    private LocalDateTime createdAt;
+	/**
+	 * Keeps record of when an Entity wss created.
+	 */
+	@CreatedDate
+	@CreationTimestamp
+	private LocalDateTime createdAt;
 
-    /**
-     * Records who updated an Entity by saving username.
-     */
-    @CreatedBy
-    private String createdBy;
+	/**
+	 * Records who updated an Entity by saving username.
+	 */
+	@CreatedBy
+	private String createdBy;
 
-    /**
-     * Keeps record of when the item was last Modified.
-     */
-    @LastModifiedDate
-    @UpdateTimestamp
-    private LocalDateTime updatedAt;
+	/**
+	 * Keeps record of when the item was last Modified.
+	 */
+	@LastModifiedDate
+	@UpdateTimestamp
+	private LocalDateTime updatedAt;
 
-    /**
-     * Manages the timestamps for each update made to an Entity.
-     */
-    @LastModifiedBy
-    private String updatedBy;
+	/**
+	 * Manages the timestamps for each update made to an Entity.
+	 */
+	@LastModifiedBy
+	private String updatedBy;
 }
