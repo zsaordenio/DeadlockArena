@@ -25,7 +25,7 @@ import com.deadlockarena.persistence.base.DeadlockArenaAuditorAware;
 public class JpaConfig {
 
   /**
-   * A bean to be served for teh AuditorAware interface.
+   * A bean to be served for the AuditorAware interface.
    *
    * @return auditorAware instance.
    */
