@@ -7,11 +7,13 @@ import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.awt.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class SelectButton extends JButton {
 	private static final long serialVersionUID = 8876199740027195332L;
 	
@@ -21,7 +23,7 @@ public class SelectButton extends JButton {
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 
-	public SelectButton(int logic, Champion champion) {
+	public void populate(int logic, Champion champion) {
 		this.selected = false;
 		this.champion = champion;
 

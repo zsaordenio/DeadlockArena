@@ -32,6 +32,7 @@ public class Game {
 	public void executeFirstPhase() {
 		this.mainFrame.addPanels();
 		this.mainFrame.addButtons();
+		this.mainFrame.populateSelectButtons();
 	}
 
 	public void evalTurns(SlotButton slot) {

@@ -14,7 +14,6 @@ import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.persistence.entity.Champion;
 import com.deadlockarena.persistence.entity.StatusBox;
 import com.deadlockarena.persistence.repository.ChampionRepository;
-import com.deadlockarena.persistence.repository.PotionInventoryRepository;
 
 @Component
 public class JavaData {

@@ -26,12 +26,12 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.deadlockarena.config.JpaGetData;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MessageProcessor;
+import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.AllArgsConstructor;
@@ -184,27 +184,16 @@ public class MainFrame extends JFrame {
 	}
 
 	public void addButtons() {
-		if (jpaGetData == null) {
-			jpaGetData = SpringUtils.ctx.getBean(JpaGetData.class);
-		}
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		for (int j = 0; j < 3; j++) {
 			for (int i = 0; i < 6; i++) {
-				try {
-					SelectButton sb = new SelectButton(j,
-							jpaGetData.evalChampion(JavaData.CHAMPIONS [ j * 6 + i ]));
-					sb.setFont(JavaData.BASIC_FONT);
-					sb.setPreferredSize(
-							new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
-
-					selectButtons [ j * 6 + i ] = sb;
-					panelWest_a.add(sb, gbc);
-					gbc.gridy += 1;
-				} catch (CornerCaseException e) {
-					e.printStackTrace();
-				}
-
+				SelectButton sb = new SelectButton();
+				sb.setFont(JavaData.BASIC_FONT);
+				sb.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
+				selectButtons [ j * 6 + i ] = sb;
+				panelWest_a.add(sb, gbc);
+				gbc.gridy += 1;
 			}
 			gbc.gridx++;
 			gbc.gridy = 0;
@@ -236,6 +225,16 @@ public class MainFrame extends JFrame {
 				gbc.gridx = 0;
 			}
 		}
+	}
+
+	public void populateSelectButtons() {
+		if (this.jpaGetData == null) {
+			this.jpaGetData = SpringUtils.jgd;
+		}
+		for (int i = 0; i < selectButtons.length; i++) {
+			this.selectButtons [ i ].populate(i, jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ]));
+		}
+
 	}
 
 	public void setPanelEast(SlotButton sB, int player) {
