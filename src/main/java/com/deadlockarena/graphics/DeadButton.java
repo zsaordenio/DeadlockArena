@@ -18,7 +18,7 @@ public class DeadButton extends JButton {
 	static final long serialVersionUID = -1629109863348198757L;
 	private Champion champion;
 
-	DeadButton() {
+	public DeadButton() {
 		super();
 		ImageIcon ic = new ImageIcon("pics/DefaultIcon.png ");
 		Image img = ic.getImage();

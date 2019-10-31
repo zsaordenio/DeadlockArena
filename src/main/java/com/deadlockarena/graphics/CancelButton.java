@@ -15,10 +15,8 @@ import java.awt.event.MouseListener;
 public class CancelButton extends JButton {
 	private static final long serialVersionUID = 4505212405863517256L;
 
-	private MainFrame aPF;
 	
 	public CancelButton(MainFrame aPF) {
-		this.aPF = aPF;
 		addMouseListener(mL1);
 		setFont(JavaData.BASIC_FONT);
 	}

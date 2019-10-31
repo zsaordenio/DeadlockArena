@@ -23,9 +23,8 @@ public class PotionButton extends JButton {
 	private JLabel jl;
 	private boolean cp;
 	private SlotButton sB;
-	private MainFrame aPF;
 
-	PotionButton(ImageIcon ic, boolean cp, MainFrame aPF) {
+	public PotionButton(ImageIcon ic, boolean cp, MainFrame aPF) {
 		super(ic);
 		jl = new JLabel();
 		jl.setForeground(JavaData.DEFAULT_BACKGROUND);
@@ -42,7 +41,7 @@ public class PotionButton extends JButton {
 		setDisabledIcon(ic);
 	}
 
-	void onchampion(SlotButton sB) {
+	public void onChampion(SlotButton sB) {
 		setEnabled(true);
 		this.sB = sB;
 		if (cp)
@@ -51,19 +50,12 @@ public class PotionButton extends JButton {
 			jl.setText("" + sB.getChampion().getPotionInventory().getMpPotions().size());
 	}
 
-	void offchampion() {
+	public void offchampion() {
 		setEnabled(false);
 		sB = null;
 		jl.setText("");
 	}
 
-	JLabel getJl() {
-		return jl;
-	}
-
-	SlotButton getSB() {
-		return sB;
-	}
 
 	private MouseListener mL = new MouseAdapter() {
         public void mousePressed(MouseEvent e) {
@@ -78,12 +70,12 @@ public class PotionButton extends JButton {
             else
                 jl.setText("" + c.getPotionInventory().getMpPotions().size());
 
-            aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-            aPF.getMP().generateMessage(aPF.getMessages(), c, info[0], info[1], cp);
-            aPF.setPanelEast(sB, aPF.getPlayer());
-            aPF.resetListeners();
-            aPF.clearAllBorders();
-            aPF.evalTurns();
+//            aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
+//            aPF.getMP().generateMessage(aPF.getMessages(), c, info[0], info[1], cp);
+//            aPF.setPanelEast(sB, aPF.getPlayer());
+//            aPF.resetListeners();
+//            aPF.clearAllBorders();
+//            aPF.evalTurns();
         }
     };
 }

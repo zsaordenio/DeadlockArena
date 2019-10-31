@@ -30,10 +30,10 @@ public class SlotButton extends JButton {
 
 	private Coordinate coordinate;
 	private String position;
-	
+
 	private boolean selected;
 	private Champion champion;
-	
+
 	private JpaGetData jpaGetData;
 
 	private JLabel championLabel, championPicture;
@@ -128,7 +128,7 @@ public class SlotButton extends JButton {
 				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
-				arr = aPF.getPlayer() == 1? g.getArray1() : g.getArray2();
+				arr = aPF.getPlayer() == 1 ? g.getArray1() : g.getArray2();
 				try {
 					if (arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].getChampion() == null)
 						arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.MOVE_BORDER);
@@ -170,7 +170,7 @@ public class SlotButton extends JButton {
 				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
-				arr = aPF.getPlayer() == 1? g.array1 : g.array2;
+				arr = aPF.getPlayer() == 1 ? g.array1 : g.array2;
 				try {
 					arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.DEFAULT_BORDER);
 				} catch (Exception exc) {
@@ -238,8 +238,8 @@ public class SlotButton extends JButton {
 					dir = "right";
 
 				aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-				//error prone?
-			//	aPF.getMP().generateMessage(aPF.getMessages(), SlotButton.this, dir);
+				// error prone?
+				// aPF.getMP().generateMessage(aPF.getMessages(), SlotButton.this, dir);
 				aPF.resetListeners();
 				aPF.clearAllBorders();
 				aPF.evalTurns();
@@ -297,7 +297,7 @@ public class SlotButton extends JButton {
 		public void mouseExited(MouseEvent e) {
 			if (aPF.getSlot() != null && side == aPF.getPlayer())
 				return;
-			aPF.clearSkillButtons(aPF.getPlayer()); //error prone 
+			aPF.clearSkillButtons(aPF.getPlayer()); // error prone
 			aPF.clearPanelEast(side);
 		}
 
@@ -317,34 +317,42 @@ public class SlotButton extends JButton {
 	void switchFunctionality() {
 		removeMouseListener(mL1);
 		addMouseListener(mL5);
-		if (champion != null)
+		if (champion != null) {
 			addMouseListener(mL2);
+		}
 	}
 
-	void alterMouseAdapter0_4() {
-		if (getMouseListeners().length == 2)
+	public void alterMouseAdapter0_4() {
+		if (getMouseListeners().length == 2) {
 			addMouseListener(mL4);
-		else if (getMouseListeners() [ 2 ].equals(mL4))
+		}
+		else if (getMouseListeners() [ 2 ].equals(mL4)) {
 			removeMouseListener(mL4);
+		}
 	}
 
 	void alterMouseAdapter0_3() {
-		if (getMouseListeners().length == 2)
+		if (getMouseListeners().length == 2) {
 			addMouseListener(mL3);
-		else if (getMouseListeners() [ 2 ].equals(mL3))
+		}
+		else if (getMouseListeners() [ 2 ].equals(mL3)) {
 			removeMouseListener(mL3);
+		}
 	}
 
 	void alterMouseAdapter0_2() {
-		if (getMouseListeners().length == 2)
+		if (getMouseListeners().length == 2) {
 			addMouseListener(mL2);
-		else if (getMouseListeners() [ 2 ].equals(mL2))
+		}
+		else if (getMouseListeners() [ 2 ].equals(mL2)) {
 			removeMouseListener(mL2);
+		}
 	}
 
 	void alterMouseAdapter2_4() {
-		if (getMouseListeners().length == 2)
+		if (getMouseListeners().length == 2) {
 			addMouseListener(mL4);
+		}
 		else if (getMouseListeners() [ 2 ].equals(mL2)) {
 			removeMouseListener(mL2);
 			addMouseListener(mL4);
@@ -356,50 +364,30 @@ public class SlotButton extends JButton {
 
 	public void setSkillButtons() {
 		Champion localchampion;
-		if (champion == null)
+		if (champion == null) {
 			return;
-		else if (aPF.getSlot() == null && champion != null
-				|| aPF.getSlot() != null && side != aPF.getPlayer())
+		} else if (aPF.getSlot() == null && champion != null
+				|| aPF.getSlot() != null && side != aPF.getPlayer()) {
 			localchampion = champion;
-		else if (aPF.getSlot() != null && aPF.getSlot().getSide() == aPF.getPlayer())
+		} else if (aPF.getSlot() != null && aPF.getSlot().getSide() == aPF.getPlayer()) {
 			localchampion = aPF.getSlot().getChampion();
-		else
+		} else {
 			return;
+		}
 
-		if (side == 2)
-			for (int i = 0; i < aPF.getSkillButtons2().length; i++)
+		if (side == 2) {
+			for (int i = 0; i < aPF.getSkillButtons2().length; i++) {
 				aPF.getSkillButtons2() [ i ].setSkillButton(
 						"pics/" + localchampion + "IconS" + (i + 1) + ".png",
 						1 - localchampion.evalFraction(i));
-		else
-			for (int i = 0; i < aPF.getSkillButtons1().length; i++)
+			}
+		} else {
+			for (int i = 0; i < aPF.getSkillButtons1().length; i++) {
 				aPF.getSkillButtons1() [ i ].setSkillButton(
 						"pics/" + localchampion + "IconS" + (i + 1) + ".png",
 						1 - localchampion.evalFraction(i));
-	}
-
-	void setchampionLabel(JLabel championLabel) {
-		this.championLabel = championLabel;
-		if (championLabel == null)
-			return;
-		add(championLabel);
-	}
-
-	JLabel getchampionPicture() {
-		return championPicture;
-	}
-
-	void setchampionPicture(JLabel championPicture) {
-		this.championPicture = championPicture;
-		if (championPicture == null)
-			return;
-		add(championPicture);
-	}
-
-	void setImage(ImageIcon ic) {
-		if (ic == null)
-			return;
-		championPicture.setIcon(ic);
+			}
+		}
 	}
 
 }

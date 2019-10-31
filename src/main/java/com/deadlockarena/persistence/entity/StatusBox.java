@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode
 @NoArgsConstructor
 public class StatusBox implements Serializable {
 	private static final long serialVersionUID = -9091165808780653117L;

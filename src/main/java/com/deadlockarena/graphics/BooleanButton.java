@@ -19,7 +19,7 @@ import java.awt.event.MouseListener;
 @EqualsAndHashCode(callSuper = true)
 public class BooleanButton extends JButton {
 	private static final long serialVersionUID = -4636335771363956811L;
-	
+
 	private String fileName;
 	private boolean on;
 
@@ -59,7 +59,7 @@ public class BooleanButton extends JButton {
 								JavaData.PIXEL / 2, JavaData.PIXEL / 2, Image.SCALE_SMOOTH)));
 
 			bb.invert();
-			//evalFunctionality();
+			// evalFunctionality();
 		}
 	};
 

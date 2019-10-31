@@ -21,7 +21,7 @@ public class SelectButton extends JButton {
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 
-	SelectButton(int logic, Champion champion) {
+	public SelectButton(int logic, Champion champion) {
 		this.selected = false;
 		this.champion = champion;
 
@@ -116,7 +116,7 @@ public class SelectButton extends JButton {
 		setBackground(color);
 	}*/
 
-	void setImage(ImageIcon ic) {
+	public void setImage(ImageIcon ic) {
 		championPicture.setIcon(ic);
 	}
 }

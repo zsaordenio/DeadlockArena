@@ -125,23 +125,23 @@ public class Champion implements Serializable {
 
 	public int [ ] drinkPotion(boolean hp) {
 		if (hp) {
-			List<HpPotion> inv = potionInventory.getHpPotions();
-			if (inv.isEmpty())
+			if (potionInventory.getHpPotions().isEmpty()) {
 				return null;
-			HpPotion p = inv.get(0);
-			int amountRecovered = p.getRecovery();
-			currentHp = currentHp + amountRecovered >= maxHp ? maxHp : currentHp + amountRecovered;
-			inv.remove(0);
-			return new int [ ] { amountRecovered , currentHp };
+			}
+			HpPotion p = potionInventory.getHpPotions().get(0);
+			this.currentHp = currentHp + p.getRecovery() >= maxHp ? maxHp
+					: currentHp + p.getRecovery();
+			potionInventory.getHpPotions().remove(0);
+			return new int [ ] { p.getRecovery() , currentHp };
 		} else {
-			List<MpPotion> inv = potionInventory.getMpPotions();
-			if (inv.isEmpty())
+			if (potionInventory.getMpPotions().isEmpty()) {
 				return null;
-			MpPotion p = inv.get(0);
-			int amountRecovered = p.getRecovery();
-			currentMp = currentMp + amountRecovered >= maxMp ? maxMp : currentMp + amountRecovered;
-			inv.remove(0);
-			return new int [ ] { amountRecovered , currentMp };
+			}
+			MpPotion p = potionInventory.getMpPotions().get(0);
+			this.currentMp = currentMp + p.getRecovery() >= maxMp ? maxMp
+					: currentMp + p.getRecovery();
+			potionInventory.getHpPotions().remove(0);
+			return new int [ ] { p.getRecovery() , currentMp };
 		}
 	}
 
@@ -155,21 +155,23 @@ public class Champion implements Serializable {
 		int finalDamage;
 		if (!dodged) {
 			finalDamage = damage - target.getDefense();
-			if (critical)
+			if (critical) {
 				finalDamage *= 2;
-			if (finalDamage < 0) // handles negative damages
+			}
+			if (finalDamage < 0) { // handles negative damages
 				finalDamage = 0;
-			target.setCurrentHp(target.getCurrentHp() - finalDamage);
-			aPF.getGrid().checkForDeads(aPF);
-			aPF.getAAS().shakeButton(targetButton);
-			aPF.getAAS().playSound("melee");
-			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-			aPF.getMP().generateMessage(aPF.getMessages(), this, target, new int [ ] { finalDamage },
-					new boolean [ ] { critical });
+			}
+//			target.setCurrentHp(target.getCurrentHp() - finalDamage);
+//			aPF.getGrid().checkForDeads(aPF);
+//			aPF.getAAS().shakeButton(targetButton);
+//			aPF.getAAS().playSound("melee");
+//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
+//			aPF.getMP().generateMessage(aPF.getMessages(), this, target,
+//					new int [ ] { finalDamage }, new boolean [ ] { critical });
 		} else {
-			aPF.getAAS().playSound("dodge");
-			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-			aPF.getMP().generateMessage(aPF.getMessages(), this, target);
+//			aPF.getAAS().playSound("dodge");
+//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
+//			aPF.getMP().generateMessage(aPF.getMessages(), this, target);
 		}
 
 	}
@@ -187,19 +189,20 @@ public class Champion implements Serializable {
 	}
 
 	public String evalColor() {
-		double hpRatio = (double) currentHp / maxHp;
-		if (hpRatio <= .25)
+		if ((double) currentHp / maxHp <= .25) {
 			return "red";
-		else if (hpRatio <= .50)
+		} else if ((double) currentHp / maxHp <= .50) {
 			return "yellow";
-		else
+		} else {
 			return "white";
+		}
 	}
 
 	public boolean isDead() {
-		if (currentHp < 0)
+		if (currentHp < 0) {
 			currentHp = 0;
-		return currentHp <= 0;
+		}
+		return currentHp == 0;
 	}
 
 	public double evalFraction(int i) {
