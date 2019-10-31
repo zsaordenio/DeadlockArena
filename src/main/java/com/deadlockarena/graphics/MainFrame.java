@@ -41,7 +41,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Component
 public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -8478413270802946942L;
