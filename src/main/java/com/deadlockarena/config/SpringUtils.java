@@ -16,8 +16,8 @@ public class SpringUtils {
 	 * and save it on a static variable,
 	 * so that it can be accessed from any point in the application.
 	 */
-	@Autowired
-	private void setApplicationContext(ApplicationContext applicationContext) {
-		ctx = applicationContext;
-	}
+//	@Autowired
+//	private void setApplicationContext(ApplicationContext applicationContext) {
+//		ctx = applicationContext;
+//	}
 }

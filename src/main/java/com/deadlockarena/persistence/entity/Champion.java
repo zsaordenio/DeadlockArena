@@ -145,7 +145,7 @@ public class Champion implements Serializable {
 		}
 	}
 
-	public void attack(MainFrame aPF, SlotButton targetButton) {
+	public void attack(MainFrame mainFrame, SlotButton targetButton) {
 		Champion target = targetButton.getChampion();
 		int damage = calculateNextDamage();
 
@@ -162,16 +162,16 @@ public class Champion implements Serializable {
 				finalDamage = 0;
 			}
 //			target.setCurrentHp(target.getCurrentHp() - finalDamage);
-//			aPF.getGrid().checkForDeads(aPF);
-//			aPF.getAAS().shakeButton(targetButton);
-//			aPF.getAAS().playSound("melee");
-//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-//			aPF.getMP().generateMessage(aPF.getMessages(), this, target,
+//			mainFrame.getGrid().checkForDeads(mainFrame);
+//			mainFrame.getAAS().shakeButton(targetButton);
+//			mainFrame.getAAS().playSound("melee");
+//			mainFrame.getMP().generateMove(mainFrame.getMessages(), mainFrame.getMove());
+//			mainFrame.getMP().generateMessage(mainFrame.getMessages(), this, target,
 //					new int [ ] { finalDamage }, new boolean [ ] { critical });
 		} else {
-//			aPF.getAAS().playSound("dodge");
-//			aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-//			aPF.getMP().generateMessage(aPF.getMessages(), this, target);
+//			mainFrame.getAAS().playSound("dodge");
+//			mainFrame.getMP().generateMove(mainFrame.getMessages(), mainFrame.getMove());
+//			mainFrame.getMP().generateMessage(mainFrame.getMessages(), this, target);
 		}
 
 	}

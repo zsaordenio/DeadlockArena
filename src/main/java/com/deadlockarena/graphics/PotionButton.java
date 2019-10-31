@@ -24,7 +24,7 @@ public class PotionButton extends JButton {
 	private boolean cp;
 	private SlotButton sB;
 
-	public PotionButton(ImageIcon ic, boolean cp, MainFrame aPF) {
+	public PotionButton(ImageIcon ic, boolean cp, MainFrame mainFrame) {
 		super(ic);
 		jl = new JLabel();
 		jl.setForeground(JavaData.DEFAULT_BACKGROUND);
@@ -70,12 +70,12 @@ public class PotionButton extends JButton {
             else
                 jl.setText("" + c.getPotionInventory().getMpPotions().size());
 
-//            aPF.getMP().generateMove(aPF.getMessages(), aPF.getMove());
-//            aPF.getMP().generateMessage(aPF.getMessages(), c, info[0], info[1], cp);
-//            aPF.setPanelEast(sB, aPF.getPlayer());
-//            aPF.resetListeners();
-//            aPF.clearAllBorders();
-//            aPF.evalTurns();
+//            mainFrame.getMP().generateMove(mainFrame.getMessages(), mainFrame.getMove());
+//            mainFrame.getMP().generateMessage(mainFrame.getMessages(), c, info[0], info[1], cp);
+//            mainFrame.setPanelEast(sB, mainFrame.getPlayer());
+//            mainFrame.resetListeners();
+//            mainFrame.clearAllBorders();
+//            mainFrame.evalTurns();
         }
     };
 }

@@ -20,14 +20,10 @@ public class DeadButton extends JButton {
 
 	public DeadButton() {
 		super();
-		ImageIcon ic = new ImageIcon("pics/DefaultIcon.png ");
-		Image img = ic.getImage();
-		Image newImg = img.getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2,
-				Image.SCALE_SMOOTH);
-		ic = new ImageIcon(newImg);
-
+		Image newImg = new ImageIcon("pics/DefaultIcon.png ").getImage()
+				.getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2, Image.SCALE_SMOOTH);
 		setPreferredSize(new Dimension(JavaData.PIXEL / 2, JavaData.PIXEL / 2));
-		setIcon(ic);
+		setIcon(new ImageIcon(newImg));
 		this.champion = null;
 	}
 

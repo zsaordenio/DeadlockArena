@@ -41,7 +41,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 @Component
 public class MainFrame extends JFrame {
 
@@ -54,8 +53,7 @@ public class MainFrame extends JFrame {
 	private GridBagConstraints gbc;
 
 	private SelectButton [ ] selectButtons;
-	private SlotButton [ ] slotButtons1;
-	private SlotButton [ ] slotButtons2;
+	private SlotButton [ ] slotButtons1, slotButtons2;
 	private Stack<JButton [ ]> orderList;
 
 	// TO-DO make the panels their own class
@@ -87,15 +85,13 @@ public class MainFrame extends JFrame {
 	private SelectButton current;
 	private SlotButton slot;
 
-	public void creation() {
+	public MainFrame() {
 		super.setTitle("Deadlock Arena");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(new BorderLayout());
 		super.setPreferredSize(new Dimension(1700, 1000));
 		super.setVisible(true);
-	}
 
-	public void initFields() {
 		this.gbc = new GridBagConstraints();
 		this.aAS = new AnimationAndSound();
 		this.selectButtons = new SelectButton [ JavaData.CHAMPION_COUNT ];
@@ -216,7 +212,7 @@ public class MainFrame extends JFrame {
 		}
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		for (int player = 1; player < 3; player++) {
+		for (int player = 1; player <= 2; player++) {
 			JPanel p;
 			SlotButton [ ] sL;
 			if (player == 1) {
@@ -228,7 +224,7 @@ public class MainFrame extends JFrame {
 			}
 			for (int i = 0; i < 4; i++) {
 				for (int j = 0; j < 5; j++) {
-					SlotButton sb = new SlotButton(player);
+					SlotButton sb = new SlotButton(player == 1 ? "bottom" : "top");
 					sb.setFont(JavaData.BASIC_FONT);
 					sb.setEnabled(false);
 					sb.setPreferredSize(
@@ -297,39 +293,44 @@ public class MainFrame extends JFrame {
 
 	public void updateButtonPictures() {
 		for (SelectButton sB : selectButtons) {
-			if (sB.isEnabled())
-				sB.setImage(sB.getNormalImage());
-			else
-				sB.setImage(sB.getGrayedImage());
+			if (sB.isEnabled()) {
+				sB.setIcon(sB.getNormalImage());
+			} else {
+				sB.setIcon(sB.getGrayedImage());
+			}
 		}
 		for (SlotButton sB : slotButtons1) {
-			if (sB.isEnabled())
-				sB.setImage(sB.getNormalImage());
-			else
-				sB.setImage(sB.getGrayedImage());
+			if (sB.isEnabled()) {
+				sB.setIcon(sB.getNormalImage());
+			} else {
+				sB.setIcon(sB.getGrayedImage());
+			}
 		}
 		for (SlotButton sB : slotButtons2) {
-			if (sB.isEnabled())
-				sB.setImage(sB.getNormalImage());
-			else
-				sB.setImage(sB.getGrayedImage());
+			if (sB.isEnabled()) {
+				sB.setIcon(sB.getNormalImage());
+			} else {
+				sB.setIcon(sB.getGrayedImage());
+			}
 		}
 	}
 
-	public void evenAllListeners() {
-		for (SlotButton currentButton : slotButtons1) {
-			for (int i = 2; i < currentButton.getMouseListeners().length; i++)
-				currentButton.removeMouseListener(currentButton.getMouseListeners() [ i ]);
-			if (currentButton.getChampion() != null)
-				currentButton.addMouseListener(currentButton.getML2());
-		}
-		for (SlotButton currentButton : slotButtons2) {
-			for (int i = 2; i < currentButton.getMouseListeners().length; i++)
-				currentButton.removeMouseListener(currentButton.getMouseListeners() [ i ]);
-			if (currentButton.getChampion() != null)
-				currentButton.addMouseListener(currentButton.getML2());
-		}
-	}
+//	public void evenAllListeners() {
+//		for (SlotButton currentButton : slotButtons1) {
+//			for (int i = 2; i < currentButton.getMouseListeners().length; i++)
+//				currentButton.removeMouseListener(currentButton.getMouseListeners() [ i ]);
+//			if (currentButton.getChampion() != null) {
+//				currentButton.addMouseListener(currentButton.getML2());
+//			}
+//		}
+//		for (SlotButton currentButton : slotButtons2) {
+//			for (int i = 2; i < currentButton.getMouseListeners().length; i++)
+//				currentButton.removeMouseListener(currentButton.getMouseListeners() [ i ]);
+//			if (currentButton.getChampion() != null) {
+//				currentButton.addMouseListener(currentButton.getML2());
+//			}
+//		}
+//	}
 
 	public void clearAllBorders() {
 		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
@@ -338,29 +339,33 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void resetListeners() {
-		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
-			if (slotButtons1 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
-				if (slotButtons1 [ i ].getChampion() == null)
-					slotButtons1 [ i ].alterMouseAdapter0_3();
-				else
-					slotButtons1 [ i ].alterMouseAdapter0_2();
-			} else if (slotButtons1 [ i ].getBorder().equals(JavaData.ATTACK_BORDER))
-				slotButtons1 [ i ].alterMouseAdapter2_4();
-			else if (slotButtons1 [ i ].getChampion() != null)
-				slotButtons1 [ i ].alterMouseAdapter0_2();
-			// ---------------------------------------------------------------
-			if (slotButtons2 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
-				if (slotButtons2 [ i ].getChampion() != null)
-					slotButtons2 [ i ].alterMouseAdapter0_2();
-				else
-					slotButtons2 [ i ].alterMouseAdapter0_3();
-			} else if (slotButtons2 [ i ].getBorder().equals(JavaData.ATTACK_BORDER))
-				slotButtons2 [ i ].alterMouseAdapter2_4();
-			else if (slotButtons2 [ i ].getChampion() != null)
-				slotButtons2 [ i ].alterMouseAdapter0_2();
-		}
-	}
+//	public void resetListeners() {
+//		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
+//			if (slotButtons1 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
+//				if (slotButtons1 [ i ].getChampion() == null) {
+//					slotButtons1 [ i ].alterMouseAdapter0_3();
+//				} else {
+//					slotButtons1 [ i ].alterMouseAdapter0_2();
+//				}
+//			} else if (slotButtons1 [ i ].getBorder().equals(JavaData.ATTACK_BORDER)) {
+//				slotButtons1 [ i ].alterMouseAdapter2_4();
+//			} else if (slotButtons1 [ i ].getChampion() != null) {
+//				slotButtons1 [ i ].alterMouseAdapter0_2();
+//			}
+//			// ---------------------------------------------------------------
+//			if (slotButtons2 [ i ].getBorder().equals(JavaData.MOVE_BORDER)) {
+//				if (slotButtons2 [ i ].getChampion() != null) {
+//					slotButtons2 [ i ].alterMouseAdapter0_2();
+//				} else {
+//					slotButtons2 [ i ].alterMouseAdapter0_3();
+//				}
+//			} else if (slotButtons2 [ i ].getBorder().equals(JavaData.ATTACK_BORDER)) {
+//				slotButtons2 [ i ].alterMouseAdapter2_4();
+//			} else if (slotButtons2 [ i ].getChampion() != null) {
+//				slotButtons2 [ i ].alterMouseAdapter0_2();
+//			}
+//		}
+//	}
 
 	public void disableAll(int player) {
 		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {

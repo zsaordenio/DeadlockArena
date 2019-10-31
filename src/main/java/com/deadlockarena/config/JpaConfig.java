@@ -20,8 +20,8 @@ import com.deadlockarena.persistence.base.DeadlockArenaAuditorAware;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-@EntityScan(basePackages = "com.deadlockarena.backend.persistence.domain")
-@EnableJpaRepositories(basePackages = "com.deadlockarena.backend.persistence.repository")
+@EntityScan(basePackages = "com.deadlockarena.persistence.entity")
+@EnableJpaRepositories(basePackages = "com.deadlockarena.persistence.repository")
 public class JpaConfig {
 
   /**

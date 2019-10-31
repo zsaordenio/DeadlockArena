@@ -85,12 +85,12 @@ public class Grid {
 		sB.setBackground(JavaData.DEFAULT_BACKGROUND);
 		sB.removeAll();
 		sB.setChampion(null);
-		sB.removeMouseListener(sB.getML2());
-		sB.removeMouseListener(sB.getML4());
+//		sB.removeMouseListener(sB.getML2());
+//		sB.removeMouseListener(sB.getML4());
 
-//		aPF.clearSkillButtons(aPF.getPlayer()); // error prone
-//		aPF.clearPanelEast(aPF.getPlayer()); // error prone?
-//		aPF.setSlot(null);
+//		mainFrame.clearSkillButtons(mainFrame.getPlayer()); // error prone
+//		mainFrame.clearPanelEast(mainFrame.getPlayer()); // error prone?
+//		mainFrame.setSlot(null);
 	}
 
 	/**

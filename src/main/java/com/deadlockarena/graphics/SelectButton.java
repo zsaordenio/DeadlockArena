@@ -116,7 +116,5 @@ public class SelectButton extends JButton {
 		setBackground(color);
 	}*/
 
-	public void setImage(ImageIcon ic) {
-		championPicture.setIcon(ic);
-	}
+
 }

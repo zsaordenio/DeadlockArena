@@ -77,7 +77,7 @@ public class JavaData {
 
 	public static final LineBorder MOVE_BORDER = new LineBorder(Color.blue, 5);
 	public static final LineBorder ATTACK_BORDER = new LineBorder(Color.red, 5);
-	public static final LineBorder DEFAULT_BORDER = (LineBorder) UIManager.getBorder("Button.border");
+	public static final Border DEFAULT_BORDER = UIManager.getBorder("Button.border");
 	
 	public static final Color DEFAULT_BACKGROUND = Color.black;
 	public static final Color DEFAULT_BUTTON_BACKGROUND = new JButton().getBackground();

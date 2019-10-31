@@ -23,6 +23,10 @@ public class Game {
 	public Game() {
 		this.mainLogic = new MainLogic();
 		this.mainFrame = new MainFrame();
+		this.player = 1;
+		this.totalCount = 0;
+		this.move = 0;
+		this.currentCap = 1;
 	}
 
 	public void executeFirstPhase() {

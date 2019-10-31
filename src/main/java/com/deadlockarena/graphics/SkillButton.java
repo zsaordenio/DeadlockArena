@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -22,32 +23,32 @@ public class SkillButton extends JButton {
 	private BufferedImage gray;
 	private double fraction;
 
-	SkillButton() {
+	public SkillButton() {
 		setBackground(JavaData.DEFAULT_BACKGROUND);
 		try {
-			gray = ImageIO.read(new File("pics/gray.png"));
-		} catch (Exception exc) {
-			exc.printStackTrace();
+			this.gray = ImageIO.read(new File("pics/gray.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
-	void setSkillButton(String filename, double fraction) {
+	public void setSkillButton(String filename, double fraction) {
 		if (filename == null) {
-			color = null;
+			this.color = null;
 			repaint();
 			return;
 		}
+		this.fraction = fraction;
 		try {
-			this.fraction = fraction;
 			color = ImageIO.read(new File(filename));
-			repaint();
-		} catch (Exception exc) {
-			exc.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		repaint();
 	}
 
 	@Override
-	protected void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g) {
 		if (color == null) {
 			super.paintComponent(g);
 			return;
@@ -58,7 +59,7 @@ public class SkillButton extends JButton {
 		g2d.dispose();
 	}
 
-	BufferedImage maskedEffect() {
+	public BufferedImage maskedEffect() {
 		int width = color.getWidth();
 		int height = color.getHeight();
 		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);

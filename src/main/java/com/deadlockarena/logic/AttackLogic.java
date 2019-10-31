@@ -13,7 +13,6 @@ import lombok.Data;
 @Data
 public class AttackLogic {
 
-	private MainFrame aPF;
 	private List<SlotButton> targets = new ArrayList<>();
 
 	/**
@@ -120,15 +119,15 @@ public class AttackLogic {
 	 * @param targetButton - button of target to attack.
 	 * @return whether or not the attack was executed.
 	 */
-	public boolean attack(SlotButton targetButton) {
-		if (aPF.getSlot() == null) {
-			// handles case: When user drinks potion, turn is up, attempts to
-			// attack other player
-			aPF.evenAllListeners();
-			return false;
-		}
-		aPF.getSlot().getChampion().attack(aPF, targetButton);
-		return true;
-	}
+//	public boolean attack(SlotButton targetButton) {
+//		if (mainFrame.getSlot() == null) {
+//			// handles case: When user drinks potion, turn is up, attempts to
+//			// attack other player
+//			mainFrame.evenAllListeners();
+//			return false;
+//		}
+//		mainFrame.getSlot().getChampion().attack(mainFrame, targetButton);
+//		return true;
+//	}
 
 }

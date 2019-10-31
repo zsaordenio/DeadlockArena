@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class MainLogic {
+
 	private StanceLogic stanceLogic;
 	private AttackLogic attackLogic;
 	private Grid grid1;
@@ -23,26 +24,28 @@ public class MainLogic {
 		for (int i = 0; i < JavaData.SLOT_COUNT; i++) {
 			// TO-DO based on player
 			if (player == 2) {
-				if (slotButtons1 [ i ].getChampion() != null)
-					slotButtons1 [ i ].alterMouseAdapter0_4();
+				if (slotButtons1 [ i ].getChampion() != null) {
+				//	slotButtons1 [ i ].alterMouseAdapter0_4();
+				}
 				slotButtons2 [ i ].setEnabled(false);
 				slotButtons1 [ i ].setEnabled(true);
 			} else {
-				if (slotButtons2 [ i ].getChampion() != null)
-					slotButtons2 [ i ].alterMouseAdapter0_4();
+				if (slotButtons2 [ i ].getChampion() != null) {
+				//	slotButtons2 [ i ].alterMouseAdapter0_4();
+				}
 				slotButtons2 [ i ].setEnabled(true);
 				slotButtons1 [ i ].setEnabled(false);
 			}
 		}
 		this.messageProcessor.endTurn(messages);
 
-		switchPlayerLabel();
+		// switchPlayerLabel();
 		this.messageProcessor.nextPlayer(messages, player);
 	}
 
 	public void updateAllCoolDowns(SlotButton [ ] slotButtons) {
 		// TO-DO based on player
-		for (int i = 0; i < slotButtons.length; i++)
+		for (int i = 0; i < slotButtons.length; i++) {
 			if (slotButtons [ i ].getChampion() != null) {
 				Champion h = slotButtons [ i ].getChampion();
 				h.setCurrentSkill1CD(h.getCurrentSkill1CD() - 1);
@@ -51,5 +54,6 @@ public class MainLogic {
 				h.setCurrentSkill4CD(h.getCurrentSkill4CD() - 1);
 				h.setCurrentSkill5CD(h.getCurrentSkill5CD() - 1);
 			}
+		}
 	}
 }
