@@ -23,9 +23,9 @@ public class PotionButton extends JButton {
 	private JLabel jl;
 	private boolean cp;
 	private SlotButton sB;
-	private AppPrincipalFrame aPF;
+	private MainFrame aPF;
 
-	PotionButton(ImageIcon ic, boolean cp, AppPrincipalFrame aPF) {
+	PotionButton(ImageIcon ic, boolean cp, MainFrame aPF) {
 		super(ic);
 		jl = new JLabel();
 		jl.setForeground(JavaData.DEFAULT_BACKGROUND);

@@ -1,64 +1,80 @@
 package com.deadlockarena.logic;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.RemainderException;
-import com.deadlockarena.graphics.AppPrincipalFrame;
+import com.deadlockarena.exception.CornerCaseException;
+import com.deadlockarena.exception.UnmatchedSizeException;
+import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.DeadButton;
 import com.deadlockarena.graphics.SlotButton;
 import com.deadlockarena.persistence.entity.Champion;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
-@Getter
-@Setter
-@EqualsAndHashCode
+@Data
+@AllArgsConstructor
 public class Grid {
 
-	public SlotButton [ ] [ ] array1;
-	public SlotButton [ ] [ ] array2;
+	@NonNull
+	private SlotButton [ ] [ ] array;
 
-	// Fill in the 2D champion array
-	public Grid(SlotButton [ ] slotList1, SlotButton [ ] slotList2) {
-		array1 = new SlotButton [ 4 ] [ 5 ];
-		array2 = new SlotButton [ 4 ] [ 5 ];
+	@NonNull
+	private String position;
+
+	private static final int ROW_COUNT = 4;
+	private static final int COL_COUNT = 5;
+
+	/**
+	 * Fill in the 2D champion array
+	 * 
+	 * @param slotList 1D champion array
+	 * @throws UnmatchedSizeException
+	 */
+	public Grid(SlotButton [ ] slotList) throws UnmatchedSizeException {
+		this.array = new SlotButton [ ROW_COUNT ] [ COL_COUNT ];
 		int ctr = 0;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 5; j++) {
-				array1 [ i ] [ j ] = slotList1 [ ctr ];
-				array2 [ i ] [ j ] = slotList2 [ ctr ];
-				ctr++;
+		if (slotList.length == ROW_COUNT * COL_COUNT) {
+			for (int i = 0; i < ROW_COUNT; i++) {
+				for (int j = 0; j < COL_COUNT; j++) {
+					array [ i ] [ j ] = slotList [ ctr ];
+					ctr++;
+				}
+			}
+		} else {
+			throw new UnmatchedSizeException("Grid cannot be instantiated with slotList's size");
+		}
+	}
+
+	/**
+	 * 
+	 * @param deads - list of dead champion buttons
+	 * @throws CornerCaseException
+	 */
+	public void checkForDeads(DeadButton [ ] deads) throws CornerCaseException {
+		for (int i = 0; i < ROW_COUNT; i++) {
+			for (int j = 0; j < COL_COUNT; j++) {
+				if (array [ i ] [ j ].getChampion() == null) {
+					continue;
+				} else if (array [ i ] [ j ].getChampion().isDead()) {
+					transferchampion(array [ i ] [ j ], deads);
+				} else {
+					throw new CornerCaseException("checkForDeads() in Grid.class");
+				}
 			}
 		}
 	}
 
-	public void checkForDeads(AppPrincipalFrame aPF) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (array1 [ i ] [ j ].getChampion() == null)
-					continue;
-				else if (array1 [ i ] [ j ].getChampion().isDead())
-					transferchampion(array1 [ i ] [ j ], aPF);
-			}
-		}
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (array2 [ i ] [ j ].getChampion() == null)
-					continue;
-				else if (array2 [ i ] [ j ].getChampion().isDead())
-					transferchampion(array2 [ i ] [ j ], aPF);
-			}
-		}
-	}
-
-	// Helper method for checkForDeads()
-	public void transferchampion(SlotButton sB, AppPrincipalFrame aPF) {
+	/**
+	 * 
+	 * @param sB    - slot button of champion to transfer
+	 * @param deads - list of dead champion buttons
+	 */
+	private void transferchampion(SlotButton sB, DeadButton [ ] deads) {
 		Champion h = sB.getChampion();
-		int SIDE = sB.getSide();
-		DeadButton [ ] deads;
-
-		deads = SIDE == 2? aPF.getDeads2() : aPF.getDeads1();
 
 		for (int i = 0; i < deads.length; i++)
 			if (deads [ i ].getChampion() == null) {
@@ -72,37 +88,44 @@ public class Grid {
 		sB.removeMouseListener(sB.getML2());
 		sB.removeMouseListener(sB.getML4());
 
-		aPF.clearSkillButtons(aPF.getPlayer()); //error prone 
-		aPF.clearPanelEast(aPF.getPlayer()); //error prone?
-		aPF.setSlot(null);
-
+//		aPF.clearSkillButtons(aPF.getPlayer()); // error prone
+//		aPF.clearPanelEast(aPF.getPlayer()); // error prone?
+//		aPF.setSlot(null);
 	}
 
-	// Detects the number of CHAMPIONS in the grid
-	public int getSize(boolean player) {
-		SlotButton [ ] [ ] sBGrid = player ? array2 : array1;
-		int s = 0;
-		for (int i = 0; i < sBGrid.length; i++) {
-			for (int j = 0; j < sBGrid [ i ].length; j++) {
-				if (sBGrid [ i ] [ j ] != null)
-					s++;
-			}
-		}
-		return s;
-	}
-
-	public int [ ] getCoord(SlotButton sB, int player) throws RemainderException {
-		SlotButton [ ] [ ] arr = player == 1 ? array1 : array2;
-
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr [ i ].length; j++) {
-				if (arr [ i ] [ j ].equals(sB)) {
-					return new int [ ] { i , j };
+	/**
+	 * Get the number of champions on the grid
+	 * 
+	 * @return the number of Champions
+	 */
+	public int getNumberOfChampions() {
+		int count = 0;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array [ i ].length; j++) {
+				if (array [ i ] [ j ] != null) {
+					count++;
 				}
 			}
 		}
-		throw new RemainderException(
-				"Grid: Never found the right coordinate. Return value is null");
+		return count;
+	}
 
+	/**
+	 * Get the coordinates of the grid
+	 * 
+	 * @param sB     - the slotButton to be evaluated
+	 * @param player - the current player
+	 * @return the coordinate
+	 * @throws CornerCaseException
+	 */
+	public Coordinate getCoord(SlotButton sB, int player) throws CornerCaseException {
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array [ i ].length; j++) {
+				if (array [ i ] [ j ].equals(sB)) {
+					return new Coordinate(i, j);
+				}
+			}
+		}
+		throw new CornerCaseException("Grid never found the right coordinate");
 	}
 }

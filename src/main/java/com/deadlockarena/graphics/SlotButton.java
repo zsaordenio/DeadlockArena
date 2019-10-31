@@ -7,8 +7,9 @@ import javax.swing.JLabel;
 
 import com.deadlockarena.config.JpaGetData;
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.RemainderException;
+import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.logic.AttackLogic;
+import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.StanceLogic;
 import com.deadlockarena.persistence.entity.Champion;
@@ -27,14 +28,13 @@ import java.awt.event.MouseListener;
 public class SlotButton extends JButton {
 	private static final long serialVersionUID = 1436902681342190255L;
 
+	private Coordinate coordinate;
+	private String position;
+	
 	private boolean selected;
-	private int side;
 	private Champion champion;
-	private AttackLogic al;
-	private StanceLogic sl;
-	private AppPrincipalFrame aPF;
+	
 	private JpaGetData jpaGetData;
-	private Grid g;
 
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
@@ -48,7 +48,7 @@ public class SlotButton extends JButton {
 				try {
 					SlotButton.this.setChampion(
 							jpaGetData.evalChampion(aPF.getCurrent().getChampion().toString()));
-				} catch (RemainderException exc) {
+				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
 				SlotButton.this.setBackground(aPF.getCurrent().getBackground());
@@ -125,7 +125,7 @@ public class SlotButton extends JButton {
 				int [ ] coord = new int [ ] { -1 , -1 };
 				try {
 					coord = g.getCoord(SlotButton.this, aPF.getPlayer());
-				} catch (RemainderException exc) {
+				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
 				arr = aPF.getPlayer() == 1? g.getArray1() : g.getArray2();
@@ -154,7 +154,7 @@ public class SlotButton extends JButton {
 							&& sl.isValidStance(SlotButton.this.getChampion().getLogic(),
 									SlotButton.this, aPF.getPlayer()))
 						al.highlight(SlotButton.this.getChampion().getLogic(), aPF.getPlayer());
-				} catch (RemainderException exc) {
+				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
 				aPF.updateButtonPictures();
@@ -167,7 +167,7 @@ public class SlotButton extends JButton {
 				int [ ] coord = { -1 , -1 };
 				try {
 					coord = g.getCoord(SlotButton.this, aPF.getPlayer());
-				} catch (RemainderException exc) {
+				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
 				arr = aPF.getPlayer() == 1? g.array1 : g.array2;
@@ -223,7 +223,7 @@ public class SlotButton extends JButton {
 				try {
 					beforeCoord = g.getCoord(aPF.getSlot(), aPF.getPlayer());
 					afterCoord = g.getCoord(SlotButton.this, aPF.getPlayer());
-				} catch (RemainderException exc) {
+				} catch (CornerCaseException exc) {
 					exc.printStackTrace();
 				}
 
@@ -306,7 +306,7 @@ public class SlotButton extends JButton {
 		}
 	};
 
-	SlotButton(int side) {
+	public SlotButton(int side) {
 		super();
 		this.side = side;
 		this.setBackground(JavaData.DEFAULT_BACKGROUND);

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.AppPrincipalFrame;
+import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.SlotButton;
 
 import lombok.Data;
@@ -145,7 +145,7 @@ public class Champion implements Serializable {
 		}
 	}
 
-	public void attack(AppPrincipalFrame aPF, SlotButton targetButton) {
+	public void attack(MainFrame aPF, SlotButton targetButton) {
 		Champion target = targetButton.getChampion();
 		int damage = calculateNextDamage();
 

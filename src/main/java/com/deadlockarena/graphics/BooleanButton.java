@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.RemainderException;
+import com.deadlockarena.exception.CornerCaseException;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +23,7 @@ public class BooleanButton extends JButton {
 	private String fileName;
 	private boolean on;
 
-	public BooleanButton(String fileName) throws RemainderException {
+	public BooleanButton(String fileName) throws CornerCaseException {
 		this.setPreferredSize(new Dimension(JavaData.PIXEL / 2, JavaData.PIXEL / 2));
 		String start = "";
 		if (fileName.equals("pics/music")) {
@@ -36,7 +36,7 @@ public class BooleanButton extends JButton {
 			start = "onIcon.png";
 			this.on = true;
 		} else {
-			throw new RemainderException("BooleanButton: Incorrect filename input");
+			throw new CornerCaseException("BooleanButton: Incorrect filename input");
 		}
 		Image image = new ImageIcon(fileName + start).getImage()
 				.getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2, Image.SCALE_SMOOTH);

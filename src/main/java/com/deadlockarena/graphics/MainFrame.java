@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 import com.deadlockarena.config.JpaGetData;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.RemainderException;
+import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MessageProcessor;
 import com.deadlockarena.persistence.entity.Champion;
@@ -40,16 +40,15 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Component
-public class AppPrincipalFrame extends JFrame {
+public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -8478413270802946942L;
 
 	@Autowired private JpaGetData jpaGetData;
 	private AnimationAndSound aAS;
 	private GridBagConstraints gbc;
-	private MessageProcessor mP;
-	private Grid grid;
 
+	// TO-DO make the panels their own class
 	private JPanel panelWest, panelWest_a, panelWest_b, panelCenter, panelCenter_a, panelCenter_b,
 			panelCenter_c, panelCenter_c_a, panelCenter_c_b, panelEast, anelEast_a, panelEast_b,
 			panelNorth, panelSouth;
@@ -82,12 +81,13 @@ public class AppPrincipalFrame extends JFrame {
 
 	private SelectButton current;
 	private SlotButton slot;
+	
 	private int player; // 1 is false, 2 is true
 	private int totalCount; // 0-18
 	private int move;
 	private int currentCAP_TURN;
 
-	public AppPrincipalFrame() {
+	public MainFrame() {
 		//domain();
 		creation();
 		initFields();
@@ -107,7 +107,7 @@ public class AppPrincipalFrame extends JFrame {
 		}
 	}
 
-	private void creation() {
+	public void creation() {
 		setTitle("Deadlock Arena");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -116,7 +116,7 @@ public class AppPrincipalFrame extends JFrame {
 	}
 
 
-	private void initFields() {
+	public void initFields() {
 		gbc = new GridBagConstraints();
 		totalCount = 0;
 		move = 0;
@@ -129,7 +129,7 @@ public class AppPrincipalFrame extends JFrame {
 		orderList = new Stack<>();
 	}
 
-	private void addPanels() {
+	public void addPanels() {
 		panelWest = new JPanel(new BorderLayout());
 		panelWest.setBackground(JavaData.DEFAULT_BACKGROUND);
 		{
@@ -213,7 +213,7 @@ public class AppPrincipalFrame extends JFrame {
 		add(panelSouth, BorderLayout.SOUTH);
 	}
 
-	private void addButtons() {
+	public void addButtons() {
 		if (jpaGetData == null) {
 			jpaGetData = SpringUtils.ctx.getBean(JpaGetData.class);
 		}
@@ -232,7 +232,7 @@ public class AppPrincipalFrame extends JFrame {
 					selectList [ j * 6 + i ] = sb;
 					panelWest_a.add(sb, gbc);
 					gbc.gridy += 1;
-				} catch (RemainderException e) {
+				} catch (CornerCaseException e) {
 					e.printStackTrace();
 				}
 
@@ -460,7 +460,7 @@ public class AppPrincipalFrame extends JFrame {
 		mP.nextPlayer(messages, player);
 	}
 
-	private static void activateRob() {
+	public static void activateRob() {
 		try {
 			Robot rob = new Robot();
 			rob.setAutoDelay(1);

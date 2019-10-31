@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.exception.RemainderException;
+import com.deadlockarena.exception.CornerCaseException;
 
 import lombok.Data;
 
@@ -62,7 +62,7 @@ public class AnimationAndSound {
 			soundButton = new BooleanButton("pics/sound");
 			musicButton = new BooleanButton("pics/music");
 			loopButton = new BooleanButton("pics/loop");
-		} catch (RemainderException exc) {
+		} catch (CornerCaseException exc) {
 			exc.printStackTrace();
 		}
 		initMusic();

@@ -11,7 +11,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.AnimationAndSound;
-import com.deadlockarena.graphics.AppPrincipalFrame;
+import com.deadlockarena.graphics.MainFrame;
 
 @SpringBootApplication
 public class DeadlockArenaApplication implements CommandLineRunner {
@@ -23,7 +23,7 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new AppPrincipalFrame().setVisible(true);
+					new MainFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
