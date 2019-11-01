@@ -14,10 +14,10 @@ import com.deadlockarena.persistence.entity.Champion;
 @Component
 public class JavaData {
 
-	public static final String [ ] CHAMPIONS = { "Berserker" , "Dancer" , "Engineer" ,
-			"HolyKnight" , "Knight" , "Screamer" , "Assassin" , "Chemist" , "Cyborg" , "Dragoon" ,
-			"Reaper" , "Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" ,
-			"SwordMage" };
+	public static final String [ ] [ ] CHAMPIONS = { { "Berserker" , "Assassin" , "Bard" } ,
+			{ "Dancer" , "Chemist" , "Guardian" } , { "Engineer" , "Cyborg" , "Monk" } ,
+			{ "HolyKnight" , "Dragoon" , "Pyromancer" } , { "Knight" , "Reaper" , "Sniper" } ,
+			{ "Screamer" , "Trickster" , "SwordMage" } };
 
 	public static final int PIXEL = 96;
 	public static final double SCALE_FACTOR = 2 / 3.0;
@@ -87,6 +87,8 @@ public class JavaData {
 	public static final Font BASIC_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 	public static final Font CHAMPION_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 	public static final Font PANEL_EAST_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
+	
+	public static final String PICS_PATH = "/pics/"; 
 
 	public static final String STATUS_STRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
 			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"

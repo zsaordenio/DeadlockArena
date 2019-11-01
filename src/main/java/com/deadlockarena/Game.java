@@ -1,5 +1,7 @@
 package com.deadlockarena;
 
+import javax.swing.SwingUtilities;
+
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.SelectButton;
@@ -28,19 +30,17 @@ public class Game {
 	private int currentCap;
 
 	public Game() {
-		this.mainLogic = new MainLogic();
 		this.mainFrame = new MainFrame();
+		this.mainLogic = new MainLogic();
 
 		this.selectGrid = new SelectGrid(
 				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ],
 				"select");
 		this.slotGrid1 = new SlotGrid(
-				new SlotButton [ JavaData.SLOT_ROW_COUNT] [JavaData.SLOT_COL_COUNT],
-				"bottom");
+				new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ], "bottom");
 		this.slotGrid2 = new SlotGrid(
-				new SlotButton [ JavaData.SLOT_ROW_COUNT] [JavaData.SLOT_COL_COUNT],
-				"top");
-				
+				new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ], "top");
+
 		this.player = 1;
 		this.totalCount = 0;
 		this.move = 0;
@@ -49,15 +49,18 @@ public class Game {
 
 	public void executePhase1() {
 		this.mainFrame.addPanels();
-
 		this.mainFrame.addSelectButtons(selectGrid);
-		this.mainFrame.populateSelectButtons(player, grid1, grid2);
-
 		this.mainFrame.addSlotButtons(slotGrid1, slotGrid2);
-		this.mainFrame.populateSlotButtons(this, grid1);
-		this.mainFrame.populateSlotButtons(this, grid2);
+		this.mainFrame.pack();
+		this.mainFrame.setLocationRelativeTo(null);
+		this.mainFrame.setVisible(true);
+		
+		this.mainLogic.populateSelectButtons(this);
+		this.mainLogic.populateSlotButtons(this, slotGrid1);
+		this.mainLogic.populateSlotButtons(this, slotGrid2);
 	}
 
+	// TO-DO move some functionality here
 	public void executePhase2() {
 
 	}
@@ -67,11 +70,12 @@ public class Game {
 		if (this.move == currentCap) {
 			slot = null;
 			if (player == 2) {
-				mainLogic.updateAllCoolDowns(grid2);
+				mainLogic.updateAllCoolDowns(slotGrid2);
 			} else {
-				mainLogic.updateAllCoolDowns(grid1);
+				mainLogic.updateAllCoolDowns(slotGrid1);
 			}
-			mainLogic.switchListeners(grid1, grid2, player, mainFrame.getMessages());
+			// mainLogic.switchListeners(slotGrid1, slotGrid2, player,
+			// mainFrame.getMessages());
 			mainFrame.clearSkillButtons(player);
 			mainFrame.clearPanelEast(player);
 			if (currentCap < JavaData.CAP_TURN) {
@@ -82,10 +86,6 @@ public class Game {
 	}
 
 	public void switchPlayer() {
-		if (player == 1) {
-			player = 2;
-		} else {
-			player = 1;
-		}
+		this.player = this.player == 2 ? 1 : 2;
 	}
 }

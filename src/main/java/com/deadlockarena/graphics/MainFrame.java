@@ -13,6 +13,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.util.Stack;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +38,9 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -8478413270802946942L;
 
-	@Autowired
-	private JpaGetData jpaGetData;
+
 
 	private AnimationAndSound aAS;
-	private GridBagConstraints gbc;
 
 	private Stack<JButton [ ]> orderList;
 
@@ -78,12 +77,10 @@ public class MainFrame extends JFrame {
 		super.setTitle("Deadlock Arena");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(new BorderLayout());
-		super.setPreferredSize(new Dimension(1700, 1000));
-		super.setVisible(true);
+		super.setPreferredSize(new Dimension(1800, 1000));
 
-		this.gbc = new GridBagConstraints();
+		
 		this.aAS = new AnimationAndSound();
-
 		this.orderList = new Stack<>();
 	}
 
@@ -162,77 +159,50 @@ public class MainFrame extends JFrame {
 		panelSouth.add(cancel);
 		// ---------------------------------------------------------------------------
 		panelWest.setPreferredSize(new Dimension(500, 500));
-		panelCenter.setPreferredSize(new Dimension(700, 500));
+		panelCenter.setPreferredSize(new Dimension(800, 500));
 		panelSouth.setPreferredSize(new Dimension(500, 50));
 
-		add(panelWest, BorderLayout.WEST);
-		add(panelCenter, BorderLayout.CENTER);
-		add(panelNorth, BorderLayout.NORTH);
-		add(panelSouth, BorderLayout.SOUTH);
+		this.add(panelWest, BorderLayout.WEST);
+		this.add(panelCenter, BorderLayout.CENTER);
+		this.add(panelNorth, BorderLayout.NORTH);
+		this.add(panelSouth, BorderLayout.SOUTH);
 	}
 
 	public void addSelectButtons(SelectGrid selectGrid) {
-		this.gbc.gridx = 0;
-		this.gbc.gridy = 0;
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.fill = GridBagConstraints.BOTH;
 		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
 			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
 				SelectButton selectButton = new SelectButton();
-				selectGrid.setButton(i,j, selectButton);
+				selectGrid.setJButton(i, j, selectButton);
 				this.panelWest_a.add(selectButton, gbc);
-				this.gbc.gridy++;
+				gbc.gridx++;
 			}
-			this.gbc.gridx++;
-			this.gbc.gridy = 0;
-		}
-	}
-
-	public void populateSelectButtons(SelectButton [ ] [ ] selectButtons, int player, Grid grid1,
-			Grid grid2) {
-		if (this.jpaGetData == null) {
-			this.jpaGetData = SpringUtils.jgd;
-		}
-		for (int i = 0; i < selectButtons.length; i++) {
-			for (int j = 0; j < selectButtons [ i ].length; j++) {
-				selectButtons [ i ] [ j ].populate(
-						jpaGetData.evalChampion(
-								JavaData.CHAMPIONS [ i * JavaData.SELECT_ROW_COUNT + j ]),
-						player, grid1, grid2, this);
-			}
+			gbc.gridy++;
+			gbc.gridx = 0;
 		}
 	}
 
 	public void addSlotButtons(SlotGrid slotGrid1, SlotGrid slotGrid2) {
-		this.gbc.gridx = 0;
-		this.gbc.gridy = 0;
 		for (int player = 1; player <= 2; player++) {
-			JPanel jPanel;
-			SlotButton [ ] [ ] slotButtons;
-			if (player == 1) {
-				jPanel = panelCenter_a;
-				slotButtons = (SlotButton [ ] [ ]) slotGrid1.getJButtons();
-			} else {
-				jPanel = panelCenter_b;
-				slotButtons = (SlotButton [ ] [ ] ) slotGrid2.getJButtons();
-			}
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.fill = GridBagConstraints.BOTH;
+			JPanel jPanel = player == 2 ? this.panelCenter_a : this.panelCenter_b;
+			SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
 			for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 				for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-					SlotButton slotButton = new SlotButton(player == 1 ? "bottom" : "top",
+					SlotButton slotButton = new SlotButton(player == 2 ? "top" : "bottom",
 							new Coordinate(i, j));
-					slotButtons [ i ] [ j ] = slotButton;
+					slotGrid.setJButton(i, j, slotButton);
 					jPanel.add(slotButton, gbc);
-					gbc.gridy++;
+					gbc.gridx++;
 				}
-				gbc.gridx++;
-				gbc.gridy = 0;
-			}
-		}
-	}
-
-	public void populateSlotButtons(Game g, SlotGrid slotGrid) {
-		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
-			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				((SlotButton)slotGrid.getButton(i, j)).populate(jpaGetData.evalChampion(
-						JavaData.CHAMPIONS [ i * JavaData.SELECT_ROW_COUNT + j ]), g);
+				gbc.gridy++;
+				gbc.gridx = 0;
 			}
 		}
 	}
@@ -278,10 +248,11 @@ public class MainFrame extends JFrame {
 		playerLabel.setText("     Player " + (player == 2 ? 2 : 1));
 	}
 
-	public void updateButtonPictures(Grid grid1, Grid grid2) {
-		for (int i = 0; i < selectButtons.length; i++) {
-			for (int j = 0; j < selectButtons [ i ].length; j++) {
-				SelectButton selectButton = selectButtons [ i ] [ j ];
+	public void updateButtonPictures(SlotGrid slotGrid1, SlotGrid slotGrid2,
+			SelectGrid selectGrid) {
+		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
+			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
+				SelectButton selectButton = selectGrid.getJButton(i, j);
 				if (selectButton.isEnabled()) {
 					selectButton.setIcon(selectButton.getNormalImage());
 				} else {
@@ -291,13 +262,13 @@ public class MainFrame extends JFrame {
 		}
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				SlotButton slotButton1 = grid1.getSlotButton(i, j);
+				SlotButton slotButton1 = slotGrid1.getJButton(i, j);
 				if (slotButton1.isEnabled()) {
 					slotButton1.setIcon(slotButton1.getNormalImage());
 				} else {
 					slotButton1.setIcon(slotButton1.getGrayedImage());
 				}
-				SlotButton slotButton2 = grid2.getSlotButton(i, j);
+				SlotButton slotButton2 = slotGrid2.getJButton(i, j);
 				if (slotButton2.isEnabled()) {
 					slotButton2.setIcon(slotButton2.getNormalImage());
 				} else {
@@ -327,16 +298,16 @@ public class MainFrame extends JFrame {
 	public void clearAllBorders(Grid grid1, Grid grid2) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				grid1.getSlotButtons() [ i ] [ j ].setBorder(JavaData.DEFAULT_BORDER);
-				grid2.getSlotButtons() [ i ] [ j ].setBorder(JavaData.DEFAULT_BORDER);
+				grid1.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
+				grid2.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
 			}
 		}
 	}
 
-	public void resetListeners(Grid grid1, Grid grid2) {
+	public void resetListeners(SlotGrid grid1, SlotGrid grid2) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				SlotButton slotButton1 = grid1.getSlotButtons() [ i ] [ j ];
+				SlotButton slotButton1 = grid1.getJButton(i, j);
 				if (slotButton1.getBorder().equals(JavaData.MOVE_BORDER)) {
 					if (slotButton1.getChampion() == null) {
 						slotButton1.alterMouseAdapter0_3();
@@ -349,7 +320,7 @@ public class MainFrame extends JFrame {
 					slotButton1.alterMouseAdapter0_2();
 				}
 				// ---------------------------------------------------------------
-				SlotButton slotButton2 = grid2.getSlotButtons() [ i ] [ j ];
+				SlotButton slotButton2 = grid2.getJButton(i, j);
 				if (slotButton2.getBorder().equals(JavaData.MOVE_BORDER)) {
 					if (slotButton2.getChampion() != null) {
 						slotButton2.alterMouseAdapter0_2();
@@ -377,9 +348,9 @@ public class MainFrame extends JFrame {
 //		}
 //	}
 	public void disableAll(Grid grid) {
-		for (int i = 0; i < grid.getSlotButtons().length; i++) {
-			for (int j = 0; j < grid.getSlotButtons() [ i ].length; j++) {
-				grid.getSlotButtons() [ i ] [ j ].setEnabled(false);
+		for (int i = 0; i < grid.getJButtons().length; i++) {
+			for (int j = 0; j < grid.getJButtons() [ i ].length; j++) {
+				grid.getJButtons() [ i ] [ j ].setEnabled(false);
 			}
 		}
 	}
@@ -396,4 +367,18 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	public void display(Champion champion) {
+		getIconLabel().setIcon(new ImageIcon("pics/" + champion.toString() + "Icon.png"));
+		getStats().setText(JavaData.getStatsText(champion));
+		getDescription().setText(champion.getDescription());
+		getChampionLabel().setText(champion.toString());
+	}
+
+	public void unDisplay(Color color) {
+		getIconLabel().setIcon(new ImageIcon("pics/DefaultIcon.png"));
+		getStats().setText(JavaData.DEFAULT_STATUS_STRING);
+		getDescription().setText("");
+		getChampionLabel().setText("?");
+		super.setBackground(color);
+	}
 }

@@ -6,5 +6,4 @@ public class InstanceMismatchException extends Exception{
 	public InstanceMismatchException(String msg) {
 		super(msg);
 	}
-
 }

@@ -16,7 +16,7 @@ public class StanceLogic {
 	 * @param thisGrid - the grid that the slot button is on.
 	 * @return whether or not the stance is valid.
 	 */
-	public boolean stance1(SlotButton sB, Grid thisGrid) {
+	public boolean stance1(SlotButton sB, SlotGrid thisGrid) {
 		Coordinate coords = sB.getCoordinate();
 		// TO-DO: Analyze the position
 		// String position = sB.getPosition();
@@ -25,32 +25,38 @@ public class StanceLogic {
 			return true;
 		} else if (coords.getI() == 1) {
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 1 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 1, j).getChampion() != null) {
 					return false;
+				}
 			}
 			return true;
 		} else if (coords.getI() == 2) {
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 1 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 1, j).getChampion() != null) {
 					return false;
+				}
 			}
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 2 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 2, j).getChampion() != null) {
 					return false;
+				}
 			}
 			return true;
 		} else if (coords.getI() == 3) {
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 1 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 1, j).getChampion() != null) {
 					return false;
+				}
 			}
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 2 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 2, j).getChampion() != null) {
 					return false;
+				}
 			}
 			for (int j = 0; j < 5; j++) {
-				if (thisGrid.getArray() [ coords.getI() - 3 ] [ j ].getChampion() != null)
+				if (thisGrid.getJButton(coords.getI() - 3, j).getChampion() != null) {
 					return false;
+				}
 			}
 			return true;
 		} else {
@@ -66,15 +72,15 @@ public class StanceLogic {
 	 * @param thisGrid - the grid that the slot button is on.
 	 * @return whether or not the stance is valid.
 	 */
-	public boolean stance2(SlotButton sB, Grid thisGrid) {
+	public boolean stance2(SlotButton sB, SlotGrid thisGrid) {
 		Coordinate coords = sB.getCoordinate();
 		// TO-DO: Analyze the position
 		// String position = sB.getPosition();
-		
+
 		if (coords.getI() == 0)
 			return true;
 		for (int i = 0; i < coords.getI(); i++) {
-			if (thisGrid.getArray() [ i ] [ coords.getJ() ].getChampion() != null)
+			if (thisGrid.getJButton(i, coords.getJ()).getChampion() != null)
 				return false;
 		}
 		return true;
@@ -89,7 +95,7 @@ public class StanceLogic {
 	 * @return whether or not the stance is valid.
 	 * @throws CornerCaseException
 	 */
-	public boolean isValidStance(int logic, SlotButton sB, Grid thisGrid)
+	public boolean isValidStance(int logic, SlotButton sB, SlotGrid thisGrid)
 			throws CornerCaseException {
 		boolean validStance = false;
 		switch (logic) {

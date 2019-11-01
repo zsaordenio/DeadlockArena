@@ -49,14 +49,15 @@ public abstract class Grid {
 	 * @return the coordinate.
 	 * @throws CornerCaseException
 	 */
-	public Coordinate getCoord(JButton jB) throws CornerCaseException {
+	public Coordinate getCoord(JButton jB) {
 		for (int i = 0; i < jButtons.length; i++) {
 			for (int j = 0; j < jButtons [ i ].length; j++) {
 				if (jButtons [ i ] [ j ].equals(jB)) {
-					return new Coordinate(i, j);
+					return new Coordinate(i,j);
 				}
 			}
 		}
-		throw new CornerCaseException("Grid never found the right coordinate");
+		return null;
 	}
+
 }

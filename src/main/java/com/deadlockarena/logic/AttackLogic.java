@@ -20,14 +20,14 @@ public class AttackLogic {
 	 * 
 	 * @param targetGrid
 	 */
-	public void attack1(Grid targetGrid) {
+	public void attack1(SlotGrid targetGrid) {
 		boolean targetDetected = false;
 		for (int i = 3; i >= 0; i--) {
 			if (!targetDetected) {
 				for (int j = 0; j < 5; j++) {
-					if (targetGrid.getArray() [ i ] [ j ].getChampion() != null) {
+					if (targetGrid.getJButton(i, j).getChampion() != null) {
 						targetDetected = true;
-						targets.add(targetGrid.getArray() [ i ] [ j ]);
+						targets.add(targetGrid.getJButton(i, j));
 					}
 				}
 			}
@@ -39,11 +39,11 @@ public class AttackLogic {
 	 * 
 	 * @param targetGrid - grid of potential targets
 	 */
-	public void attack2(Grid targetGrid) {
+	public void attack2(SlotGrid targetGrid) {
 		for (int j = 0; j < 5; j++) {
 			for (int i = 0; i < 3; i++) {
-				if (targetGrid.getArray() [ i ] [ j ].getChampion() != null) {
-					targets.add(targetGrid.getArray() [ i ] [ j ]);
+				if (targetGrid.getJButton(i, j).getChampion() != null) {
+					targets.add(targetGrid.getJButton(i, j));
 					break;
 				}
 			}
@@ -56,11 +56,11 @@ public class AttackLogic {
 	 * 
 	 * @param targetGrid - grid of potential targets
 	 */
-	public void attack3(Grid targetGrid) {
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 5; j++) {
-				if (targetGrid.getArray() [ i ] [ j ].getChampion() != null) {
-					targets.add(targetGrid.getArray() [ i ] [ j ]);
+	public void attack3(SlotGrid targetGrid) {
+		for (int i = 0; i < targetGrid.getJButtons().length; i++) {
+			for (int j = 0; j < targetGrid.getJButtons() [ i ].length; j++) {
+				if (targetGrid.getJButton(i, j).getChampion() != null) {
+					targets.add(targetGrid.getJButton(i, j));
 				}
 			}
 		}
@@ -75,7 +75,8 @@ public class AttackLogic {
 	 * @param targetGrid
 	 * @throws CornerCaseException
 	 */
-	public void highlight(int logic, Grid thisGrid, Grid targetGrid) throws CornerCaseException {
+	public void highlight(int logic, SlotGrid thisGrid, SlotGrid targetGrid)
+			throws CornerCaseException {
 		switch (logic) {
 		case 1:
 			attack1(targetGrid);
@@ -100,13 +101,13 @@ public class AttackLogic {
 	 * 
 	 * @param targetGrid - grid of potential targets.
 	 */
-	public void unHighlight(Grid targetGrid) {
+	public void unHighlight(SlotGrid targetGrid) {
 		targets.clear();
 
-		for (int i = 0; i < targetGrid.getArray().length; i++) {
-			for (int j = 0; j < targetGrid.getArray() [ i ].length; j++) {
-				targetGrid.getArray() [ i ] [ j ].setBorder(JavaData.DEFAULT_BORDER);
-				targetGrid.getArray() [ i ] [ j ].setEnabled(false);
+		for (int i = 0; i < targetGrid.getJButtons().length; i++) {
+			for (int j = 0; j < targetGrid.getJButtons() [ i ].length; j++) {
+				targetGrid.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
+				targetGrid.getJButton(i, j).setEnabled(false);
 			}
 		}
 
@@ -118,15 +119,15 @@ public class AttackLogic {
 	 * @param targetButton - button of target to attack.
 	 * @return whether or not the attack was executed.
 	 */
-//	public boolean attack(SlotButton targetButton) {
-//		if (mainFrame.getSlot() == null) {
-//			// handles case: When user drinks potion, turn is up, attempts to
-//			// attack other player
-//			mainFrame.evenAllListeners();
-//			return false;
-//		}
-//		mainFrame.getSlot().getChampion().attack(mainFrame, targetButton);
-//		return true;
-//	}
+	public boolean attack(SlotButton slot, SlotButton targetButton) {
+		if (slot == null) {
+			// handles case: When user drinks potion, turn is up, attempts to
+			// attack other player
+			//slot.evenAllListeners();
+			return false;
+		}
+		slot.getChampion().attack(targetButton.getChampion());
+		return true;
+	}
 
 }

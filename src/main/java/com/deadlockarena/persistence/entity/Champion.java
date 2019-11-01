@@ -121,6 +121,7 @@ public class Champion implements Serializable {
 	@Transient
 	protected StatusBox statusBox;
 
+	// TO-DO evaluate the return type
 	public int [ ] drinkPotion(boolean hp) {
 		if (hp) {
 			if (potionInventory.getHpPotions().isEmpty()) {
@@ -143,8 +144,7 @@ public class Champion implements Serializable {
 		}
 	}
 
-	public void attack(MainFrame mainFrame, SlotButton targetButton) {
-		Champion target = targetButton.getChampion();
+	public void attack(Champion target) {
 		int damage = calculateNextDamage();
 
 		boolean dodged = target.isDodgedHit();
@@ -159,6 +159,7 @@ public class Champion implements Serializable {
 			if (finalDamage < 0) { // handles negative damages
 				finalDamage = 0;
 			}
+			//TO-DO move somewhere else
 //			target.setCurrentHp(target.getCurrentHp() - finalDamage);
 //			mainFrame.getGrid().checkForDeads(mainFrame);
 //			mainFrame.getAAS().shakeButton(targetButton);

@@ -7,6 +7,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -33,7 +34,6 @@ public class OtherUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static void activateRobot() {
@@ -56,5 +56,19 @@ public class OtherUtils {
 			rob.mousePress(InputEvent.BUTTON1_MASK);
 			rob.mouseRelease(InputEvent.BUTTON1_MASK);
 		}
+	}
+
+	public static void viewCWD() {
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		File [ ] files = new File(
+				"C:\\Users\\zsaordenio\\Desktop\\spring-boot\\DeadlockArena\\pics").listFiles();
+		if (files == null) {
+			System.out.println("null");
+		} else {
+			for (File file : files) {
+				System.out.println(file.getName());
+			}
+		}
+		System.out.println("done");
 	}
 }

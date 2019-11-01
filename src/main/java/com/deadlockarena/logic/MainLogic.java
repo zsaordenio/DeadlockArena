@@ -2,21 +2,51 @@ package com.deadlockarena.logic;
 
 import javax.swing.JTextArea;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.deadlockarena.Game;
+import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 public class MainLogic {
 
+	private JpaGetData jpaGetData;
+	
 	private StanceLogic stanceLogic;
 	private AttackLogic attackLogic;
 	private MessageProcessor messageProcessor;
 
+	public MainLogic() {
+		this.stanceLogic = new StanceLogic();
+		this.attackLogic = new AttackLogic();
+		this.messageProcessor = new MessageProcessor();
+		this.jpaGetData = SpringUtils.jgd;
+	}
+	public void populateSelectButtons(Game game) {
+		SelectGrid selectGrid = game.getSelectGrid();
+		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
+			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
+				selectGrid.getJButton(i, j).populate(game,
+						jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ] [ j ]));
+			}
+		}
+	}
+	
+	public void populateSlotButtons(Game game, SlotGrid slotGrid) {
+		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
+				(slotGrid.getJButton(i, j)).populate(game);
+			}
+		}
+	}
+	
 	public void switchListeners(SlotButton [ ] [ ] slotButtons1, SlotButton [ ] [ ] slotButtons2,
 			int player, JTextArea messages) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
@@ -42,12 +72,11 @@ public class MainLogic {
 		this.messageProcessor.nextPlayer(messages, player);
 	}
 
-	public void updateAllCoolDowns(Grid grid) {
-		// TO-DO based on player
-		for (int i = 0; i < grid.getSlotButtons().length; i++) {
-			for (int j = 0; j < grid.getSlotButtons()[i].length; j++) {
-				if (grid.getSlotButton(i, j).getChampion() != null) {
-					Champion h = grid.getSlotButton(i, j).getChampion();
+	public void updateAllCoolDowns(SlotGrid grid) {
+		for (int i = 0; i < grid.getJButtons().length; i++) {
+			for (int j = 0; j < grid.getJButtons()[i].length; j++) {
+				if (grid.getJButton(i, j).getChampion() != null) {
+					Champion h = grid.getJButton(i, j).getChampion();
 					h.setCurrentSkill1CD(h.getCurrentSkill1CD() - 1);
 					h.setCurrentSkill2CD(h.getCurrentSkill2CD() - 1);
 					h.setCurrentSkill3CD(h.getCurrentSkill3CD() - 1);
