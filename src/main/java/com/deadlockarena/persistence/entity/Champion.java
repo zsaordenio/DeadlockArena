@@ -175,15 +175,15 @@ public class Champion implements Serializable {
 	}
 
 	public int calculateNextDamage() {
-		return JavaData.random.nextInt((maxDmg - minDmg) + 1) + minDmg;
+		return JavaData.RANDOM.nextInt((maxDmg - minDmg) + 1) + minDmg;
 	}
 
 	public boolean isCriticalHit() {
-		return JavaData.random.nextInt(101) < critical;
+		return JavaData.RANDOM.nextInt(101) < critical;
 	}
 
 	public boolean isDodgedHit() {
-		return JavaData.random.nextInt(101) < dodge;
+		return JavaData.RANDOM.nextInt(101) < dodge;
 	}
 
 	public String evalColor() {

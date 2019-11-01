@@ -49,10 +49,10 @@ public class PotionInventory implements Serializable {
 
 	private void generatePotions() {
 		for(int i = 0; i < hpPotionsAmt; i++) {
-			hpPotions.add(new HpPotion(JavaData.random.nextInt((900 - 400) + 1) + 400));
+			hpPotions.add(new HpPotion(JavaData.RANDOM.nextInt((900 - 400) + 1) + 400));
 		}
 		for(int i = 0; i < mpPotionsAmt; i++) {
-			mpPotions.add(new MpPotion(JavaData.random.nextInt((50 - 25) + 1) + 25));
+			mpPotions.add(new MpPotion(JavaData.RANDOM.nextInt((50 - 25) + 1) + 25));
 		}
 	}
 

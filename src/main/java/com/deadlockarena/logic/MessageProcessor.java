@@ -31,7 +31,7 @@ public class MessageProcessor {
 		damageStr = damageStr.substring(0, damageStr.length() - 3);
 
 		String msg = "";
-		int chooseMsg = JavaData.random.nextInt(1);
+		int chooseMsg = JavaData.RANDOM.nextInt(1);
 		switch (chooseMsg) {
 		case 0:
 			msg = attacker + " dealt " + damageStr + " to " + target;

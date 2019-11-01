@@ -9,12 +9,15 @@ import javax.swing.border.LineBorder;
 
 import org.springframework.stereotype.Component;
 
+import com.deadlockarena.persistence.entity.Champion;
+
 @Component
 public class JavaData {
 
-	public static final String [ ] CHAMPIONS = { "Berserker" , "Dancer" , "Engineer" , "HolyKnight" ,
-			"Knight" , "Screamer" , "Assassin" , "Chemist" , "Cyborg" , "Dragoon" , "Reaper" ,
-			"Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" , "SwordMage" };
+	public static final String [ ] CHAMPIONS = { "Berserker" , "Dancer" , "Engineer" ,
+			"HolyKnight" , "Knight" , "Screamer" , "Assassin" , "Chemist" , "Cyborg" , "Dragoon" ,
+			"Reaper" , "Trickster" , "Bard" , "Guardian" , "Monk" , "Pyromancer" , "Sniper" ,
+			"SwordMage" };
 
 	public static final int PIXEL = 96;
 	public static final double SCALE_FACTOR = 2 / 3.0;
@@ -63,18 +66,21 @@ public class JavaData {
 			{ sC2 [ 0 ] + BASE * 2 , sC2 [ 1 ] + BASE * 0 } , };
 
 	public static final int CAP_TURN = 4;
-	public static final int CHAMPION_COUNT = 18;
-	
+
+	public static final int SELECT_ROW_COUNT = 6;
+	public static final int SELECT_COL_COUNT = 3;
+	public static final int SELECT_COUNT = SELECT_ROW_COUNT * SELECT_COL_COUNT;
+
 	public static final int SLOT_ROW_COUNT = 4;
 	public static final int SLOT_COL_COUNT = 5;
-	public static final int SLOT_COUNT = 20;
+	public static final int SLOT_COUNT = SLOT_ROW_COUNT * SLOT_COL_COUNT;
 
-	public static final Random random = new Random();
+	public static final Random RANDOM = new Random();
 
 	public static final LineBorder MOVE_BORDER = new LineBorder(Color.blue, 5);
 	public static final LineBorder ATTACK_BORDER = new LineBorder(Color.red, 5);
 	public static final Border DEFAULT_BORDER = UIManager.getBorder("Button.border");
-	
+
 	public static final Color DEFAULT_BACKGROUND = Color.black;
 	public static final Color DEFAULT_BUTTON_BACKGROUND = new JButton().getBackground();
 
@@ -82,12 +88,21 @@ public class JavaData {
 	public static final Font CHAMPION_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
 	public static final Font PANEL_EAST_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
 
-	public static final String STATUSSTRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
+	public static final String STATUS_STRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
 			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"
 			+ "</html>";
 
-	public static final String DEFAULTSTATUSSTRING = "<html>" + "HP: ?<br/>" + "MP: ?<br/>"
+	public static final String DEFAULT_STATUS_STRING = "<html>" + "HP: ?<br/>" + "MP: ?<br/>"
 			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"
 			+ "</html>";
+
+	public static String getStatsText(Champion champion) {
+		return "<html>" + "<font color=" + champion.evalColor() + ">HP: " + champion.getCurrentHp()
+				+ " / " + champion.getMaxHp() + "</font><br/>" + "MP: " + champion.getMaxMp()
+				+ " / " + champion.getMaxMp() + "<br/>" + "Damage: " + champion.getMinDmg() + " - "
+				+ champion.getMaxDmg() + "<br/>" + "Defense: " + champion.getDefense() + "<br/>"
+				+ "Critical: " + champion.getCritical() + "%<br/>" + "Dodge: " + champion.getDodge()
+				+ "%" + "</html>";
+	}
 
 }

@@ -8,27 +8,32 @@ import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
 public class SelectButton extends JButton {
 	private static final long serialVersionUID = 8876199740027195332L;
-	
+
 	private boolean selected;
 	private Champion champion;
 	private Color color;
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 
-	public void populate(Champion champion, MainFrame mainFrame, int player, Grid grid1,
-			Grid grid2) {
-		
+	public SelectButton() {
+		super.setFont(JavaData.BASIC_FONT);
+		super.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
+		this.selected = false;
+	}
+
+	public void populate(final Champion champion, final int player,
+			final Grid grid1, final Grid grid2, final MainFrame mainFrame) {
+
 		this.selected = false;
 		this.champion = champion;
 
@@ -59,7 +64,7 @@ public class SelectButton extends JButton {
 			break;
 		}
 		super.setBackground(color);
-		this.addMouseListener(new MouseAdapter() {
+		MouseListener mL = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SelectButton.this.isEnabled()) {
 					mainFrame.updateButtonPictures();
@@ -76,8 +81,10 @@ public class SelectButton extends JButton {
 							}
 						}
 					}
-					for (int i = 0; i < JavaData.CHAMPION_COUNT; i++) {
-						mainFrame.getSelectButtons() [ i ].setEnabled(false);
+					for (int i = 0; i < JavaData.SELECT_ROW_COUNT; i++) {
+						for (int j = 0; j < JavaData.SELECT_COL_COUNT; j++) {
+							mainFrame.getSelectButtons() [ i ] [ j ].setEnabled(false);
+						}
 					}
 					mainFrame.getCurrent().setSelected(true);
 					mainFrame.getCurrent().setEnabled(false);
@@ -99,24 +106,20 @@ public class SelectButton extends JButton {
 					SelectButton.this.setBackground(Color.gray);
 				}
 			}
-		});
+		};
+		this.addMouseListener(mL);
 	}
 
 	public void display(MainFrame mainFrame) {
 		mainFrame.getIconLabel().setIcon(new ImageIcon("pics/" + champion.toString() + "Icon.png"));
-		mainFrame.getStats()
-				.setText("<html>" + "HP: " + champion.getMaxHp() + "<br/>" + "MP: "
-						+ champion.getMaxMp() + "<br/>" + "Damage: " + champion.getMinDmg() + " - "
-						+ champion.getMaxDmg() + "<br/>" + "Defense: " + champion.getDefense()
-						+ "<br/>" + "Critical: " + champion.getCritical() + "%<br/>" + "Dodge: "
-						+ champion.getDodge() + "%" + "</html>");
+		mainFrame.getStats().setText(JavaData.getStatsText(champion));
 		mainFrame.getDescription().setText(champion.getDescription());
 		mainFrame.getChampionLabel().setText(champion.toString());
 	}
 
 	public void unDisplay(MainFrame mainFrame) {
 		mainFrame.getIconLabel().setIcon(new ImageIcon("pics/DefaultIcon.png"));
-		mainFrame.getStats().setText(JavaData.DEFAULTSTATUSSTRING);
+		mainFrame.getStats().setText(JavaData.DEFAULT_STATUS_STRING);
 		mainFrame.getDescription().setText("");
 		mainFrame.getChampionLabel().setText("?");
 		super.setBackground(color);

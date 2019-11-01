@@ -2,7 +2,9 @@ package com.deadlockarena;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.MainFrame;
+import com.deadlockarena.graphics.SelectButton;
 import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MainLogic;
 
 import lombok.AllArgsConstructor;
@@ -14,6 +16,10 @@ public class Game {
 	private MainFrame mainFrame;
 	private MainLogic mainLogic;
 
+	private SelectButton [ ] [ ] selectButtons;
+	
+	private Grid grid1, grid2;
+
 	private int player;
 	private int totalCount; // 0-18
 
@@ -23,6 +29,9 @@ public class Game {
 	public Game() {
 		this.mainLogic = new MainLogic();
 		this.mainFrame = new MainFrame();
+		
+		this.selectButtons = new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ];
+		
 		this.player = 1;
 		this.totalCount = 0;
 		this.move = 0;
@@ -31,8 +40,13 @@ public class Game {
 
 	public void executePhase1() {
 		this.mainFrame.addPanels();
-		this.mainFrame.addButtons();
-		this.mainFrame.populateSelectButtons(player, mainLogic.getGrid1(), mainLogic.getGrid2());
+
+		this.mainFrame.addSelectButtons();
+		this.mainFrame.populateSelectButtons(player, grid1, grid2);
+
+		this.mainFrame.addSlotButtons(grid1, grid2);
+		this.mainFrame.populateSlotButtons(this, grid1);
+		this.mainFrame.populateSlotButtons(this, grid2);
 	}
 
 	public void executePhase2() {
@@ -44,12 +58,11 @@ public class Game {
 		if (this.move == currentCap) {
 			slot = null;
 			if (player == 2) {
-				mainLogic.updateAllCoolDowns(mainFrame.getSlotButtons2());
+				mainLogic.updateAllCoolDowns(grid2);
 			} else {
-				mainLogic.updateAllCoolDowns(mainFrame.getSlotButtons1());
+				mainLogic.updateAllCoolDowns(grid1);
 			}
-			mainLogic.switchListeners(mainFrame.getSlotButtons1(), mainFrame.getSlotButtons2(),
-					player, mainFrame.getMessages());
+			mainLogic.switchListeners(grid1, grid2, player, mainFrame.getMessages());
 			mainFrame.clearSkillButtons(player);
 			mainFrame.clearPanelEast(player);
 			if (currentCap < JavaData.CAP_TURN) {

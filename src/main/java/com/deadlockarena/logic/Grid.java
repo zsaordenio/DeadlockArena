@@ -16,30 +16,31 @@ import lombok.NonNull;
 public class Grid {
 
 	@NonNull
-	private SlotButton [ ] [ ] array;
+	private SlotButton [ ] [ ] slotButtons;
 
 	@NonNull
 	private String position;
 
 	/**
-	 * Fill in the 2D champion array
+	 * Fill in the 2D slotButtons
 	 * 
-	 * @param slotList 1D champion array
+	 * @param slotList 1D champion slotButtons
 	 * @throws UnmatchedSizeException
 	 */
-	public Grid(SlotButton [ ] slotList) throws UnmatchedSizeException {
-		this.array = new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ];
-		int ctr = 0;
-		if (slotList.length == JavaData.SLOT_COUNT) {
-			for (int i = 0; i < this.array.length; i++) {
-				for (int j = 0; j < this.array[i].length; j++) {
-					array [ i ] [ j ] = slotList [ ctr ];
-					ctr++;
-				}
-			}
-		} else {
-			throw new UnmatchedSizeException("Grid cannot be instantiated with slotList's size");
-		}
+	public Grid() throws UnmatchedSizeException {
+		this.slotButtons = new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ];
+	}
+
+	/**
+	 * Retrieve the slotButton in the 2D SlotButton array given the i'th and j'th
+	 * coordinates.
+	 * 
+	 * @param i - i'th coordinate
+	 * @param j - j'th coordinate
+	 * @return the slot button
+	 */
+	public SlotButton getSlotButton(int i, int j) {
+		return slotButtons [ i ] [ j ];
 	}
 
 	/**
@@ -50,10 +51,10 @@ public class Grid {
 	public void checkForDeads(DeadButton [ ] deads) throws CornerCaseException {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				if (array [ i ] [ j ].getChampion() == null) {
+				if (slotButtons [ i ] [ j ].getChampion() == null) {
 					continue;
-				} else if (array [ i ] [ j ].getChampion().isDead()) {
-					transferchampion(array [ i ] [ j ], deads);
+				} else if (slotButtons [ i ] [ j ].getChampion().isDead()) {
+					transferchampion(slotButtons [ i ] [ j ], deads);
 				} else {
 					throw new CornerCaseException("checkForDeads() in Grid.class");
 				}
@@ -93,9 +94,9 @@ public class Grid {
 	 */
 	public int getNumberOfChampions() {
 		int count = 0;
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array [ i ].length; j++) {
-				if (array [ i ] [ j ] != null) {
+		for (int i = 0; i < slotButtons.length; i++) {
+			for (int j = 0; j < slotButtons [ i ].length; j++) {
+				if (slotButtons [ i ] [ j ] != null) {
 					count++;
 				}
 			}
@@ -106,15 +107,14 @@ public class Grid {
 	/**
 	 * Get the coordinates of the grid
 	 * 
-	 * @param sB     - the slotButton to be evaluated
-	 * @param player - the current player
+	 * @param sB - the slotButton to be evaluated
 	 * @return the coordinate
 	 * @throws CornerCaseException
 	 */
-	public Coordinate getCoord(SlotButton sB, int player) throws CornerCaseException {
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array [ i ].length; j++) {
-				if (array [ i ] [ j ].equals(sB)) {
+	public Coordinate getCoord(SlotButton sB) throws CornerCaseException {
+		for (int i = 0; i < slotButtons.length; i++) {
+			for (int j = 0; j < slotButtons [ i ].length; j++) {
+				if (slotButtons [ i ] [ j ].equals(sB)) {
 					return new Coordinate(i, j);
 				}
 			}

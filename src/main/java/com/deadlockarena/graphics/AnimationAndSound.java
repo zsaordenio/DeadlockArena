@@ -199,7 +199,7 @@ public class AnimationAndSound {
 		String sound = "";
 		switch (soundType) {
 		case "melee":
-			switch (JavaData.random.nextInt(2)) {
+			switch (JavaData.RANDOM.nextInt(2)) {
 			case 0:
 				sound = "melee1";
 				break;
@@ -220,9 +220,9 @@ public class AnimationAndSound {
 
 	private void shufflePlaylist() {
 		int n = soundtracks.length;
-		JavaData.random.nextInt();
+		JavaData.RANDOM.nextInt();
 		for (int i = 0; i < n; i++) {
-			int change = i + JavaData.random.nextInt(n - i);
+			int change = i + JavaData.RANDOM.nextInt(n - i);
 			String placeHolder = soundtracks [ i ];
 			soundtracks [ i ] = soundtracks [ change ];
 			soundtracks [ change ] = placeHolder;
