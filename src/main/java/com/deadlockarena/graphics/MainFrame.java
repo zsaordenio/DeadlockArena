@@ -23,6 +23,8 @@ import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MainLogic;
+import com.deadlockarena.logic.SelectGrid;
+import com.deadlockarena.logic.SlotGrid;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
@@ -41,7 +43,6 @@ public class MainFrame extends JFrame {
 	private AnimationAndSound aAS;
 	private GridBagConstraints gbc;
 
-	private SelectButton [ ] [ ] selectButtons;
 	private Stack<JButton [ ]> orderList;
 
 	// TO-DO make the panels their own class
@@ -82,7 +83,7 @@ public class MainFrame extends JFrame {
 
 		this.gbc = new GridBagConstraints();
 		this.aAS = new AnimationAndSound();
-		this.selectButtons = new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ];
+
 		this.orderList = new Stack<>();
 	}
 
@@ -170,14 +171,14 @@ public class MainFrame extends JFrame {
 		add(panelSouth, BorderLayout.SOUTH);
 	}
 
-	public void addSelectButtons() {
+	public void addSelectButtons(SelectGrid selectGrid) {
 		this.gbc.gridx = 0;
 		this.gbc.gridy = 0;
-		for (int i = 0; i < selectButtons.length; i++) {
-			for (int j = 0; j < selectButtons [ i ].length; j++) {
-				SelectButton sb = new SelectButton();
-				this.selectButtons [ i ] [ j ] = sb;
-				this.panelWest_a.add(sb, gbc);
+		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
+			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
+				SelectButton selectButton = new SelectButton();
+				selectGrid.setButton(i,j, selectButton);
+				this.panelWest_a.add(selectButton, gbc);
 				this.gbc.gridy++;
 			}
 			this.gbc.gridx++;
@@ -185,13 +186,14 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void populateSelectButtons(int player, Grid grid1, Grid grid2) {
+	public void populateSelectButtons(SelectButton [ ] [ ] selectButtons, int player, Grid grid1,
+			Grid grid2) {
 		if (this.jpaGetData == null) {
 			this.jpaGetData = SpringUtils.jgd;
 		}
 		for (int i = 0; i < selectButtons.length; i++) {
 			for (int j = 0; j < selectButtons [ i ].length; j++) {
-				this.selectButtons [ i ] [ j ].populate(
+				selectButtons [ i ] [ j ].populate(
 						jpaGetData.evalChampion(
 								JavaData.CHAMPIONS [ i * JavaData.SELECT_ROW_COUNT + j ]),
 						player, grid1, grid2, this);
@@ -199,7 +201,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void addSlotButtons(Grid grid1, Grid grid2) {
+	public void addSlotButtons(SlotGrid slotGrid1, SlotGrid slotGrid2) {
 		this.gbc.gridx = 0;
 		this.gbc.gridy = 0;
 		for (int player = 1; player <= 2; player++) {
@@ -207,10 +209,10 @@ public class MainFrame extends JFrame {
 			SlotButton [ ] [ ] slotButtons;
 			if (player == 1) {
 				jPanel = panelCenter_a;
-				slotButtons = grid1.getSlotButtons();
+				slotButtons = (SlotButton [ ] [ ]) slotGrid1.getJButtons();
 			} else {
 				jPanel = panelCenter_b;
-				slotButtons = grid2.getSlotButtons();
+				slotButtons = (SlotButton [ ] [ ] ) slotGrid2.getJButtons();
 			}
 			for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 				for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
@@ -226,11 +228,11 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void populateSlotButtons(Game g, Grid grid) {
+	public void populateSlotButtons(Game g, SlotGrid slotGrid) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				grid.getSlotButton(i, j).populate(jpaGetData.evalChampion(
-						JavaData.CHAMPIONS [ i * JavaData.SELECT_ROW_COUNT + j ]), this, g);
+				((SlotButton)slotGrid.getButton(i, j)).populate(jpaGetData.evalChampion(
+						JavaData.CHAMPIONS [ i * JavaData.SELECT_ROW_COUNT + j ]), g);
 			}
 		}
 	}

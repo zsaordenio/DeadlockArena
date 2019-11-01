@@ -6,6 +6,8 @@ import com.deadlockarena.graphics.SelectButton;
 import com.deadlockarena.graphics.SlotButton;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MainLogic;
+import com.deadlockarena.logic.SelectGrid;
+import com.deadlockarena.logic.SlotGrid;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +18,8 @@ public class Game {
 	private MainFrame mainFrame;
 	private MainLogic mainLogic;
 
-	private SelectButton [ ] [ ] selectButtons;
-	
-	private Grid grid1, grid2;
+	private SelectGrid selectGrid;
+	private SlotGrid slotGrid1, slotGrid2;
 
 	private int player;
 	private int totalCount; // 0-18
@@ -29,9 +30,17 @@ public class Game {
 	public Game() {
 		this.mainLogic = new MainLogic();
 		this.mainFrame = new MainFrame();
-		
-		this.selectButtons = new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ];
-		
+
+		this.selectGrid = new SelectGrid(
+				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ],
+				"select");
+		this.slotGrid1 = new SlotGrid(
+				new SlotButton [ JavaData.SLOT_ROW_COUNT] [JavaData.SLOT_COL_COUNT],
+				"bottom");
+		this.slotGrid2 = new SlotGrid(
+				new SlotButton [ JavaData.SLOT_ROW_COUNT] [JavaData.SLOT_COL_COUNT],
+				"top");
+				
 		this.player = 1;
 		this.totalCount = 0;
 		this.move = 0;
@@ -41,10 +50,10 @@ public class Game {
 	public void executePhase1() {
 		this.mainFrame.addPanels();
 
-		this.mainFrame.addSelectButtons();
+		this.mainFrame.addSelectButtons(selectGrid);
 		this.mainFrame.populateSelectButtons(player, grid1, grid2);
 
-		this.mainFrame.addSlotButtons(grid1, grid2);
+		this.mainFrame.addSlotButtons(slotGrid1, slotGrid2);
 		this.mainFrame.populateSlotButtons(this, grid1);
 		this.mainFrame.populateSlotButtons(this, grid2);
 	}

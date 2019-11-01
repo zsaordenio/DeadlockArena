@@ -52,22 +52,22 @@ public class SlotButton extends JButton {
 	
 
 
-	public void populate(final Champion champion, final MainFrame mainFrame, final Game game) {
+	public void populate(final Champion champion, final Game game) {
 
 		// Selecting champion
 		this.mL1 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SlotButton.super.isEnabled()) {
-					mainFrame.getAAS().playSound("select");
+					game.getMainFrame().getAAS().playSound("select");
 					SlotButton.this.setSelected(true);
 
 					SlotButton.this.setChampion(jpaGetData
-							.evalChampion(mainFrame.getCurrent().getChampion().getChampion()));
+							.evalChampion(game.getMainFrame().getCurrent().getChampion().getChampion()));
 
-					SlotButton.super.setBackground(mainFrame.getCurrent().getBackground());
-					mainFrame.getOrderList()
-							.push(new JButton [ ] { SlotButton.this , mainFrame.getCurrent() });
-					mainFrame.setCurrent(null);
+					SlotButton.super.setBackground(game.getMainFrame().getCurrent().getBackground());
+					game.getMainFrame().getOrderList()
+							.push(new JButton [ ] { SlotButton.this , game.getMainFrame().getCurrent() });
+					game.getMainFrame().setCurrent(null);
 
 					// TO-DO replace with new path on nexus
 //					normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png")
@@ -89,39 +89,39 @@ public class SlotButton extends JButton {
 					for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 						for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
 							if (game.getPlayer() == 2) {
-								game.getGrid2().getSlotButtons() [ i ] [ j ].setEnabled(false);
+								game.getSlotGrid2().getSlotButtons() [ i ] [ j ].setEnabled(false);
 							} else {
-								game.getGrid1().getSlotButtons() [ i ] [ j ].setEnabled(false);
+								game.getSlotGrid1().getSlotButtons() [ i ] [ j ].setEnabled(false);
 							}
 						}
 					}
 
-					for (int i = 0; i < mainFrame.getSelectButtons().length; i++) {
-						for (int j = 0; j < mainFrame.getSelectButtons() [ j ].length; j++) {
-							if (!mainFrame.getSelectButtons() [ i ] [ j ].isSelected()) {
-								mainFrame.getSelectButtons() [ i ] [ j ].setEnabled(true);
+					for (int i = 0; i < game.getMainFrame().getSelectButtons().length; i++) {
+						for (int j = 0; j < game.getMainFrame().getSelectButtons() [ j ].length; j++) {
+							if (!game.getMainFrame().getSelectButtons() [ i ] [ j ].isSelected()) {
+								game.getMainFrame().getSelectButtons() [ i ] [ j ].setEnabled(true);
 							}
 						}
 					}
 
 					game.setTotalCount(game.getTotalCount() + 1);
 					if (game.getTotalCount() == 9) {
-						mainFrame.getOrderList().clear();
-						for (int i = 0; i < mainFrame.getSelectButtons().length; i++) {
-							for (int j = 0; j < mainFrame.getSelectButtons() [ j ].length; j++) {
-								mainFrame.getSelectButtons() [ i ] [ j ].setSelected(false);
-								mainFrame.getSelectButtons() [ i ] [ j ].setEnabled(true);
+						game.getMainFrame().getOrderList().clear();
+						for (int i = 0; i < game.getMainFrame().getSelectButtons().length; i++) {
+							for (int j = 0; j < game.getMainFrame().getSelectButtons() [ j ].length; j++) {
+								game.getMainFrame().getSelectButtons() [ i ] [ j ].setSelected(false);
+								game.getMainFrame().getSelectButtons() [ i ] [ j ].setEnabled(true);
 							}
 						}
 						game.switchPlayer();
-						mainFrame.switchPlayerLabel(game.getPlayer());
+						game.getMainFrame().switchPlayerLabel(game.getPlayer());
 					} else if (game.getTotalCount() == 18) {
 						game.switchPlayer();
-						mainFrame.getOrderList().clear();
-						mainFrame.switchPlayerLabel(game.getPlayer());
-						// mainFrame.gamePlay();
+						game.getMainFrame().getOrderList().clear();
+						game.getMainFrame().switchPlayerLabel(game.getPlayer());
+						// game.getMainFrame().gamePlay();
 					}
-					mainFrame.updateButtonPictures();
+					game.getMainFrame().updateButtonPictures();
 				}
 			}
 		};
@@ -130,14 +130,14 @@ public class SlotButton extends JButton {
 		this.mL2 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SlotButton.this.isEnabled()) {
-					mainFrame.getAAS().playSound("select");
+					game.getMainFrame().getAAS().playSound("select");
 					game.getMainLogic().getAttackLogic().getTargets().clear();
 					if (SlotButton.this.isEnabled()) {
-						mainFrame.setSlot(SlotButton.this);
-						mainFrame.resetListeners();
+						game.getMainFrame().setSlot(SlotButton.this);
+						game.getMainFrame().resetListeners();
 					}
 					setSkillButtons();
-					mainFrame.setPanelEast(SlotButton.this, mainFrame.getPlayer());
+					game.getMainFrame().setPanelEast(SlotButton.this, game.getMainFrame().getPlayer());
 				}
 			}
 
@@ -145,13 +145,13 @@ public class SlotButton extends JButton {
 				if (SlotButton.this.isEnabled()) {
 					Coordinate coord = null;
 					if (game.getPlayer() == 2) {
-						coord = game.getMainLogic().getGrid2().getCoord(SlotButton.this);
+						coord = game.getSlotGrid2().getCoord(SlotButton.this);
 					} else {
-						coord = game.getMainLogic().getGrid1().getCoord(SlotButton.this);
+						coord = game.getSlotGrid1().getCoord(SlotButton.this);
 					}
 					SlotButton [ ] [ ] arr = game.getPlayer() == 2
-							? game.getMainLogic().getGrid2().getArray()
-							: game.getMainLogic().getGrid1().getArray();
+							? game.getSlotGrid2().getArray()
+							: game.getSlotGrid1().getArray();
 					try {
 						if (arr [ coord.getI() ] [ coord.getJ() + 1 ].getChampion() == null) {
 							arr [ coord.getI() ] [ coord.getJ() + 1 ]
@@ -184,14 +184,14 @@ public class SlotButton extends JButton {
 
 						if (SlotButton.this.getChampion() != null
 								&& sl.isValidStance(SlotButton.this.getChampion().getLogic(),
-										SlotButton.this, mainFrame.getPlayer())) {
+										SlotButton.this, game.getMainFrame().getPlayer())) {
 							al.highlight(SlotButton.this.getChampion().getLogic(),
-									mainFrame.getPlayer());
+									game.getMainFrame().getPlayer());
 						}
 					} catch (CornerCaseException e) {
 						e.printStackTrace();
 					}
-					mainFrame.updateButtonPictures();
+					game.getMainFrame().updateButtonPictures();
 				}
 			}
 
@@ -200,11 +200,11 @@ public class SlotButton extends JButton {
 					SlotButton [ ] [ ] arr;
 					int [ ] coord = { -1 , -1 };
 					try {
-						coord = g.getCoord(SlotButton.this, mainFrame.getPlayer());
+						coord = g.getCoord(SlotButton.this, game.getMainFrame().getPlayer());
 					} catch (CornerCaseException exc) {
 						exc.printStackTrace();
 					}
-					arr = mainFrame.getPlayer() == 1 ? g.array1 : g.array2;
+					arr = game.getMainFrame().getPlayer() == 1 ? g.array1 : g.array2;
 					try {
 						arr [ coord [ 0 ] ] [ coord [ 1 ] + 1 ].setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
@@ -221,9 +221,9 @@ public class SlotButton extends JButton {
 						arr [ coord [ 0 ] - 1 ] [ coord [ 1 ] ].setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
 						/* Ignore */}
-					al.unHighlight(mainFrame.getPlayer());
+					al.unHighlight(game.getMainFrame().getPlayer());
 				}
-				mainFrame.updateButtonPictures();
+				game.getMainFrame().updateButtonPictures();
 			}
 
 			public String toString() {
@@ -235,28 +235,28 @@ public class SlotButton extends JButton {
 		this.mL3 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) { // swap
 				if (SlotButton.this.isEnabled()) {
-					mainFrame.getAAS().playSound("select");
+					game.getMainFrame().getAAS().playSound("select");
 
-					SlotButton.this.setBackground(mainFrame.getSlot().getBackground());
-					SlotButton.this.setChampion(mainFrame.getSlot().getChampion());
-					SlotButton.this.setchampionLabel(mainFrame.getSlot().getChampionLabel());
-					SlotButton.this.setchampionPicture(mainFrame.getSlot().getchampionPicture());
-					SlotButton.this.setNormalImage(mainFrame.getSlot().getNormalImage());
-					SlotButton.this.setGrayedImage(mainFrame.getSlot().getGrayedImage());
+					SlotButton.this.setBackground(game.getMainFrame().getSlot().getBackground());
+					SlotButton.this.setChampion(game.getMainFrame().getSlot().getChampion());
+					SlotButton.this.setchampionLabel(game.getMainFrame().getSlot().getChampionLabel());
+					SlotButton.this.setchampionPicture(game.getMainFrame().getSlot().getchampionPicture());
+					SlotButton.this.setNormalImage(game.getMainFrame().getSlot().getNormalImage());
+					SlotButton.this.setGrayedImage(game.getMainFrame().getSlot().getGrayedImage());
 					SlotButton.this.alterMouseAdapter0_3(); // 3->0
 
-					mainFrame.getSlot().setBackground(JavaData.DEFAULT_BACKGROUND);
-					mainFrame.getSlot().setText("");
-					mainFrame.getSlot().removeAll();
-					mainFrame.getSlot().setChampion(null);
-					mainFrame.getSlot().setNormalImage(null);
-					mainFrame.getSlot().setGrayedImage(null);
+					game.getMainFrame().getSlot().setBackground(JavaData.DEFAULT_BACKGROUND);
+					game.getMainFrame().getSlot().setText("");
+					game.getMainFrame().getSlot().removeAll();
+					game.getMainFrame().getSlot().setChampion(null);
+					game.getMainFrame().getSlot().setNormalImage(null);
+					game.getMainFrame().getSlot().setGrayedImage(null);
 
 					int [ ] beforeCoord = new int [ ] { -1 , -1 };
 					int [ ] afterCoord = new int [ ] { -1 , -1 };
 					try {
-						beforeCoord = g.getCoord(mainFrame.getSlot(), mainFrame.getPlayer());
-						afterCoord = g.getCoord(SlotButton.this, mainFrame.getPlayer());
+						beforeCoord = g.getCoord(game.getMainFrame().getSlot(), game.getMainFrame().getPlayer());
+						afterCoord = g.getCoord(SlotButton.this, game.getMainFrame().getPlayer());
 					} catch (CornerCaseException exc) {
 						exc.printStackTrace();
 					}
@@ -271,19 +271,19 @@ public class SlotButton extends JButton {
 					else if (beforeCoord [ 1 ] < afterCoord [ 1 ])
 						dir = "right";
 
-					mainFrame.getMP().generateMove(mainFrame.getMessages(), mainFrame.getMove());
+					game.getMainFrame().getMP().generateMove(game.getMainFrame().getMessages(), game.getMainFrame().getMove());
 					// error prone?
-					// mainFrame.getMP().generateMessage(mainFrame.getMessages(), SlotButton.this,
+					// game.getMainFrame().getMP().generateMessage(game.getMainFrame().getMessages(), SlotButton.this,
 					// dir);
-					mainFrame.resetListeners();
-					mainFrame.clearAllBorders();
-					mainFrame.evalTurns();
+					game.getMainFrame().resetListeners();
+					game.getMainFrame().clearAllBorders();
+					game.getMainFrame().evalTurns();
 					try {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
-					mainFrame.setSlot(null);
-					mainFrame.updateButtonPictures();
+					game.getMainFrame().setSlot(null);
+					game.getMainFrame().updateButtonPictures();
 				}
 			}
 
@@ -298,18 +298,18 @@ public class SlotButton extends JButton {
 				if (SlotButton.this.isEnabled()) {
 
 					al.attack(SlotButton.this);
-					mainFrame.disableAll();
+					game.getMainFrame().disableAll();
 					setSkillButtons();
-					mainFrame.setPanelEast(SlotButton.this, mainFrame.getPlayer());
-					mainFrame.resetListeners();
-					mainFrame.clearAllBorders();
-					mainFrame.evalTurns();
+					game.getMainFrame().setPanelEast(SlotButton.this, game.getMainFrame().getPlayer());
+					game.getMainFrame().resetListeners();
+					game.getMainFrame().clearAllBorders();
+					game.getMainFrame().evalTurns();
 					try {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
-					mainFrame.setSlot(null);
-					mainFrame.updateButtonPictures();
+					game.getMainFrame().setSlot(null);
+					game.getMainFrame().updateButtonPictures();
 				}
 			}
 
@@ -321,20 +321,20 @@ public class SlotButton extends JButton {
 		// panelEast's content generator
 		this.mL5 = new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
-				if (mainFrame.getSlot() != null && side == mainFrame.getPlayer())
-					mainFrame.setPanelEast(mainFrame.getSlot(), side);
+				if (game.getMainFrame().getSlot() != null && side == game.getMainFrame().getPlayer())
+					game.getMainFrame().setPanelEast(game.getMainFrame().getSlot(), side);
 				else
-					mainFrame.setPanelEast(SlotButton.this, side);
+					game.getMainFrame().setPanelEast(SlotButton.this, side);
 				setSkillButtons();
-				mainFrame.updateButtonPictures();
+				game.getMainFrame().updateButtonPictures();
 			}
 
 			public void mouseExited(MouseEvent e) {
-				if (mainFrame.getSlot() != null && side == mainFrame.getPlayer())
+				if (game.getMainFrame().getSlot() != null && side == game.getMainFrame().getPlayer())
 					return;
-				mainFrame.clearSkillButtons(mainFrame.getPlayer()); // error
+				game.getMainFrame().clearSkillButtons(game.getMainFrame().getPlayer()); // error
 																	// prone
-				mainFrame.clearPanelEast(side);
+				game.getMainFrame().clearPanelEast(side);
 			}
 
 			public String toString() {
@@ -404,25 +404,25 @@ public class SlotButton extends JButton {
 		Champion localchampion;
 		if (champion == null) {
 			return;
-		} else if (mainFrame.getSlot() == null && champion != null
-				|| mainFrame.getSlot() != null && side != mainFrame.getPlayer()) {
+		} else if (game.getMainFrame().getSlot() == null && champion != null
+				|| game.getMainFrame().getSlot() != null && side != game.getMainFrame().getPlayer()) {
 			localchampion = champion;
-		} else if (mainFrame.getSlot() != null
-				&& mainFrame.getSlot().getSide() == mainFrame.getPlayer()) {
-			localchampion = mainFrame.getSlot().getChampion();
+		} else if (game.getMainFrame().getSlot() != null
+				&& game.getMainFrame().getSlot().getSide() == game.getMainFrame().getPlayer()) {
+			localchampion = game.getMainFrame().getSlot().getChampion();
 		} else {
 			return;
 		}
 
 		if (side == 2) {
-			for (int i = 0; i < mainFrame.getSkillButtons2().length; i++) {
-				mainFrame.getSkillButtons2() [ i ].setSkillButton(
+			for (int i = 0; i < game.getMainFrame().getSkillButtons2().length; i++) {
+				game.getMainFrame().getSkillButtons2() [ i ].setSkillButton(
 						"pics/" + localchampion + "IconS" + (i + 1) + ".png",
 						1 - localchampion.evalFraction(i));
 			}
 		} else {
-			for (int i = 0; i < mainFrame.getSkillButtons1().length; i++) {
-				mainFrame.getSkillButtons1() [ i ].setSkillButton(
+			for (int i = 0; i < game.getMainFrame().getSkillButtons1().length; i++) {
+				game.getMainFrame().getSkillButtons1() [ i ].setSkillButton(
 						"pics/" + localchampion + "IconS" + (i + 1) + ".png",
 						1 - localchampion.evalFraction(i));
 			}
