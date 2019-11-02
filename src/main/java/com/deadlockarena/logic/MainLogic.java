@@ -2,9 +2,6 @@ package com.deadlockarena.logic;
 
 import javax.swing.JTextArea;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.deadlockarena.Game;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.SlotButton;
@@ -12,7 +9,6 @@ import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 public class MainLogic {
@@ -29,23 +25,15 @@ public class MainLogic {
 		this.messageProcessor = new MessageProcessor();
 		this.jpaGetData = SpringUtils.jgd;
 	}
-	public void populateSelectButtons(Game game) {
-		SelectGrid selectGrid = game.getSelectGrid();
-		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
-			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
-				selectGrid.getJButton(i, j).populate(game,
-						jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ] [ j ]));
-			}
-		}
-	}
 	
-	public void populateSlotButtons(Game game, SlotGrid slotGrid) {
-		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
-			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				(slotGrid.getJButton(i, j)).populate(game);
-			}
-		}
-	}
+	
+//	public void populateSlotButtons(Game game, SlotGrid slotGrid) {
+//		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+//			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
+//				(slotGrid.getJButton(i, j)).populate(game);
+//			}
+//		}
+//	}
 	
 	public void switchListeners(SlotButton [ ] [ ] slotButtons1, SlotButton [ ] [ ] slotButtons2,
 			int player, JTextArea messages) {

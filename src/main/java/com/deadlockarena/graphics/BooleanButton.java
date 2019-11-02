@@ -1,5 +1,11 @@
 package com.deadlockarena.graphics;
 
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -8,12 +14,6 @@ import com.deadlockarena.exception.CornerCaseException;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

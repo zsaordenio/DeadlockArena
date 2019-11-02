@@ -9,8 +9,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.MainFrame;
-import com.deadlockarena.graphics.SlotButton;
 
 import lombok.Data;
 

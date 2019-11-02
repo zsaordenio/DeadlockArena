@@ -1,5 +1,15 @@
 package com.deadlockarena.graphics;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.Stack;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -7,23 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.util.Stack;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.deadlockarena.Game;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.Grid;
-import com.deadlockarena.logic.MainLogic;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
@@ -38,8 +36,7 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -8478413270802946942L;
 
-
-
+	private JpaGetData jpaGetData;
 	private AnimationAndSound aAS;
 
 	private Stack<JButton [ ]> orderList;
@@ -77,11 +74,14 @@ public class MainFrame extends JFrame {
 		super.setTitle("Deadlock Arena");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(new BorderLayout());
-		super.setPreferredSize(new Dimension(1800, 1000));
+		super.setPreferredSize(new Dimension(1700, 1000));
+		// super.setLocationRelativeTo(null);
+		super.pack();
+		super.setVisible(true);
 
-		
 		this.aAS = new AnimationAndSound();
 		this.orderList = new Stack<>();
+		this.jpaGetData = SpringUtils.jgd;
 	}
 
 	public void addPanels() {
@@ -90,32 +90,50 @@ public class MainFrame extends JFrame {
 		{
 			panelWest_a = new JPanel(new GridBagLayout());
 			panelWest_a.setBackground(JavaData.DEFAULT_BACKGROUND);
-			panelWest_b = new JPanel(new BorderLayout());
+			panelWest_b = new JPanel(new GridBagLayout());
 			panelWest_b.setBackground(JavaData.DEFAULT_BACKGROUND);
 			{
-				iconLabel = new JLabel(new ImageIcon("pics/DefaultIcon.png"));
-				iconLabel.setBorder(JavaData.ATTACK_BORDER);
+				iconLabel = new JLabel();
+				stats = new JLabel("");
+				stats.setFont(JavaData.PANEL_EAST_FONT);
+				stats.setForeground(Color.white);
 				description = new JTextArea();
 				description.setWrapStyleWord(true);
 				description.setLineWrap(true);
 				description.setFont(JavaData.BASIC_FONT);
 				description.setForeground(Color.white);
 				description.setBackground(JavaData.DEFAULT_BACKGROUND);
-				description.setBorder(JavaData.ATTACK_BORDER);
-				stats = new JLabel(JavaData.DEFAULT_STATUS_STRING);
-				stats.setFont(JavaData.PANEL_EAST_FONT);
-				stats.setForeground(Color.white);
-				stats.setBorder(JavaData.ATTACK_BORDER);
 				championLabel = new JLabel();
 				championLabel.setFont(JavaData.CHAMPION_FONT);
 				championLabel.setForeground(Color.white);
-				championLabel.setBorder(JavaData.ATTACK_BORDER);
-				championLabel.setText("?");
+				championLabel.setText("");
 			}
-			panelWest_b.add(iconLabel, BorderLayout.WEST);
-			panelWest_b.add(description, BorderLayout.CENTER);
-			panelWest_b.add(stats, BorderLayout.EAST);
-			panelWest_b.add(championLabel, BorderLayout.NORTH);
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx = 0;
+			gbc.gridy = 1;
+			gbc.gridwidth = 1;
+			gbc.weightx = 0;
+			panelWest_b.add(iconLabel, gbc);
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			gbc.gridwidth = 2;
+			gbc.weightx = .5;
+			gbc.ipadx = 30;
+			panelWest_b.add(description, gbc);
+			gbc.gridx = 3;
+			gbc.gridy = 1;
+			gbc.gridwidth = 2;
+			gbc.weightx = 0;
+			gbc.ipadx = 80;
+			panelWest_b.add(stats, gbc);
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.gridwidth = 5;
+			gbc.ipadx = 0;
+			panelWest_b.add(championLabel, gbc);
+			panelWest_b.setBorder(JavaData.ATTACK_BORDER);
+			panelWest_b.setPreferredSize(new Dimension(600,250));
 		}
 		panelWest.add(panelWest_a, BorderLayout.NORTH);
 		panelWest.add(panelWest_b, BorderLayout.SOUTH);
@@ -158,24 +176,24 @@ public class MainFrame extends JFrame {
 		panelSouth.add(playerLabel);
 		panelSouth.add(cancel);
 		// ---------------------------------------------------------------------------
-		panelWest.setPreferredSize(new Dimension(500, 500));
+		panelWest.setPreferredSize(new Dimension(600, 500));
 		panelCenter.setPreferredSize(new Dimension(800, 500));
 		panelSouth.setPreferredSize(new Dimension(500, 50));
 
-		this.add(panelWest, BorderLayout.WEST);
-		this.add(panelCenter, BorderLayout.CENTER);
-		this.add(panelNorth, BorderLayout.NORTH);
-		this.add(panelSouth, BorderLayout.SOUTH);
+		super.add(panelWest, BorderLayout.WEST);
+		super.add(panelCenter, BorderLayout.CENTER);
+		super.add(panelNorth, BorderLayout.NORTH);
+		super.add(panelSouth, BorderLayout.SOUTH);
 	}
 
-	public void addSelectButtons(SelectGrid selectGrid) {
+	public void addSelectButtons(Game game, SelectGrid selectGrid) {
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
 		gbc.gridy = 0;
-		gbc.fill = GridBagConstraints.BOTH;
 		for (int i = 0; i < selectGrid.getJButtons().length; i++) {
 			for (int j = 0; j < selectGrid.getJButtons() [ i ].length; j++) {
-				SelectButton selectButton = new SelectButton();
+				SelectButton selectButton = new SelectButton(game,
+						jpaGetData.evalChampion(JavaData.CHAMPIONS [ i ] [ j ]));
 				selectGrid.setJButton(i, j, selectButton);
 				this.panelWest_a.add(selectButton, gbc);
 				gbc.gridx++;
@@ -185,17 +203,16 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void addSlotButtons(SlotGrid slotGrid1, SlotGrid slotGrid2) {
+	public void addSlotButtons(Game game, SlotGrid slotGrid1, SlotGrid slotGrid2) {
 		for (int player = 1; player <= 2; player++) {
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			gbc.fill = GridBagConstraints.BOTH;
 			JPanel jPanel = player == 2 ? this.panelCenter_a : this.panelCenter_b;
 			SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
 			for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 				for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-					SlotButton slotButton = new SlotButton(player == 2 ? "top" : "bottom",
+					SlotButton slotButton = new SlotButton(game, player == 2 ? "top" : "bottom",
 							new Coordinate(i, j));
 					slotGrid.setJButton(i, j, slotButton);
 					jPanel.add(slotButton, gbc);
@@ -295,15 +312,6 @@ public class MainFrame extends JFrame {
 //		}
 //	}
 
-	public void clearAllBorders(Grid grid1, Grid grid2) {
-		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
-			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-				grid1.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
-				grid2.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
-			}
-		}
-	}
-
 	public void resetListeners(SlotGrid grid1, SlotGrid grid2) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
@@ -336,25 +344,7 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-//	public void disableAll(int player) {
-//		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
-//			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-//				if (player == 2) {
-//					this.slotButtons2 [ i ] [ j ].setEnabled(false);
-//				} else {
-//					this.slotButtons1 [ i ] [ j ].setEnabled(false);
-//				}
-//			}
-//		}
-//	}
-	public void disableAll(Grid grid) {
-		for (int i = 0; i < grid.getJButtons().length; i++) {
-			for (int j = 0; j < grid.getJButtons() [ i ].length; j++) {
-				grid.getJButtons() [ i ] [ j ].setEnabled(false);
-			}
-		}
-	}
-
+	// TO-DO check player before calling
 	public void clearSkillButtons(int player) {
 		if (player == 2) {
 			for (int i = 0; i < skillButtons2.length; i++) {
@@ -367,18 +357,18 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	public void display(Champion champion) {
-		getIconLabel().setIcon(new ImageIcon("pics/" + champion.toString() + "Icon.png"));
-		getStats().setText(JavaData.getStatsText(champion));
-		getDescription().setText(champion.getDescription());
-		getChampionLabel().setText(champion.toString());
+	public void displayPreview(Champion champion, ImageIcon imageIcon) {
+		this.iconLabel.setIcon(imageIcon);
+		this.stats.setText(JavaData.getStatsText(champion));
+		this.description.setText(champion.getDescription());
+		this.championLabel.setText(champion.getChampion());
+
 	}
 
-	public void unDisplay(Color color) {
-		getIconLabel().setIcon(new ImageIcon("pics/DefaultIcon.png"));
-		getStats().setText(JavaData.DEFAULT_STATUS_STRING);
-		getDescription().setText("");
-		getChampionLabel().setText("?");
-		super.setBackground(color);
+	public void unDisplayPreview(Color color) {
+		this.iconLabel.setIcon(null);
+		this.stats.setText("");
+		this.description.setText("");
+		this.championLabel.setText("");
 	}
 }

@@ -1,11 +1,7 @@
 package com.deadlockarena.logic;
 
-import javax.swing.JButton;
-
 import com.deadlockarena.graphics.SelectButton;
-import com.deadlockarena.graphics.SlotButton;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,19 +9,27 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class SelectGrid extends Grid {
 
-	public SelectGrid(SelectButton [][] selectButtons, String position) {
-		super(selectButtons, position);
+	public SelectGrid(SelectButton [ ] [ ] selectButtons) {
+		super(selectButtons);
 	}
-	
+
 	@Override
 	public SelectButton getJButton(int i, int j) {
 		return (SelectButton) super.jButtons [ i ] [ j ];
 	}
-	
+
 	@Override
-	public SelectButton [][] getJButtons(){
-		return (SelectButton [][]) super.jButtons;
+	public SelectButton [ ] [ ] getJButtons() {
+		return (SelectButton [ ] [ ]) super.jButtons;
 	}
 
+	@Override
+	public void addMouseListener(int mLNumber) {
+		for (int i = 0; i < super.jButtons.length; i++) {
+			for (int j = 0; j < super.jButtons [ i ].length; j++) {
+				this.getJButton(i, j).addMouseListener(this.getJButton(i, j).getML());
+			}
+		}
+	}
 
 }

@@ -1,5 +1,8 @@
 package com.deadlockarena.graphics;
 
+import java.awt.Dimension;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -8,9 +11,6 @@ import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.awt.Dimension;
-import java.awt.Image;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

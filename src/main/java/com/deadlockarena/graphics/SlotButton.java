@@ -17,8 +17,6 @@ import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.logic.AttackLogic;
 import com.deadlockarena.logic.Coordinate;
-import com.deadlockarena.logic.Grid;
-import com.deadlockarena.logic.MessageProcessor;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
 import com.deadlockarena.logic.StanceLogic;
@@ -27,52 +25,46 @@ import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class SlotButton extends JButton {
 	private static final long serialVersionUID = 1436902681342190255L;
 
-	private String position;
-	private Coordinate coordinate;
-
 	private boolean selected;
 	private Champion champion;
-
+	private String position;
+	private Coordinate coordinate;
 	private JpaGetData jpaGetData;
-
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
-
 	private MouseListener mL1, mL2, mL3, mL4, mL5;
 
-	public SlotButton(String position, Coordinate coordinate) {
-		super.setFont(JavaData.BASIC_FONT);
+	public SlotButton(Game game, String position, Coordinate coordinate) {
 		super.setEnabled(false);
+		super.setFont(JavaData.BASIC_FONT);
 		super.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
+		this.selected = false;
 		this.position = position;
 		this.coordinate = coordinate;
-		this.selected = false;
+		// Selecting champion
+		this.addMouseListener1(game);
+		// Initial select
+		this.addMouseListener2(game);
+		// Accepting movement
+		this.addMouseListener3(game);
+		// Accepting attack
+		this.addMouseListener4(game);
+		// panelEast's content generator
+		this.addMouseListener5(game);
 	}
 
-	public void populate(Game game) {
-
+	private void addMouseListener1(Game game) {
 		MainFrame mainFrame = game.getMainFrame();
 		SelectGrid selectGrid = game.getSelectGrid();
 		SlotGrid slotGrid1 = game.getSlotGrid1();
 		SlotGrid slotGrid2 = game.getSlotGrid2();
-		int player = game.getPlayer();
-		StanceLogic stanceLogic = game.getMainLogic().getStanceLogic();
-		AttackLogic attackLogic = game.getMainLogic().getAttackLogic();
-		Champion champ = this.champion;
-		SlotButton slot = game.getMainFrame().getSlot();
-
-		SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
-		final Coordinate coord = slotGrid.getCoord(SlotButton.this);
-
-		// Selecting champion
-		this.mL1 = new MouseAdapter() {
+		mL1 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SlotButton.super.isEnabled()) {
 					game.getMainFrame().getAAS().playSound("select");
@@ -88,9 +80,9 @@ public class SlotButton extends JButton {
 					game.getMainFrame().setCurrent(null);
 
 					// TO-DO replace with new path on nexus
-//					normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png")
-//							.getImage().getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2,
-//									Image.SCALE_SMOOTH));
+					normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png")
+							.getImage().getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2,
+									Image.SCALE_SMOOTH));
 					setLayout(null);
 					grayedImage = new ImageIcon(
 							GrayFilter.createDisabledImage(normalImage.getImage()));
@@ -142,12 +134,24 @@ public class SlotButton extends JButton {
 					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
 				}
 			}
+
+			public String toString() {
+				return "mL1";
+			}
 		};
+	}
 
-		// Initial select
-
-		this.mL2 = new MouseAdapter() {
-
+	private void addMouseListener2(Game game) {
+		MainFrame mainFrame = game.getMainFrame();
+		SelectGrid selectGrid = game.getSelectGrid();
+		SlotGrid slotGrid1 = game.getSlotGrid1();
+		SlotGrid slotGrid2 = game.getSlotGrid2();
+		int player = game.getPlayer();
+		StanceLogic stanceLogic = game.getMainLogic().getStanceLogic();
+		AttackLogic attackLogic = game.getMainLogic().getAttackLogic();
+		Champion champ = this.champion;
+		SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
+		mL2 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SlotButton.this.isEnabled()) {
 					mainFrame.getAAS().playSound("select");
@@ -164,33 +168,33 @@ public class SlotButton extends JButton {
 			public void mouseEntered(MouseEvent mE) {
 				if (SlotButton.this.isEnabled()) {
 					try {
-						if (slotGrid.getJButton(coord.getI(), coord.getJ() + 1)
+						if (slotGrid.getJButton(coordinate.getI(), coordinate.getJ() + 1)
 								.getChampion() == null) {
-							slotGrid.getJButton(coord.getI(), coord.getJ() + 1)
+							slotGrid.getJButton(coordinate.getI(), coordinate.getJ() + 1)
 									.setBorder(JavaData.MOVE_BORDER);
 						}
 					} catch (IndexOutOfBoundsException e) {
 						/* Ignore */}
 					try {
-						if (slotGrid.getJButton(coord.getI(), coord.getJ() - 1)
+						if (slotGrid.getJButton(coordinate.getI(), coordinate.getJ() - 1)
 								.getChampion() == null) {
-							slotGrid.getJButton(coord.getI(), coord.getJ() - 1)
+							slotGrid.getJButton(coordinate.getI(), coordinate.getJ() - 1)
 									.setBorder(JavaData.MOVE_BORDER);
 						}
 					} catch (IndexOutOfBoundsException e) {
 						/* Ignore */}
 					try {
-						if (slotGrid.getJButton(coord.getI() + 1, coord.getJ())
+						if (slotGrid.getJButton(coordinate.getI() + 1, coordinate.getJ())
 								.getChampion() == null) {
-							slotGrid.getJButton(coord.getI() + 1, coord.getJ())
+							slotGrid.getJButton(coordinate.getI() + 1, coordinate.getJ())
 									.setBorder(JavaData.MOVE_BORDER);
 						}
 					} catch (IndexOutOfBoundsException e) {
 						/* Ignore */}
 					try {
-						if (slotGrid.getJButton(coord.getI() - 1, coord.getJ())
+						if (slotGrid.getJButton(coordinate.getI() - 1, coordinate.getJ())
 								.getChampion() == null) {
-							slotGrid.getJButton(coord.getI() - 1, coord.getJ())
+							slotGrid.getJButton(coordinate.getI() - 1, coordinate.getJ())
 									.setBorder(JavaData.MOVE_BORDER);
 						}
 					} catch (IndexOutOfBoundsException e) {
@@ -217,22 +221,22 @@ public class SlotButton extends JButton {
 			public void mouseExited(MouseEvent e) {
 				if (SlotButton.this.isEnabled()) {
 					try {
-						slotGrid.getJButton(coord.getI(), coord.getJ() + 1)
+						slotGrid.getJButton(coordinate.getI(), coordinate.getJ() + 1)
 								.setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
 						/* Ignore */}
 					try {
-						slotGrid.getJButton(coord.getI(), coord.getJ() - 1)
+						slotGrid.getJButton(coordinate.getI(), coordinate.getJ() - 1)
 								.setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
 						/* Ignore */}
 					try {
-						slotGrid.getJButton(coord.getI() + 1, coord.getJ())
+						slotGrid.getJButton(coordinate.getI() + 1, coordinate.getJ())
 								.setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
 						/* Ignore */}
 					try {
-						slotGrid.getJButton(coord.getI() - 1, coord.getJ())
+						slotGrid.getJButton(coordinate.getI() - 1, coordinate.getJ())
 								.setBorder(JavaData.DEFAULT_BORDER);
 					} catch (Exception exc) {
 						/* Ignore */}
@@ -245,10 +249,15 @@ public class SlotButton extends JButton {
 				return "mL2";
 			}
 		};
+	}
 
-		// Accepting movement
-		this.mL3 = new MouseAdapter() {
-
+	private void addMouseListener3(Game game) {
+		MainFrame mainFrame = game.getMainFrame();
+		SelectGrid selectGrid = game.getSelectGrid();
+		SlotGrid slotGrid1 = game.getSlotGrid1();
+		SlotGrid slotGrid2 = game.getSlotGrid2();
+		SlotButton slot = game.getMainFrame().getSlot();
+		mL3 = new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) { // swap
 				if (SlotButton.this.isEnabled()) {
 					mainFrame.getAAS().playSound("select");
@@ -268,7 +277,7 @@ public class SlotButton extends JButton {
 					slot.setNormalImage(null);
 					slot.setGrayedImage(null);
 
-					Coordinate beforeCoord= slotGrid1.getCoord(slot);
+					Coordinate beforeCoord = slotGrid1.getCoord(slot);
 					Coordinate afterCoord = slotGrid1.getCoord(SlotButton.this);
 
 					String dir = "";
@@ -287,7 +296,8 @@ public class SlotButton extends JButton {
 					// mainFrame.getMP().generateMessage(mainFrame.getMessages(), SlotButton.this,
 					// dir);
 					mainFrame.resetListeners(slotGrid1, slotGrid2);
-					mainFrame.clearAllBorders(slotGrid1, slotGrid2);
+					slotGrid1.clearBorders();
+					slotGrid2.clearBorders();
 					game.evalTurns(slot);
 					try {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
@@ -302,20 +312,30 @@ public class SlotButton extends JButton {
 				return "mL3";
 			}
 		};
+	}
 
-		// Accepting attack
-		this.mL4 = new MouseAdapter() {
+	private void addMouseListener4(Game game) {
+		MainFrame mainFrame = game.getMainFrame();
+		SelectGrid selectGrid = game.getSelectGrid();
+		SlotGrid slotGrid1 = game.getSlotGrid1();
+		SlotGrid slotGrid2 = game.getSlotGrid2();
+		int player = game.getPlayer();
+		AttackLogic attackLogic = game.getMainLogic().getAttackLogic();
+		SlotButton slot = game.getMainFrame().getSlot();
+		SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
+		mL4 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) { // attack
 				if (SlotButton.this.isEnabled()) {
 
 					attackLogic.attack(slot, SlotButton.this);
-					mainFrame.disableAll(slotGrid);
-					
-					//TO-DO side vs player and player vs player
+					slotGrid.disableAll();
+
+					// TO-DO side vs player and player vs player
 					setSkillButtons(slot, player, player);
 					mainFrame.setPanelEast(SlotButton.this, player);
 					mainFrame.resetListeners(slotGrid1, slotGrid2);
-					mainFrame.clearAllBorders(slotGrid1, slotGrid2);
+					slotGrid1.clearBorders();
+					slotGrid2.clearBorders();
 					game.evalTurns(SlotButton.this);
 					try {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
@@ -330,8 +350,9 @@ public class SlotButton extends JButton {
 				return "mL4";
 			}
 		};
+	}
 
-//		// panelEast's content generator
+	private void addMouseListener5(Game game) {
 //		this.mL5 = new MouseAdapter() {
 //			public void mouseEntered(MouseEvent e) {
 //				if (mainFrame.getSlot() != null && side == player)
@@ -354,7 +375,6 @@ public class SlotButton extends JButton {
 //				return "mL5";
 //			}
 //		};
-
 	}
 
 	public SlotButton(String position) {

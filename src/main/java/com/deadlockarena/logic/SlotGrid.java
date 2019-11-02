@@ -1,5 +1,8 @@
 package com.deadlockarena.logic;
 
+import java.awt.event.MouseListener;
+import java.util.Optional;
+
 import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
@@ -14,7 +17,9 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SlotGrid extends Grid {
+public final class SlotGrid extends Grid {
+
+	private String position;
 
 	/**
 	 * 
@@ -22,7 +27,8 @@ public class SlotGrid extends Grid {
 	 * @param position
 	 */
 	public SlotGrid(SlotButton [ ] [ ] slotButtons, String position) {
-		super(slotButtons, position);
+		super(slotButtons);
+		this.position = position;
 	}
 
 	/**
@@ -31,8 +37,7 @@ public class SlotGrid extends Grid {
 	 * @throws CornerCaseException
 	 * @throws InstanceMismatchException
 	 */
-	public void checkForDeads(DeadButton [ ] deads)
-			throws CornerCaseException, InstanceMismatchException {
+	public void checkForDeads(DeadButton [ ] deads) throws CornerCaseException {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
 				Champion champion = this.getJButton(i, j).getChampion();
@@ -52,8 +57,8 @@ public class SlotGrid extends Grid {
 	 * @param sB    - slot button of champion to transfer
 	 * @param deads - list of dead champion buttons
 	 */
-	private void transferchampion(SlotButton sB, DeadButton [ ] deads) {
-		Champion h = sB.getChampion();
+	private void transferchampion(SlotButton slotButton, DeadButton [ ] deads) {
+		Champion h = slotButton.getChampion();
 
 		for (int i = 0; i < deads.length; i++)
 			if (deads [ i ].getChampion() == null) {
@@ -61,11 +66,11 @@ public class SlotGrid extends Grid {
 				break;
 			}
 
-		sB.setBackground(JavaData.DEFAULT_BACKGROUND);
-		sB.removeAll();
-		sB.setChampion(null);
-//		sB.removeMouseListener(sB.getML2());
-//		sB.removeMouseListener(sB.getML4());
+		slotButton.setBackground(JavaData.DEFAULT_BACKGROUND);
+		slotButton.removeAll();
+		slotButton.setChampion(null);
+//		slotButton.removeMouseListener(slotButton.getML2());
+//		slotButton.removeMouseListener(slotButton.getML4());
 
 //		mainFrame.clearSkillButtons(mainFrame.getPlayer()); // error prone
 //		mainFrame.clearPanelEast(mainFrame.getPlayer()); // error prone?
@@ -98,6 +103,39 @@ public class SlotGrid extends Grid {
 	@Override
 	public SlotButton [ ] [ ] getJButtons() {
 		return (SlotButton [ ] [ ]) super.jButtons;
+	}
+
+	@Override
+	public void addMouseListener(int mLNumber) {
+
+		for (int i = 0; i < jButtons.length; i++) {
+			for (int j = 0; j < jButtons [ i ].length; j++) {
+				this.getJButton(i, j)
+						.addMouseListener(chooseMouseListener(mLNumber, this.getJButton(i, j)));
+			}
+		}
+	}
+
+	private MouseListener chooseMouseListener(int mLNumber, SlotButton slotButton) {
+		MouseListener mL = null;
+		switch (mLNumber) {
+		case 1:
+			mL = slotButton.getML1();
+			break;
+		case 2:
+			mL = slotButton.getML2();
+			break;
+		case 3:
+			mL = slotButton.getML3();
+			break;
+		case 4:
+			mL = slotButton.getML4();
+			break;
+		case 5:
+			mL = slotButton.getML5();
+			break;
+		}
+		return mL;
 	}
 
 }

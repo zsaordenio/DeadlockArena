@@ -1,18 +1,20 @@
 package com.deadlockarena.graphics;
 
+import java.awt.AlphaComposite;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Arc2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.awt.*;
-import java.awt.geom.Arc2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 @Data
 @EqualsAndHashCode(callSuper = true)

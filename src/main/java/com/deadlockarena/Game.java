@@ -1,12 +1,9 @@
 package com.deadlockarena;
 
-import javax.swing.SwingUtilities;
-
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.SelectButton;
 import com.deadlockarena.graphics.SlotButton;
-import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.MainLogic;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
@@ -34,8 +31,7 @@ public class Game {
 		this.mainLogic = new MainLogic();
 
 		this.selectGrid = new SelectGrid(
-				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ],
-				"select");
+				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ]);
 		this.slotGrid1 = new SlotGrid(
 				new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ], "bottom");
 		this.slotGrid2 = new SlotGrid(
@@ -49,15 +45,12 @@ public class Game {
 
 	public void executePhase1() {
 		this.mainFrame.addPanels();
-		this.mainFrame.addSelectButtons(selectGrid);
-		this.mainFrame.addSlotButtons(slotGrid1, slotGrid2);
-		this.mainFrame.pack();
-		this.mainFrame.setLocationRelativeTo(null);
-		this.mainFrame.setVisible(true);
-		
-		this.mainLogic.populateSelectButtons(this);
-		this.mainLogic.populateSlotButtons(this, slotGrid1);
-		this.mainLogic.populateSlotButtons(this, slotGrid2);
+		this.mainFrame.addSelectButtons(this, selectGrid);
+		this.mainFrame.addSlotButtons(this, slotGrid1, slotGrid2);
+
+		this.selectGrid.addMouseListener(1);
+		// this.slotGrid1.addMouseListener(SlotButton.mL1);
+		// this.slotGrid1.addMouseListener(SlotButton.mL2);
 	}
 
 	// TO-DO move some functionality here
@@ -87,5 +80,9 @@ public class Game {
 
 	public void switchPlayer() {
 		this.player = this.player == 2 ? 1 : 2;
+	}
+
+	public void selectMLMousePressed() {
+
 	}
 }

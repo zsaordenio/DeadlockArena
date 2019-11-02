@@ -1,26 +1,48 @@
 package com.deadlockarena.logic;
 
+import java.awt.event.MouseListener;
+
 import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.exception.InstanceMismatchException;
-import com.deadlockarena.exception.UnmatchedSizeException;
-import com.deadlockarena.graphics.DeadButton;
-import com.deadlockarena.graphics.SlotButton;
-import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 public abstract class Grid {
 
 	protected JButton [ ] [ ] jButtons;
-	protected String position;
 
+	
+	public void enableAll() {
+		for (int i = 0; i < jButtons.length; i++) {
+			for (int j = 0; j < jButtons [ i ].length; j++) {
+				this.getJButton(i, j).setEnabled(true);
+			}
+		}
+	}
+	
+	public void disableAll() {
+		for (int i = 0; i < jButtons.length; i++) {
+			for (int j = 0; j < jButtons [ i ].length; j++) {
+				this.getJButton(i, j).setEnabled(false);
+			}
+		}
+	}
+	
+	public void clearBorders() {
+		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
+			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
+				this.getJButton(i, j).setBorder(JavaData.DEFAULT_BORDER);
+			}
+		}
+	}
+
+	public abstract void addMouseListener(int mLNumber);
+	
 	/**
 	 * Retrieve the slotButton in the 2D SlotButton array given the i'th and j'th
 	 * coordinates.
@@ -52,8 +74,8 @@ public abstract class Grid {
 	public Coordinate getCoord(JButton jB) {
 		for (int i = 0; i < jButtons.length; i++) {
 			for (int j = 0; j < jButtons [ i ].length; j++) {
-				if (jButtons [ i ] [ j ].equals(jB)) {
-					return new Coordinate(i,j);
+				if (jB.equals(jButtons [ i ] [ j ])) {
+					return new Coordinate(i, j);
 				}
 			}
 		}

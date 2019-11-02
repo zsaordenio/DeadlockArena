@@ -1,10 +1,16 @@
 package com.deadlockarena.graphics;
 
-import java.awt.*;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
-import javax.sound.sampled.*;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -12,8 +18,6 @@ import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 
 import lombok.Data;
-
-import java.io.*;
 
 @Data
 public class AnimationAndSound {

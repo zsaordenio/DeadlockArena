@@ -1,9 +1,11 @@
 package com.deadlockarena.constant;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Font;
 import java.util.Random;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.UIManager;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 
@@ -86,17 +88,18 @@ public class JavaData {
 
 	public static final Font BASIC_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 20);
 	public static final Font CHAMPION_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 40);
+	public static final Font SELECT_BUTTON_CHAMPION_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 12);
 	public static final Font PANEL_EAST_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 18);
-	
-	public static final String PICS_PATH = "/pics/"; 
+
+	public static final String PICS_PATH = "/pics/";
 
 	public static final String STATUS_STRING = "<html>" + "HP: ? / ?<br/>" + "MP: ? / ?<br/>"
 			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"
 			+ "</html>";
 
-	public static final String DEFAULT_STATUS_STRING = "<html>" + "HP: ?<br/>" + "MP: ?<br/>"
-			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"
-			+ "</html>";
+//	public static final String DEFAULT_STATUS_STRING = "<html>" + "HP: ?<br/>" + "MP: ?<br/>"
+//			+ "Damage: ? - ?<br/>" + "Defense: ?<br/>" + "Critical: ?<br/>" + "Dodge : ?"
+//			+ "</html>";
 
 	public static String getStatsText(Champion champion) {
 		return "<html>" + "<font color=" + champion.evalColor() + ">HP: " + champion.getCurrentHp()
