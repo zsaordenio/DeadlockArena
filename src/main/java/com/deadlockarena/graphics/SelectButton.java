@@ -54,13 +54,13 @@ public class SelectButton extends JButton {
 		super.setLayout(null);
 		this.championPicture = new JLabel(normalImage);
 		this.championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
-		super.add(championPicture, championPicture.getBounds());
+		super.add(championPicture);
 
 		this.championLabel = new JLabel(champion.getChampion());
 		this.championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
 		this.championLabel.setFont(JavaData.SELECT_BUTTON_CHAMPION_FONT);
 		this.championLabel.setBounds(5, 5, JavaData.PIXEL, 10);
-		super.add(championLabel, championLabel.getBounds());
+		super.add(championLabel);
 	}
 
 	private void evaluateColorByLogic() {
@@ -89,7 +89,7 @@ public class SelectButton extends JButton {
 					mainFrame.displayPreview(champion, originalSizeImage);
 					selectGrid.disableAll();
 					thisButton.setSelected(true);
-					mainFrame.setCurrent(thisButton);
+					game.setCurrentSelect(thisButton);
 					game.selectMLMousePressed();
 				}
 			}

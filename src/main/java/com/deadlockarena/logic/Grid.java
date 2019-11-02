@@ -16,7 +16,6 @@ public abstract class Grid {
 
 	protected JButton [ ] [ ] jButtons;
 
-	
 	public void enableAll() {
 		for (int i = 0; i < jButtons.length; i++) {
 			for (int j = 0; j < jButtons [ i ].length; j++) {
@@ -24,7 +23,7 @@ public abstract class Grid {
 			}
 		}
 	}
-	
+
 	public void disableAll() {
 		for (int i = 0; i < jButtons.length; i++) {
 			for (int j = 0; j < jButtons [ i ].length; j++) {
@@ -32,7 +31,17 @@ public abstract class Grid {
 			}
 		}
 	}
-	
+
+	public void enableAllIfSelected() {
+		for (int i = 0; i < jButtons.length; i++) {
+			for (int j = 0; j < jButtons [ i ].length; j++) {
+				if (!this.getJButton(i, j).isSelected()) {
+					this.getJButton(i, j).setEnabled(true);
+				}
+			}
+		}
+	}
+
 	public void clearBorders() {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
@@ -42,7 +51,7 @@ public abstract class Grid {
 	}
 
 	public abstract void addMouseListener(int mLNumber);
-	
+
 	/**
 	 * Retrieve the slotButton in the 2D SlotButton array given the i'th and j'th
 	 * coordinates.

@@ -67,8 +67,7 @@ public class MainFrame extends JFrame {
 	private SkillButton [ ] skillButtons1, skillButtons2;
 	private PotionButton hp1, mp1, hp2, mp2;
 
-	private SelectButton current;
-	private SlotButton slot;
+
 
 	public MainFrame() {
 		super.setTitle("Deadlock Arena");
@@ -265,6 +264,7 @@ public class MainFrame extends JFrame {
 		playerLabel.setText("     Player " + (player == 2 ? 2 : 1));
 	}
 
+	// TO-DO move to grid??
 	public void updateButtonPictures(SlotGrid slotGrid1, SlotGrid slotGrid2,
 			SelectGrid selectGrid) {
 		for (int i = 0; i < selectGrid.getJButtons().length; i++) {

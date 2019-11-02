@@ -19,6 +19,9 @@ public class Game {
 
 	private SelectGrid selectGrid;
 	private SlotGrid slotGrid1, slotGrid2;
+	
+	private SelectButton currentSelect;
+	private SlotButton currentSlot;
 
 	private int player;
 	private int totalCount; // 0-18
@@ -49,7 +52,7 @@ public class Game {
 		this.mainFrame.addSlotButtons(this, slotGrid1, slotGrid2);
 
 		this.selectGrid.addMouseListener(1);
-		// this.slotGrid1.addMouseListener(SlotButton.mL1);
+		this.slotGrid1.addMouseListener(1);
 		// this.slotGrid1.addMouseListener(SlotButton.mL2);
 	}
 
@@ -83,6 +86,6 @@ public class Game {
 	}
 
 	public void selectMLMousePressed() {
-
+		this.slotGrid1.enableAll();
 	}
 }

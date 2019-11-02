@@ -35,7 +35,6 @@ public class SlotButton extends JButton {
 	private Champion champion;
 	private String position;
 	private Coordinate coordinate;
-	private JpaGetData jpaGetData;
 	private JLabel championLabel, championPicture;
 	private ImageIcon normalImage, grayedImage;
 	private MouseListener mL1, mL2, mL3, mL4, mL5;
@@ -59,79 +58,75 @@ public class SlotButton extends JButton {
 		this.addMouseListener5(game);
 	}
 
-	private void addMouseListener1(Game game) {
-		MainFrame mainFrame = game.getMainFrame();
-		SelectGrid selectGrid = game.getSelectGrid();
-		SlotGrid slotGrid1 = game.getSlotGrid1();
-		SlotGrid slotGrid2 = game.getSlotGrid2();
-		mL1 = new MouseAdapter() {
+	private void addMouseListener1(final Game game) {
+		this.mL1 = new MouseAdapter() {
+			final MainFrame mainFrame = game.getMainFrame();
+			final SlotGrid slotGrid1 = game.getSlotGrid1();
+			final SlotGrid slotGrid2 = game.getSlotGrid2();
+			final SlotButton thisSlot = SlotButton.this;
+			final int player = game.getPlayer();
+
 			public void mousePressed(MouseEvent e) {
-				if (SlotButton.super.isEnabled()) {
-					game.getMainFrame().getAAS().playSound("select");
-					SlotButton.this.setSelected(true);
+				final SelectButton currentSelect = game.getCurrentSelect();
+				if (thisSlot.isEnabled()) {
+					// game.getMainFrame().getAAS().playSound("select");
+					thisSlot.setSelected(true);
+					thisSlot.setChampion(currentSelect.getChampion());
+					thisSlot.setBackground(currentSelect.getColor());
 
-					SlotButton.this.setChampion(jpaGetData.evalChampion(
-							game.getMainFrame().getCurrent().getChampion().getChampion()));
-
-					SlotButton.super.setBackground(
-							game.getMainFrame().getCurrent().getBackground());
-					game.getMainFrame().getOrderList().push(
-							new JButton [ ] { SlotButton.this , game.getMainFrame().getCurrent() });
-					game.getMainFrame().setCurrent(null);
+					mainFrame.getOrderList()
+							.push(new JButton [ ] { SlotButton.this , game.getCurrentSelect() });
 
 					// TO-DO replace with new path on nexus
-					normalImage = new ImageIcon(new ImageIcon("pics/" + champion + "Icon.png")
-							.getImage().getScaledInstance(JavaData.PIXEL / 2, JavaData.PIXEL / 2,
-									Image.SCALE_SMOOTH));
-					setLayout(null);
-					grayedImage = new ImageIcon(
-							GrayFilter.createDisabledImage(normalImage.getImage()));
+					thisSlot.normalImage = new ImageIcon(new ImageIcon(getClass()
+							.getResource(JavaData.PICS_PATH + champion.getChampion() + "Icon.png"))
+									.getImage().getScaledInstance(JavaData.PIXEL / 2,
+											JavaData.PIXEL / 2, Image.SCALE_SMOOTH));
+					thisSlot.grayedImage = new ImageIcon(
+							GrayFilter.createDisabledImage(thisSlot.normalImage.getImage()));
 
-					championPicture = new JLabel(grayedImage);
-					championPicture.setBounds(20, 20, JavaData.PIXEL / 2, JavaData.PIXEL / 2);
-					championLabel = new JLabel(champion.toString());
-					championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
-					championLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 12));
-					championLabel.setBounds(5, 8, 96, 10);
-					add(championPicture);
-					add(championLabel);
+					thisSlot.setLayout(null);
+					thisSlot.championPicture = new JLabel(thisSlot.normalImage);
+					thisSlot.championPicture.setBounds(20, 20, JavaData.PIXEL / 2,
+							JavaData.PIXEL / 2);
+					thisSlot.add(championPicture);
 
-					for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
-						for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
-							if (game.getPlayer() == 2) {
-								slotGrid2.getJButton(i, j).setEnabled(false);
-							} else {
-								slotGrid1.getJButton(i, j).setEnabled(false);
-							}
-						}
+					thisSlot.championLabel = new JLabel(champion.getChampion());
+					thisSlot.championLabel.setForeground(JavaData.DEFAULT_BACKGROUND);
+					thisSlot.championLabel.setFont(JavaData.SELECT_BUTTON_CHAMPION_FONT);
+					thisSlot.championLabel.setBounds(5, 5, JavaData.PIXEL, 10);
+					thisSlot.add(championLabel);
+
+					game.setCurrentSelect(null);
+					if (player == 2) {
+						game.getSlotGrid2().disableAll();
+					} else {
+						game.getSlotGrid1().disableAll();
 					}
+					game.getSelectGrid().enableAllIfSelected();
+					// mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
+					// ------------------------------------------------
+//					game.setTotalCount(game.getTotalCount() + 1);
+//					if (game.getTotalCount() == 9) {
+//						mainFrame.getOrderList().clear();
+//						// TO-DO create a method
+//						for (int i = 0; i < selectGrid.getJButtons().length; i++) {
+//							for (int j = 0; j < selectGrid.getJButtons() [ j ].length; j++) {
+//								selectGrid.getJButtons() [ i ] [ j ].setSelected(false);
+//								selectGrid.getJButtons() [ i ] [ j ].setEnabled(true);
+//							}
+//						}
+//						game.switchPlayer();
+//						mainFrame.switchPlayerLabel(game.getPlayer());
+//					} else if (game.getTotalCount() == 18) {
+//						game.switchPlayer();
+//						mainFrame.getOrderList().clear();
+//						mainFrame.switchPlayerLabel(game.getPlayer());
+//						// TO-DO move to phase 2 and create a method somewhere
+//						// mainFrame.gamePlay();
+//					}
+					// ------------------------------------------------
 
-					for (int i = 0; i < selectGrid.getJButtons().length; i++) {
-						for (int j = 0; j < selectGrid.getJButtons() [ j ].length; j++) {
-							if (!selectGrid.getJButtons() [ i ] [ j ].isSelected()) {
-								selectGrid.getJButtons() [ i ] [ j ].setEnabled(true);
-							}
-						}
-					}
-
-					game.setTotalCount(game.getTotalCount() + 1);
-					if (game.getTotalCount() == 9) {
-						mainFrame.getOrderList().clear();
-						for (int i = 0; i < selectGrid.getJButtons().length; i++) {
-							for (int j = 0; j < selectGrid.getJButtons() [ j ].length; j++) {
-								selectGrid.getJButtons() [ i ] [ j ].setSelected(false);
-								selectGrid.getJButtons() [ i ] [ j ].setEnabled(true);
-							}
-						}
-						game.switchPlayer();
-						mainFrame.switchPlayerLabel(game.getPlayer());
-					} else if (game.getTotalCount() == 18) {
-						game.switchPlayer();
-						mainFrame.getOrderList().clear();
-						mainFrame.switchPlayerLabel(game.getPlayer());
-						// mainFrame.gamePlay();
-					}
-					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
 				}
 			}
 
@@ -157,7 +152,7 @@ public class SlotButton extends JButton {
 					mainFrame.getAAS().playSound("select");
 					game.getMainLogic().getAttackLogic().getTargets().clear();
 					if (SlotButton.this.isEnabled()) {
-						mainFrame.setSlot(SlotButton.this);
+						// game.setCurrenSlot(SlotButton.this);
 						// mainFrame.resetListeners();
 					}
 					// setSkillButtons();
@@ -256,7 +251,7 @@ public class SlotButton extends JButton {
 		SelectGrid selectGrid = game.getSelectGrid();
 		SlotGrid slotGrid1 = game.getSlotGrid1();
 		SlotGrid slotGrid2 = game.getSlotGrid2();
-		SlotButton slot = game.getMainFrame().getSlot();
+		SlotButton slot = game.getCurrentSlot();
 		mL3 = new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) { // swap
 				if (SlotButton.this.isEnabled()) {
@@ -303,7 +298,7 @@ public class SlotButton extends JButton {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
-					mainFrame.setSlot(null);
+					game.setCurrentSlot(null);
 					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
 				}
 			}
@@ -321,7 +316,7 @@ public class SlotButton extends JButton {
 		SlotGrid slotGrid2 = game.getSlotGrid2();
 		int player = game.getPlayer();
 		AttackLogic attackLogic = game.getMainLogic().getAttackLogic();
-		SlotButton slot = game.getMainFrame().getSlot();
+		SlotButton slot = game.getCurrentSlot();
 		SlotGrid slotGrid = player == 2 ? slotGrid2 : slotGrid1;
 		mL4 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) { // attack
@@ -341,7 +336,7 @@ public class SlotButton extends JButton {
 						SlotButton.this.getMouseListeners() [ 2 ].mouseEntered(null);
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
-					mainFrame.setSlot(null);
+					game.setCurrentSlot(null);
 					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
 				}
 			}
