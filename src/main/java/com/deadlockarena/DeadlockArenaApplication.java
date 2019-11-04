@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import com.deadlockarena.graphics.ErrorFrame;
 import com.deadlockarena.graphics.LoginFrame;
 
 import oracle.net.ns.NetException;
@@ -31,8 +32,8 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 					//new Game();
 				}
 			});
-		} catch (GenericJDBCException e) {
-			// e.printStackTrace();
+		} catch (Exception e) {
+			new ErrorFrame(e.toString());
 		}
 	}
 
