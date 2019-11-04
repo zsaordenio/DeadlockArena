@@ -3,10 +3,10 @@ package com.deadlockarena.graphics;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 
-public final class LoginFrame extends UserFrame {
-	private static final long serialVersionUID = -9097625338469065099L;
+public class RegisterFrame extends UserFrame {
+	private static final long serialVersionUID = 608897382992804907L;
 
-	public LoginFrame(String titleName) {
+	public RegisterFrame(String titleName) {
 		super(titleName);
 	}
 
@@ -21,6 +21,10 @@ public final class LoginFrame extends UserFrame {
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		super.addComponent(gbc, "Username:", 2);
 		super.addComponent(gbc, "Password:", 3);
+		super.addComponent(gbc, "Confirm Password:", 4);
+		super.addComponent(gbc, "Email Address:", 5);
+		super.addComponent(gbc, "First Name:", 6);
+		super.addComponent(gbc, "Last Name:", 7);
 
 		gbc.fill = 0;
 		super.addButtonPanel(gbc);

@@ -12,6 +12,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import com.deadlockarena.graphics.ErrorFrame;
 import com.deadlockarena.graphics.LoginFrame;
+import com.deadlockarena.graphics.RegisterFrame;
 
 import oracle.net.ns.NetException;
 
@@ -28,7 +29,8 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 		try {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() {
-					new LoginFrame();
+					//new LoginFrame("Login");
+					new RegisterFrame("Registration");
 					//new Game();
 				}
 			});
