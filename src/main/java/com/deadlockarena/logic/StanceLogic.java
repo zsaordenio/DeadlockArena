@@ -1,7 +1,7 @@
 package com.deadlockarena.logic;
 
 import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 
 import lombok.Data;
 

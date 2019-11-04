@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
+import com.deadlockarena.graphics.buttons.BooleanButton;
 
 import lombok.Data;
 

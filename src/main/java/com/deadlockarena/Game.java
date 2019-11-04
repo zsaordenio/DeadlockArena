@@ -2,8 +2,8 @@ package com.deadlockarena;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.graphics.MainFrame;
-import com.deadlockarena.graphics.SelectButton;
-import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.graphics.buttons.SelectButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 import com.deadlockarena.logic.MainLogic;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
@@ -14,12 +14,13 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Game {
+	
 	private MainFrame mainFrame;
 	private MainLogic mainLogic;
 
 	private SelectGrid selectGrid;
 	private SlotGrid slotGrid1, slotGrid2;
-	
+
 	private SelectButton currentSelect;
 	private SlotButton currentSlot;
 
@@ -32,7 +33,6 @@ public class Game {
 	public Game() {
 		this.mainFrame = new MainFrame();
 		this.mainLogic = new MainLogic();
-
 		this.selectGrid = new SelectGrid(
 				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ]);
 		this.slotGrid1 = new SlotGrid(

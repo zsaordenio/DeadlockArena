@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 
 import lombok.Data;
 

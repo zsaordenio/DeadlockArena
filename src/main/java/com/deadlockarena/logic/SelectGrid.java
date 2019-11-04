@@ -1,6 +1,6 @@
 package com.deadlockarena.logic;
 
-import com.deadlockarena.graphics.SelectButton;
+import com.deadlockarena.graphics.buttons.SelectButton;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

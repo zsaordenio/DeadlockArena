@@ -20,6 +20,12 @@ import javax.swing.JTextArea;
 import com.deadlockarena.Game;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.graphics.buttons.CancelButton;
+import com.deadlockarena.graphics.buttons.DeadButton;
+import com.deadlockarena.graphics.buttons.PotionButton;
+import com.deadlockarena.graphics.buttons.SelectButton;
+import com.deadlockarena.graphics.buttons.SkillButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.SelectGrid;
@@ -74,8 +80,8 @@ public class MainFrame extends JFrame {
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(new BorderLayout());
 		super.setPreferredSize(new Dimension(1700, 1000));
-		// super.setLocationRelativeTo(null);
 		super.pack();
+		super.setLocationRelativeTo(null);
 		super.setVisible(true);
 
 		this.aAS = new AnimationAndSound();

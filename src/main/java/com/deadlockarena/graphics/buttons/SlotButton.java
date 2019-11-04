@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.buttons;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import com.deadlockarena.Game;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
+import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.logic.AttackLogic;
 import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.SelectGrid;
@@ -396,7 +397,7 @@ public class SlotButton extends JButton {
 		}
 	}
 
-	void alterMouseAdapter0_3() {
+	public void alterMouseAdapter0_3() {
 		if (getMouseListeners().length == 2) {
 			addMouseListener(mL3);
 		} else if (getMouseListeners() [ 2 ].equals(mL3)) {
@@ -404,7 +405,7 @@ public class SlotButton extends JButton {
 		}
 	}
 
-	void alterMouseAdapter0_2() {
+	public void alterMouseAdapter0_2() {
 		if (getMouseListeners().length == 2) {
 			addMouseListener(mL2);
 		} else if (getMouseListeners() [ 2 ].equals(mL2)) {
@@ -412,7 +413,7 @@ public class SlotButton extends JButton {
 		}
 	}
 
-	void alterMouseAdapter2_4() {
+	public void alterMouseAdapter2_4() {
 		if (getMouseListeners().length == 2) {
 			addMouseListener(mL4);
 		} else if (getMouseListeners() [ 2 ].equals(mL2)) {

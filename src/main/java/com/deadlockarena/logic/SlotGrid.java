@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.exception.InstanceMismatchException;
-import com.deadlockarena.graphics.DeadButton;
-import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.graphics.buttons.DeadButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;

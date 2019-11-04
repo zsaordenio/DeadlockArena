@@ -3,7 +3,7 @@ package com.deadlockarena.logic;
 import javax.swing.JTextArea;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.SelectButton;
+import com.deadlockarena.graphics.buttons.SelectButton;
 import com.deadlockarena.persistence.entity.Champion;
 
 public class MessageProcessor {

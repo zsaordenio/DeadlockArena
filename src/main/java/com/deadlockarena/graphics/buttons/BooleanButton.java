@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.buttons;
 
 import java.awt.Dimension;
 import java.awt.Image;
@@ -11,6 +11,7 @@ import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
+import com.deadlockarena.graphics.AnimationAndSound;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

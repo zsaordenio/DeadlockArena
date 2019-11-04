@@ -1,13 +1,18 @@
 package com.deadlockarena;
 
 import java.awt.*;
+import java.sql.SQLException;
 
+import org.hibernate.exception.GenericJDBCException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import com.deadlockarena.graphics.LoginFrame;
+
+import oracle.net.ns.NetException;
 
 @SpringBootApplication
 public class DeadlockArenaApplication implements CommandLineRunner {
@@ -19,15 +24,18 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 	 */
 	@Override
 	public void run(String... arg) throws Exception {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				Game g = new Game();
-				g.executePhase1();
-				g.executePhase2();
-			}
-		});
+		try {
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					new LoginFrame();
+					//new Game();
+				}
+			});
+		} catch (GenericJDBCException e) {
+			// e.printStackTrace();
+		}
 	}
-	
+
 //	private final ChampionRepository championRepository;
 //
 //	@Autowired

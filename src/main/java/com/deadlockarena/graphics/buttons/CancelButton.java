@@ -1,7 +1,8 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.buttons;
 import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.graphics.MainFrame;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

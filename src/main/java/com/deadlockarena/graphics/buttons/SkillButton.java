@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.buttons;
 
 import java.awt.AlphaComposite;
 import java.awt.Graphics;

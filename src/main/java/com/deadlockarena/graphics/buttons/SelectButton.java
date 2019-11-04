@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.buttons;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 
 import com.deadlockarena.Game;
 import com.deadlockarena.constant.JavaData;
+import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.persistence.entity.Champion;
 

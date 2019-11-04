@@ -4,7 +4,7 @@ import javax.swing.JTextArea;
 
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.SlotButton;
+import com.deadlockarena.graphics.buttons.SlotButton;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
 import com.deadlockarena.persistence.entity.Champion;
 
