@@ -23,14 +23,15 @@ import com.deadlockarena.constant.JavaData;
 public abstract class UserFrame extends JFrame{
 	private static final long serialVersionUID = 6910328681026851809L;
 	
-	protected JPanel mainPanel, loadingPanel, interfacePanel;
+	protected JPanel mainPanel, loadingPanel, buttonPanel, interfacePanel;
 	protected JLabel loadingLabel;
+	protected JButton registerButton;
 	
-	public UserFrame(String titleName) {
-		super.setTitle(titleName);
+	public UserFrame(Dimension dimension) {
+		super();
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		super.setLayout(new BorderLayout());
-		super.setPreferredSize(new Dimension(600, 600));
+		super.setPreferredSize(dimension);
 		super.setResizable(false);
 		super.pack();
 		super.setLocationRelativeTo(null);
@@ -41,7 +42,6 @@ public abstract class UserFrame extends JFrame{
 		
 		this.interfacePanel = new JPanel(new GridBagLayout());
 		this.interfacePanel.setBackground(Color.BLACK);
-		this.interfacePanel.setPreferredSize(new Dimension(600,500));
 		
 		this.mainPanel = new JPanel(new BorderLayout());
 		this.mainPanel.setBackground(Color.BLACK);
@@ -65,7 +65,7 @@ public abstract class UserFrame extends JFrame{
 		gbc.gridheight = 1;
 	}
 
-	protected void addComponent(GridBagConstraints gbc, String labelName, int gridy) {
+	protected JTextField addComponent(GridBagConstraints gbc, String labelName, int gridy) {
 		gbc.gridy = gridy;
 		JLabel label = new JLabel(labelName, SwingConstants.RIGHT);
 		label.setFont(JavaData.BASIC_FONT);
@@ -82,22 +82,24 @@ public abstract class UserFrame extends JFrame{
 			field = new JTextField();
 		}
 		field.setFont(JavaData.BASIC_FONT);
-		field.setPreferredSize(new Dimension(200, 30));
+		field.setPreferredSize(new Dimension(250, 30));
+		field.setDocument(new JTextFieldLimit(20));
 		gbc.gridx = 1;
 		gbc.gridwidth = 1;
 		this.interfacePanel.add(field, gbc);
+		return field;
 	}
 
 	protected void addButtonPanel(GridBagConstraints gbc) {
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.BLACK);
+		this.buttonPanel = new JPanel();
+		this.buttonPanel.setBackground(Color.BLACK);
 
-		JButton registerButton = new JButton("Register");
-		registerButton.setFont(JavaData.BASIC_FONT);
-		registerButton.setPreferredSize(new Dimension(120, 30));
-		buttonPanel.add(registerButton);
+		this.registerButton = new JButton("Register");
+		this.registerButton.setFont(JavaData.BASIC_FONT);
+		this.registerButton.setPreferredSize(new Dimension(120, 30));
+		this.buttonPanel.add(this.registerButton);
 
-		registerButton.addMouseListener(new MouseAdapter() {
+		this.registerButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				loadingLabel.setVisible(true);
 			}
