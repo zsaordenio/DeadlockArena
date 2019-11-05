@@ -6,6 +6,7 @@ import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
+import com.deadlockarena.graphics.buttons.SelectButton;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,7 @@ public abstract class Grid {
 		}
 	}
 
-	public void enableAllIfSelected() {
+	public void enableAllIfNotSelected() {
 		for (int i = 0; i < jButtons.length; i++) {
 			for (int j = 0; j < jButtons [ i ].length; j++) {
 				if (!this.getJButton(i, j).isSelected()) {
@@ -41,6 +42,8 @@ public abstract class Grid {
 			}
 		}
 	}
+
+
 
 	public void clearBorders() {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
@@ -51,6 +54,7 @@ public abstract class Grid {
 	}
 
 	public abstract void addMouseListener(int mLNumber);
+	public abstract void updatePictures();
 
 	/**
 	 * Retrieve the slotButton in the 2D SlotButton array given the i'th and j'th

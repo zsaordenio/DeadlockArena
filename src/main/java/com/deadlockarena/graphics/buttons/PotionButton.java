@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.MainFrame;
+import com.deadlockarena.graphics.frames.MainFrame;
 import com.deadlockarena.persistence.entity.Champion;
 
 import lombok.Data;

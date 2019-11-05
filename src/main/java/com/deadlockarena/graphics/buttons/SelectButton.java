@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 
 import com.deadlockarena.Game;
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.MainFrame;
+import com.deadlockarena.graphics.frames.MainFrame;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.persistence.entity.Champion;
 
@@ -87,7 +87,7 @@ public class SelectButton extends JButton {
 			public void mousePressed(MouseEvent e) {
 				if (thisButton.isEnabled()) {
 					// mainFrame.getAAS().playSound("select");
-					mainFrame.displayPreview(champion, originalSizeImage);
+					mainFrame.getPanelWest().displayPreview(champion, originalSizeImage);
 					selectGrid.disableAll();
 					thisButton.setSelected(true);
 					game.setCurrentSelect(thisButton);
@@ -97,14 +97,14 @@ public class SelectButton extends JButton {
 
 			public void mouseExited(MouseEvent e) {
 				if (thisButton.isEnabled()) {
-					mainFrame.unDisplayPreview(color);
+					mainFrame.getPanelWest().unDisplayPreview(color);
 					thisButton.setBackground(thisButton.getColor());
 				}
 			}
 
 			public void mouseEntered(MouseEvent e) {
 				if (thisButton.isEnabled()) {
-					mainFrame.displayPreview(champion, originalSizeImage);
+					mainFrame.getPanelWest().displayPreview(champion, originalSizeImage);
 					thisButton.setBackground(Color.gray);
 				}
 			}

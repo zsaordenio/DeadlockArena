@@ -15,7 +15,7 @@ import javax.swing.JLabel;
 import com.deadlockarena.Game;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
-import com.deadlockarena.graphics.MainFrame;
+import com.deadlockarena.graphics.frames.MainFrame;
 import com.deadlockarena.logic.AttackLogic;
 import com.deadlockarena.logic.Coordinate;
 import com.deadlockarena.logic.SelectGrid;
@@ -41,9 +41,10 @@ public class SlotButton extends JButton {
 	private MouseListener mL1, mL2, mL3, mL4, mL5;
 
 	public SlotButton(Game game, String position, Coordinate coordinate) {
+		super();
+		super.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
 		super.setEnabled(false);
 		super.setFont(JavaData.BASIC_FONT);
-		super.setPreferredSize(new Dimension(JavaData.PIXEL * 4 / 5, JavaData.PIXEL * 4 / 5));
 		this.selected = false;
 		this.position = position;
 		this.coordinate = coordinate;
@@ -104,7 +105,7 @@ public class SlotButton extends JButton {
 					} else {
 						game.getSlotGrid1().disableAll();
 					}
-					game.getSelectGrid().enableAllIfSelected();
+					game.getSelectGrid().enableAllIfNotSelected();
 					// mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
 					// ------------------------------------------------
 //					game.setTotalCount(game.getTotalCount() + 1);
@@ -150,14 +151,14 @@ public class SlotButton extends JButton {
 		mL2 = new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SlotButton.this.isEnabled()) {
-					mainFrame.getAAS().playSound("select");
+					mainFrame.getPanelSouth().getAAS().playSound("select");
 					game.getMainLogic().getAttackLogic().getTargets().clear();
 					if (SlotButton.this.isEnabled()) {
 						// game.setCurrenSlot(SlotButton.this);
 						// mainFrame.resetListeners();
 					}
 					// setSkillButtons();
-					mainFrame.setPanelEast(SlotButton.this, player);
+					mainFrame.getPanelEast().setPanelEast(SlotButton.this, player);
 				}
 			}
 
@@ -210,7 +211,9 @@ public class SlotButton extends JButton {
 					} catch (CornerCaseException e) {
 						e.printStackTrace();
 					}
-					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
+					slotGrid1.updatePictures();
+					slotGrid2.updatePictures();
+					selectGrid.updatePictures();
 				}
 			}
 
@@ -238,7 +241,9 @@ public class SlotButton extends JButton {
 						/* Ignore */}
 					attackLogic.unHighlight(slotGrid);
 				}
-				mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
+				slotGrid1.updatePictures();
+				slotGrid2.updatePictures();
+				selectGrid.updatePictures();
 			}
 
 			public String toString() {
@@ -256,7 +261,7 @@ public class SlotButton extends JButton {
 		mL3 = new MouseAdapter() {
 			public void mousePressed(MouseEvent evt) { // swap
 				if (SlotButton.this.isEnabled()) {
-					mainFrame.getAAS().playSound("select");
+					mainFrame.getPanelSouth().getAAS().playSound("select");
 
 					SlotButton.this.setBackground(slot.getBackground());
 					SlotButton.this.setChampion(slot.getChampion());
@@ -300,7 +305,9 @@ public class SlotButton extends JButton {
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
 					game.setCurrentSlot(null);
-					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
+					slotGrid1.updatePictures();
+					slotGrid2.updatePictures();
+					selectGrid.updatePictures();
 				}
 			}
 
@@ -328,7 +335,7 @@ public class SlotButton extends JButton {
 
 					// TO-DO side vs player and player vs player
 					setSkillButtons(slot, player, player);
-					mainFrame.setPanelEast(SlotButton.this, player);
+					mainFrame.getPanelEast().setPanelEast(SlotButton.this, player);
 					mainFrame.resetListeners(slotGrid1, slotGrid2);
 					slotGrid1.clearBorders();
 					slotGrid2.clearBorders();
@@ -338,7 +345,9 @@ public class SlotButton extends JButton {
 					} catch (ArrayIndexOutOfBoundsException exc) {
 						/* Ignore */ }
 					game.setCurrentSlot(null);
-					mainFrame.updateButtonPictures(slotGrid1, slotGrid2, selectGrid);
+					slotGrid1.updatePictures();
+					slotGrid2.updatePictures();
+					selectGrid.updatePictures();
 				}
 			}
 

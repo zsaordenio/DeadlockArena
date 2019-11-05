@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.frames;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -41,10 +41,10 @@ public abstract class UserFrame extends JFrame{
 		gbc.insets = new Insets(5, 5, 5, 5);
 		
 		this.interfacePanel = new JPanel(new GridBagLayout());
-		this.interfacePanel.setBackground(Color.BLACK);
+		this.interfacePanel.setBackground(JavaData.DEFAULT_BACKGROUND);
 		
 		this.mainPanel = new JPanel(new BorderLayout());
-		this.mainPanel.setBackground(Color.BLACK);
+		this.mainPanel.setBackground(JavaData.DEFAULT_BACKGROUND);
 		this.mainPanel.setBorder(JavaData.ATTACK_BORDER);
 	
 		this.setupMainPanel(gbc);
@@ -92,7 +92,7 @@ public abstract class UserFrame extends JFrame{
 
 	protected void addButtonPanel(GridBagConstraints gbc) {
 		this.buttonPanel = new JPanel();
-		this.buttonPanel.setBackground(Color.BLACK);
+		this.buttonPanel.setBackground(JavaData.DEFAULT_BACKGROUND);
 
 		this.registerButton = new JButton("Register");
 		this.registerButton.setFont(JavaData.BASIC_FONT);
@@ -113,7 +113,7 @@ public abstract class UserFrame extends JFrame{
 	
 	protected void setupLoadingPanel() {
 		this.loadingPanel = new JPanel(new BorderLayout());
-		this.loadingPanel.setBackground(Color.BLACK);
+		this.loadingPanel.setBackground(JavaData.DEFAULT_BACKGROUND);
 		this.loadingPanel.setPreferredSize(new Dimension(600, 100));
 
 		this.loadingLabel = new JLabel(

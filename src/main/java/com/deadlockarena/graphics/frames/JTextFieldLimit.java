@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.frames;
 
 import java.awt.FlowLayout;
 

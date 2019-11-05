@@ -9,6 +9,7 @@ import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.exception.CornerCaseException;
 import com.deadlockarena.exception.InstanceMismatchException;
 import com.deadlockarena.graphics.buttons.DeadButton;
+import com.deadlockarena.graphics.buttons.SelectButton;
 import com.deadlockarena.graphics.buttons.SlotButton;
 import com.deadlockarena.persistence.entity.Champion;
 
@@ -21,14 +22,65 @@ public final class SlotGrid extends Grid {
 
 	private String position;
 
-	/**
-	 * 
-	 * @param slotButtons
-	 * @param position
-	 */
 	public SlotGrid(SlotButton [ ] [ ] slotButtons, String position) {
 		super(slotButtons);
 		this.position = position;
+	}
+
+	@Override
+	public SlotButton getJButton(int i, int j) {
+		return (SlotButton) super.jButtons [ i ] [ j ];
+	}
+
+	@Override
+	public SlotButton [ ] [ ] getJButtons() {
+		return (SlotButton [ ] [ ]) super.jButtons;
+	}
+
+	@Override
+	public void updatePictures() {
+		for (int i = 0; i < super.jButtons.length; i++) {
+			for (int j = 0; j < super.jButtons [ i ].length; j++) {
+				SlotButton jButton = getJButton(i, j);
+				if (jButton.isEnabled()) {
+					jButton.setIcon(jButton.getNormalImage());
+				} else {
+					jButton.setIcon(jButton.getGrayedImage());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void addMouseListener(int mLNumber) {
+		for (int i = 0; i < jButtons.length; i++) {
+			for (int j = 0; j < jButtons [ i ].length; j++) {
+				this.getJButton(i, j)
+						.addMouseListener(chooseMouseListener(mLNumber, this.getJButton(i, j)));
+			}
+		}
+	}
+
+	private MouseListener chooseMouseListener(int mLNumber, SlotButton slotButton) {
+		MouseListener mL = null;
+		switch (mLNumber) {
+		case 1:
+			mL = slotButton.getML1();
+			break;
+		case 2:
+			mL = slotButton.getML2();
+			break;
+		case 3:
+			mL = slotButton.getML3();
+			break;
+		case 4:
+			mL = slotButton.getML4();
+			break;
+		case 5:
+			mL = slotButton.getML5();
+			break;
+		}
+		return mL;
 	}
 
 	/**
@@ -93,49 +145,6 @@ public final class SlotGrid extends Grid {
 			}
 		}
 		return count;
-	}
-
-	@Override
-	public SlotButton getJButton(int i, int j) {
-		return (SlotButton) super.jButtons [ i ] [ j ];
-	}
-
-	@Override
-	public SlotButton [ ] [ ] getJButtons() {
-		return (SlotButton [ ] [ ]) super.jButtons;
-	}
-
-	@Override
-	public void addMouseListener(int mLNumber) {
-
-		for (int i = 0; i < jButtons.length; i++) {
-			for (int j = 0; j < jButtons [ i ].length; j++) {
-				this.getJButton(i, j)
-						.addMouseListener(chooseMouseListener(mLNumber, this.getJButton(i, j)));
-			}
-		}
-	}
-
-	private MouseListener chooseMouseListener(int mLNumber, SlotButton slotButton) {
-		MouseListener mL = null;
-		switch (mLNumber) {
-		case 1:
-			mL = slotButton.getML1();
-			break;
-		case 2:
-			mL = slotButton.getML2();
-			break;
-		case 3:
-			mL = slotButton.getML3();
-			break;
-		case 4:
-			mL = slotButton.getML4();
-			break;
-		case 5:
-			mL = slotButton.getML5();
-			break;
-		}
-		return mL;
 	}
 
 }

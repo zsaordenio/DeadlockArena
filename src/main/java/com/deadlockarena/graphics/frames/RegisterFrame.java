@@ -1,4 +1,4 @@
-package com.deadlockarena.graphics;
+package com.deadlockarena.graphics.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -8,8 +8,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.Field;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -29,7 +27,7 @@ public class RegisterFrame extends UserFrame {
 		super.setTitle("Register");
 		this.validationMessages = new JTextArea();
 		this.validationMessages.setPreferredSize(new Dimension(600, 180));
-		this.validationMessages.setBackground(Color.BLACK);
+		this.validationMessages.setBackground(JavaData.DEFAULT_BACKGROUND);
 		this.validationMessages.setForeground(Color.RED);
 		this.validationMessages.setFont(JavaData.SMALL_FONT);
 		this.validationMessages.setWrapStyleWord(true);
@@ -71,53 +69,43 @@ public class RegisterFrame extends UserFrame {
 		this.removeAllBorders();
 		FieldValidator validator = new FieldValidator();
 		StringBuilder stringBuilder = new StringBuilder();
-		boolean check1 = !validator.isValidUsername(usernameField.getText().trim().toUpperCase());
-		boolean check2 = usernameField.getText().trim().toUpperCase().length() < 8
-				|| usernameField.getText().trim().toUpperCase().length() > 20;
-		if (check1) {
+		if (!validator.isValidUsername(usernameField.getText().trim().toUpperCase())) {
 			stringBuilder.append("Username can only contain alphabetic characters and numbers\n");
 			usernameField.setBorder(JavaData.VALIDATION_BORDER);
 		}
-		if (check2) {
+		if (usernameField.getText().trim().toUpperCase().length() < 8
+				|| usernameField.getText().trim().toUpperCase().length() > 20) {
 			stringBuilder.append("Username must be between 8 and 20 characters\n");
 			usernameField.setBorder(JavaData.VALIDATION_BORDER);
 		}
 		// ------------------------------------------------------------------------------------
-		boolean check3 = !validator.isValidPassword(passwordField.getText())
-				|| !validator.isValidPassword(confirmPasswordField.getText());
-		boolean check4 = passwordField.getText().length() < 8
-				|| passwordField.getText().length() > 20;
-		boolean check5 = !passwordField.getText().equals(confirmPasswordField.getText());
-		if (check3) {
-			stringBuilder.append("Password must contain at least an uppercase, a lowercase, "
-					+ "a number, and a special character @$!%*?&\n");
+		if (!validator.isValidPassword(passwordField.getText())
+				|| !validator.isValidPassword(confirmPasswordField.getText())) {
+			stringBuilder.append("Password must contain an uppercase, a lowercase, a number, and a symbol: @$!%*?&\n");
 			passwordField.setBorder(JavaData.VALIDATION_BORDER);
 			confirmPasswordField.setBorder(JavaData.VALIDATION_BORDER);
 		}
-		if (check4) {
+		if (passwordField.getText().length() < 8 || passwordField.getText().length() > 20) {
 			stringBuilder.append("Password must be between 8 and 20 characters\n");
 			passwordField.setBorder(JavaData.VALIDATION_BORDER);
 			confirmPasswordField.setBorder(JavaData.VALIDATION_BORDER);
 		}
-		if (check5) {
+		if (!passwordField.getText().equals(confirmPasswordField.getText())) {
 			stringBuilder.append("Password fields must match\n");
 			passwordField.setBorder(JavaData.VALIDATION_BORDER);
 			confirmPasswordField.setBorder(JavaData.VALIDATION_BORDER);
 		}
 		// ------------------------------------------------------------------------------------
-		boolean check6 = !validator.isValidEmail(emailAddressField.getText().trim());
-		if (check6) {
+		if (!validator.isValidEmail(emailAddressField.getText().trim())) {
 			stringBuilder.append("Invalid Email Address\n");
 			emailAddressField.setBorder(JavaData.VALIDATION_BORDER);
 		}
 		// ------------------------------------------------------------------------------------
-		boolean check7 = !validator.isValidName(firstNameField.getText().trim().toUpperCase());
-		boolean check8 = !validator.isValidName(lastNameField.getText().trim().toUpperCase());
-		if (check7) {
+		if (!validator.isValidName(firstNameField.getText().trim().toUpperCase())) {
 			stringBuilder.append("Invalid First Name\n");
 			firstNameField.setBorder(JavaData.VALIDATION_BORDER);
 		}
-		if (check8) {
+		if (!validator.isValidName(lastNameField.getText().trim().toUpperCase())) {
 			stringBuilder.append("Invalid Last Name\n");
 			lastNameField.setBorder(JavaData.VALIDATION_BORDER);
 		}

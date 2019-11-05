@@ -1,9 +1,9 @@
 package com.deadlockarena;
 
 import com.deadlockarena.constant.JavaData;
-import com.deadlockarena.graphics.MainFrame;
 import com.deadlockarena.graphics.buttons.SelectButton;
 import com.deadlockarena.graphics.buttons.SlotButton;
+import com.deadlockarena.graphics.frames.MainFrame;
 import com.deadlockarena.logic.MainLogic;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
@@ -31,29 +31,30 @@ public class Game {
 	private int currentCap;
 
 	public Game() {
-		this.mainFrame = new MainFrame();
-		this.mainLogic = new MainLogic();
 		this.selectGrid = new SelectGrid(
 				new SelectButton [ JavaData.SELECT_ROW_COUNT ] [ JavaData.SELECT_COL_COUNT ]);
 		this.slotGrid1 = new SlotGrid(
 				new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ], "bottom");
 		this.slotGrid2 = new SlotGrid(
 				new SlotButton [ JavaData.SLOT_ROW_COUNT ] [ JavaData.SLOT_COL_COUNT ], "top");
-
 		this.player = 1;
 		this.totalCount = 0;
 		this.move = 0;
 		this.currentCap = 1;
+		
+		this.mainFrame = new MainFrame();
+		this.mainLogic = new MainLogic();
+		this.mainFrame.getPanelCenter().addSlotButtons(this, slotGrid1, slotGrid2);
+		this.mainFrame.getPanelWest().addSelectButtons(this, selectGrid);
+		this.mainFrame.pack();
+		this.mainFrame.setLocationRelativeTo(null);
+		this.mainFrame.setVisible(true);	
 	}
 
 	public void executePhase1() {
-		this.mainFrame.addPanels();
-		this.mainFrame.addSelectButtons(this, selectGrid);
-		this.mainFrame.addSlotButtons(this, slotGrid1, slotGrid2);
-
 		this.selectGrid.addMouseListener(1);
 		this.slotGrid1.addMouseListener(1);
-		// this.slotGrid1.addMouseListener(SlotButton.mL2);
+		//this.slotGrid1.addMouseListener(2);
 	}
 
 	// TO-DO move some functionality here
@@ -72,8 +73,8 @@ public class Game {
 			}
 			// mainLogic.switchListeners(slotGrid1, slotGrid2, player,
 			// mainFrame.getMessages());
-			mainFrame.clearSkillButtons(player);
-			mainFrame.clearPanelEast(player);
+			//mainFrame.clearSkillButtons(player);
+			//mainFrame.clearPanelEast(player);
 			if (currentCap < JavaData.CAP_TURN) {
 				currentCap++;
 			}

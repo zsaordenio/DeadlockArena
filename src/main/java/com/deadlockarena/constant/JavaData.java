@@ -84,7 +84,8 @@ public class JavaData {
 	public static final LineBorder VALIDATION_BORDER = new LineBorder(Color.red, 2);
 	public static final Border DEFAULT_BORDER = UIManager.getBorder("Button.border");
 
-	public static final Color DEFAULT_BACKGROUND = Color.black;
+	public static final Color DEFAULT_BACKGROUND = Color.BLACK;
+	public static final Color DEFAULT_FOREGROUND = Color.WHITE;
 	public static final Color DEFAULT_BUTTON_BACKGROUND = new JButton().getBackground();
 
 	public static final Font SMALL_FONT = new Font(Font.SANS_SERIF, Font.PLAIN, 15);
