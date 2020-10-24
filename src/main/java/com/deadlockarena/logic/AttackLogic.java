@@ -123,7 +123,7 @@ public class AttackLogic {
 		if (slot == null) {
 			// handles case: When user drinks potion, turn is up, attempts to
 			// attack other player
-			//slot.evenAllListeners();
+			// slot.evenAllListeners();
 			return false;
 		}
 		slot.getChampion().attack(targetButton.getChampion());

@@ -3,7 +3,6 @@ package com.deadlockarena.graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,7 +20,6 @@ import com.deadlockarena.Game;
 import com.deadlockarena.config.SpringUtils;
 import com.deadlockarena.constant.JavaData;
 import com.deadlockarena.logic.Coordinate;
-import com.deadlockarena.logic.Grid;
 import com.deadlockarena.logic.SelectGrid;
 import com.deadlockarena.logic.SlotGrid;
 import com.deadlockarena.persistence.bootstrap.JpaGetData;
@@ -67,8 +65,6 @@ public class MainFrame extends JFrame {
 	private SkillButton [ ] skillButtons1, skillButtons2;
 	private PotionButton hp1, mp1, hp2, mp2;
 
-
-
 	public MainFrame() {
 		super.setTitle("Deadlock Arena");
 		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +104,7 @@ public class MainFrame extends JFrame {
 				championLabel.setText("");
 			}
 			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.insets = new Insets(5,5,5,5);
+			gbc.insets = new Insets(5, 5, 5, 5);
 			gbc.gridx = 0;
 			gbc.gridy = 1;
 			gbc.gridwidth = 1;
@@ -132,7 +128,7 @@ public class MainFrame extends JFrame {
 			gbc.ipadx = 0;
 			panelWest_b.add(championLabel, gbc);
 			panelWest_b.setBorder(JavaData.ATTACK_BORDER);
-			panelWest_b.setPreferredSize(new Dimension(600,250));
+			panelWest_b.setPreferredSize(new Dimension(600, 250));
 		}
 		panelWest.add(panelWest_a, BorderLayout.NORTH);
 		panelWest.add(panelWest_b, BorderLayout.SOUTH);

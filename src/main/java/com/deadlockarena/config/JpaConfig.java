@@ -24,13 +24,13 @@ import com.deadlockarena.persistence.base.DeadlockArenaAuditorAware;
 @EnableJpaRepositories(basePackages = "com.deadlockarena.persistence.repository")
 public class JpaConfig {
 
-  /**
-   * A bean to be served for the AuditorAware interface.
-   *
-   * @return auditorAware instance.
-   */
-  @Bean
-  public AuditorAware<String> auditorAware() {
-    return new DeadlockArenaAuditorAware();
-  }
+	/**
+	 * A bean to be served for the AuditorAware interface.
+	 *
+	 * @return auditorAware instance.
+	 */
+	@Bean
+	public AuditorAware<String> auditorAware() {
+		return new DeadlockArenaAuditorAware();
+	}
 }

@@ -12,7 +12,7 @@ public class JpaGetData {
 	@Autowired
 	private ChampionRepository championRepository;
 
-	public Champion evalChampion(String championString){
+	public Champion evalChampion(String championString) {
 		return championRepository.findByChampion(championString);
 	}
 }

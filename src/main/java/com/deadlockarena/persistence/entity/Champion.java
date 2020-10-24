@@ -157,7 +157,7 @@ public class Champion implements Serializable {
 			if (finalDamage < 0) { // handles negative damages
 				finalDamage = 0;
 			}
-			//TO-DO move somewhere else
+			// TO-DO move somewhere else
 //			target.setCurrentHp(target.getCurrentHp() - finalDamage);
 //			mainFrame.getGrid().checkForDeads(mainFrame);
 //			mainFrame.getAAS().shakeButton(targetButton);

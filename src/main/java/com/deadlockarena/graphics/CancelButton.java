@@ -1,4 +1,5 @@
 package com.deadlockarena.graphics;
+
 import javax.swing.JButton;
 
 import com.deadlockarena.constant.JavaData;
@@ -11,9 +12,8 @@ import lombok.EqualsAndHashCode;
 public class CancelButton extends JButton {
 	private static final long serialVersionUID = 4505212405863517256L;
 
-	
 	public CancelButton(MainFrame mainFrame) {
-		//addMouseListener(mL1);
+		// addMouseListener(mL1);
 		setFont(JavaData.BASIC_FONT);
 	}
 

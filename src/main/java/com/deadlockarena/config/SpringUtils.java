@@ -11,10 +11,10 @@ public class SpringUtils {
 	public static JpaGetData jgd;
 
 	/**
-	 * A quick workaround if @autowired is delayed in the spring bean creation queue.
+	 * A quick workaround if @autowired is delayed in the spring bean creation
+	 * queue.
 	 *
-	 * Make Spring inject the application context
-	 * and save it on a static variable,
+	 * Make Spring inject the application context and save it on a static variable,
 	 * so that it can be accessed from any point in the application.
 	 */
 	@Autowired

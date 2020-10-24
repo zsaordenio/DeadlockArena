@@ -35,7 +35,7 @@ public class AnimationAndSound {
 
 	public AnimationAndSound() {
 		changedMusic = false;
-		//initSoundTracks();
+		// initSoundTracks();
 
 		soundtrackButton = new JButton("Soundtracks");
 		soundtrackButton.setFont(JavaData.BASIC_FONT);

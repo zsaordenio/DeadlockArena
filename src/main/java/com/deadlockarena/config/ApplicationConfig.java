@@ -11,8 +11,6 @@ import org.springframework.context.annotation.Profile;
  * @since 1.0
  */
 @Configuration
-@Profile(value = {"app"})
+@Profile(value = { "app" })
 public class ApplicationConfig {
 }
-
-

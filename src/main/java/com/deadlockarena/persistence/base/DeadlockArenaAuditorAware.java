@@ -13,15 +13,15 @@ import org.springframework.data.domain.AuditorAware;
  */
 public class DeadlockArenaAuditorAware implements AuditorAware<String> {
 
-  /**
-   * Returns the current auditor of the application.
-   *
-   * @return the current auditor
-   */
-  @Override
-  public Optional<String> getCurrentAuditor() {
-    // the system will be used as the current auditor.
-    return Optional.of("system");
+	/**
+	 * Returns the current auditor of the application.
+	 *
+	 * @return the current auditor
+	 */
+	@Override
+	public Optional<String> getCurrentAuditor() {
+		// the system will be used as the current auditor.
+		return Optional.of("system");
 
-  }
+	}
 }

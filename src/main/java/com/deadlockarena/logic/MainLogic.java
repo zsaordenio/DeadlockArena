@@ -14,7 +14,7 @@ import lombok.Data;
 public class MainLogic {
 
 	private JpaGetData jpaGetData;
-	
+
 	private StanceLogic stanceLogic;
 	private AttackLogic attackLogic;
 	private MessageProcessor messageProcessor;
@@ -25,8 +25,7 @@ public class MainLogic {
 		this.messageProcessor = new MessageProcessor();
 		this.jpaGetData = SpringUtils.jgd;
 	}
-	
-	
+
 //	public void populateSlotButtons(Game game, SlotGrid slotGrid) {
 //		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
 //			for (int j = 0; j < JavaData.SLOT_COL_COUNT; j++) {
@@ -34,7 +33,7 @@ public class MainLogic {
 //			}
 //		}
 //	}
-	
+
 	public void switchListeners(SlotButton [ ] [ ] slotButtons1, SlotButton [ ] [ ] slotButtons2,
 			int player, JTextArea messages) {
 		for (int i = 0; i < JavaData.SLOT_ROW_COUNT; i++) {
@@ -62,7 +61,7 @@ public class MainLogic {
 
 	public void updateAllCoolDowns(SlotGrid grid) {
 		for (int i = 0; i < grid.getJButtons().length; i++) {
-			for (int j = 0; j < grid.getJButtons()[i].length; j++) {
+			for (int j = 0; j < grid.getJButtons() [ i ].length; j++) {
 				if (grid.getJButton(i, j).getChampion() != null) {
 					Champion h = grid.getJButton(i, j).getChampion();
 					h.setCurrentSkill1CD(h.getCurrentSkill1CD() - 1);

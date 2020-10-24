@@ -56,19 +56,18 @@ public class PotionButton extends JButton {
 		jl.setText("");
 	}
 
-
 	private MouseListener mL = new MouseAdapter() {
-        public void mousePressed(MouseEvent e) {
-            if (PotionButton.this.sB == null)
-                return;
-            Champion c = PotionButton.this.getSB().getChampion();
-            int[] info = sB.getChampion().drinkPotion(cp);
-            if (info == null)
-                return;
-            if (cp)
-                jl.setText("" + c.getPotionInventory().getHpPotions().size());
-            else
-                jl.setText("" + c.getPotionInventory().getMpPotions().size());
+		public void mousePressed(MouseEvent e) {
+			if (PotionButton.this.sB == null)
+				return;
+			Champion c = PotionButton.this.getSB().getChampion();
+			int [ ] info = sB.getChampion().drinkPotion(cp);
+			if (info == null)
+				return;
+			if (cp)
+				jl.setText("" + c.getPotionInventory().getHpPotions().size());
+			else
+				jl.setText("" + c.getPotionInventory().getMpPotions().size());
 
 //            mainFrame.getMP().generateMove(mainFrame.getMessages(), mainFrame.getMove());
 //            mainFrame.getMP().generateMessage(mainFrame.getMessages(), c, info[0], info[1], cp);
@@ -76,6 +75,6 @@ public class PotionButton extends JButton {
 //            mainFrame.resetListeners();
 //            mainFrame.clearAllBorders();
 //            mainFrame.evalTurns();
-        }
-    };
+		}
+	};
 }

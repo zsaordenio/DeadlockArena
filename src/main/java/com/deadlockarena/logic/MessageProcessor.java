@@ -55,7 +55,7 @@ public class MessageProcessor {
 	}
 
 	public void nextPlayer(JTextArea messages, int player) {
-		messages.append((player == 1? "Player 1" : "Player 2") + "\n");
+		messages.append((player == 1 ? "Player 1" : "Player 2") + "\n");
 	}
 
 	public void endTurn(JTextArea messages) {

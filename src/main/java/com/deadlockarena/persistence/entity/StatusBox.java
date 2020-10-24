@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StatusBox implements Serializable {
 	private static final long serialVersionUID = -9091165808780653117L;
-	
+
 	// damage over time
 	private int poisoned; // chemist, assassin
 	private int burned; // chemist, pyromancer

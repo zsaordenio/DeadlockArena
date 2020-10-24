@@ -1,13 +1,12 @@
 package com.deadlockarena;
 
-import java.awt.*;
+import java.awt.EventQueue;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-
 
 @SpringBootApplication
 public class DeadlockArenaApplication implements CommandLineRunner {
@@ -27,7 +26,7 @@ public class DeadlockArenaApplication implements CommandLineRunner {
 			}
 		});
 	}
-	
+
 //	private final ChampionRepository championRepository;
 //
 //	@Autowired

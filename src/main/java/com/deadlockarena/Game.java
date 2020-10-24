@@ -19,7 +19,7 @@ public class Game {
 
 	private SelectGrid selectGrid;
 	private SlotGrid slotGrid1, slotGrid2;
-	
+
 	private SelectButton currentSelect;
 	private SlotButton currentSlot;
 
